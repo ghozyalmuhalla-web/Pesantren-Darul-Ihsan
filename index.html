@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesantren Modern Darul Ihsan - Official Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Serif:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .hero-gradient {
+            /* Ganti 'di.jpg' dengan path file gambar Anda jika dijalankan secara lokal */
+            background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(30, 58, 138, 0.75)), 
+                        url('di.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Fallback jika gambar lokal tidak ditemukan di preview ini */
+        .hero-no-img {
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(30, 58, 138, 0.85)), 
+                        url('https://images.unsplash.com/photo-1541339907198-e08756ebafe3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .nav-link:hover {
+            color: #3b82f6;
+            transition: 0.3s;
+        }
+        .blue-gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Navigasi -->
+    <nav class="fixed w-full z-50 bg-white shadow-md border-b border-blue-100">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-blue-700 p-2 rounded-lg text-white shadow-md">
+                    <i class="fas fa-mosque fa-lg"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-none text-blue-900">DARUL IHSAN</h1>
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pesantren Modern</p>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex space-x-6 font-medium text-sm">
+                <a href="#beranda" class="nav-link text-slate-600">Beranda</a>
+                <a href="#profil" class="nav-link text-slate-600">Profil</a>
+                <a href="#galeri" class="nav-link text-slate-600">Galeri</a>
+                <a href="#visimisi" class="nav-link text-slate-600">Visi & Misi</a>
+                <a href="#program" class="nav-link text-slate-600">Program</a>
+                <a href="#kontak" class="nav-link text-slate-600">Kontak</a>
+                <a href="#" class="bg-blue-700 text-white px-5 py-2 rounded-full hover:bg-blue-800 transition shadow-md">PPDB Online</a>
+            </div>
+
+            <button class="md:hidden text-blue-900" onclick="toggleMenu()">
+                <i class="fas fa-bars fa-xl"></i>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t px-4 py-4 space-y-3 shadow-lg text-center">
+            <a href="#beranda" class="block font-medium text-slate-700 p-2 hover:bg-blue-50 rounded">Beranda</a>
+            <a href="#profil" class="block font-medium text-slate-700 p-2 hover:bg-blue-50 rounded">Profil</a>
+            <a href="#galeri" class="block font-medium text-slate-700 p-2 hover:bg-blue-50 rounded">Galeri</a>
+            <a href="#visimisi" class="block font-medium text-slate-700 p-2 hover:bg-blue-50 rounded">Visi & Misi</a>
+            <a href="#program" class="block font-medium text-slate-700 p-2 hover:bg-blue-50 rounded">Program</a>
+            <a href="#kontak" class="block font-medium text-slate-700 p-2 hover:bg-blue-50 rounded">Kontak</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section dengan Gambar yang Diunggah -->
+    <section id="beranda" class="hero-gradient h-screen flex items-center justify-center text-center text-white px-4">
+        <div class="max-w-4xl">
+            <div class="inline-block px-4 py-2 bg-blue-600/30 backdrop-blur-md rounded-full mb-6 border border-white/20">
+                <p class="text-xs md:text-sm font-bold tracking-[0.2em] uppercase">Apel Tahunan & Parade Konsulat</p>
+            </div>
+            <h1 class="text-4xl md:text-7xl font-bold mb-6 drop-shadow-lg">Darul Ihsan Modern Boarding School</h1>
+            <p class="text-lg md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed font-light">
+                "Mendidik dengan Hati, Membangun Negeri dengan Prestasi dan Akhlakul Karimah."
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <a href="#galeri" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition duration-300 shadow-xl flex items-center justify-center">
+                    Lihat Dokumentasi <i class="fas fa-images ml-2"></i>
+                </a>
+                <a href="#profil" class="bg-white/10 border-2 border-white/30 hover:bg-white hover:text-blue-900 text-white px-8 py-4 rounded-xl font-bold transition duration-300 backdrop-blur-sm">
+                    Tentang Kami
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeri / Dashboard Foto -->
+    <section id="galeri" class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div class="max-w-2xl">
+                    <h2 class="text-blue-600 font-bold text-sm uppercase tracking-widest mb-2">Dokumentasi Kegiatan</h2>
+                    <h3 class="text-3xl md:text-4xl font-bold text-slate-900 leading-tight">Momen Berharga Santri Darul Ihsan</h3>
+                </div>
+                <div class="flex gap-2">
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold shadow-md hover:bg-blue-700 transition">Semua Foto</button>
+                    <button class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg text-sm font-bold hover:bg-slate-200 transition">Kegiatan</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Foto yang diunggah diletakkan di posisi utama -->
+                <div class="md:col-span-2 relative group overflow-hidden rounded-3xl shadow-xl h-[400px]">
+                    <img src="di.jpg" alt="Apel Tahunan Darul Ihsan" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1541339907198-e08756ebafe3?auto=format&fit=crop&w=1200&q=80'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8 text-white">
+                        <h4 class="text-xl font-bold mb-1 uppercase tracking-wider">Apel Tahunan & Parade Konsulat</h4>
+                        <p class="text-sm text-blue-200">Kebersamaan ustadz dan santri dalam menyambut tahun ajaran baru.</p>
+                    </div>
+                    <div class="absolute top-4 left-4 bg-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">Highlight Utama</div>
+                </div>
+
+                <!-- Foto Tambahan -->
+                <div class="grid grid-rows-2 gap-6">
+                    <div class="relative group overflow-hidden rounded-3xl shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Kegiatan Belajar" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-blue-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <i class="fas fa-search-plus text-white text-3xl"></i>
+                        </div>
+                    </div>
+                    <div class="relative group overflow-hidden rounded-3xl shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1524178232363-1fb28f74b671?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Diskusi Santri" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-blue-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <i class="fas fa-search-plus text-white text-3xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profil Section Ringkas -->
+    <section id="profil" class="py-24 bg-slate-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2">
+                    <div class="inline-block px-4 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-bold mb-4 uppercase tracking-wider">Tentang Kami</div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 leading-tight">Mencetak Santri Berwawasan Luas & Berkarakter</h2>
+                    <p class="text-slate-600 leading-relaxed mb-6 text-lg">
+                        Pesantren Modern Darul Ihsan mengintegrasikan pendidikan agama yang mendalam dengan kurikulum nasional berkualitas tinggi, menciptakan lingkungan belajar yang inspiratif bagi para calon pemimpin masa depan.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-blue-50">
+                            <p class="text-2xl font-bold text-blue-700">6998</p>
+                            <p class="text-xs text-slate-500 uppercase font-bold">NPSN</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-blue-50">
+                            <p class="text-2xl font-bold text-blue-700">A</p>
+                            <p class="text-xs text-slate-500 uppercase font-bold">Akreditasi</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 relative">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Fasilitas Pesantren" class="rounded-3xl shadow-2xl relative z-10 border-4 border-white">
+                    <div class="absolute -bottom-6 -right-6 bg-blue-700 text-white p-6 rounded-2xl shadow-xl z-20 hidden md:block">
+                        <p class="text-sm font-semibold italic">"Mendidik dengan Adab"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="kontak" class="bg-slate-900 text-slate-400 py-20">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-4 gap-12 mb-12">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-3 text-white mb-6">
+                        <div class="bg-blue-600 p-2 rounded-lg"><i class="fas fa-mosque"></i></div>
+                        <h2 class="text-xl font-bold tracking-tight">Darul Ihsan Modern School</h2>
+                    </div>
+                    <p class="mb-6 max-w-sm">Jl. H. Mustafa Kamil, Kampung Selemak, Deli Serdang, Sumatera Utara. Hubungi kami untuk kunjungan atau informasi pendaftaran.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://wa.me/6282362845422" class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center hover:bg-blue-600 transition"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center hover:bg-blue-600 transition"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-6">Navigasi</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#beranda" class="hover:text-blue-400">Beranda</a></li>
+                        <li><a href="#profil" class="hover:text-blue-400">Tentang Kami</a></li>
+                        <li><a href="#galeri" class="hover:text-blue-400">Galeri Kegiatan</a></li>
+                        <li><a href="#program" class="hover:text-blue-400">Kurikulum</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-6">Kontak</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center"><i class="fas fa-phone mr-3 text-blue-500"></i> +62 823-6284-5422</li>
+                        <li class="flex items-center"><i class="fas fa-envelope mr-3 text-blue-500"></i> info@darulihsan.sch.id</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/5 pt-8 text-center text-xs">
+                <p>© 2024 Pesantren Modern Darul Ihsan. Terakreditasi A.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
