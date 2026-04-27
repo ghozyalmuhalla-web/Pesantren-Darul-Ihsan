@@ -1,219 +1,300 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesantren Modern Darul Ihsan - Official Website</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Serif:wght@400;700&display=swap');
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-        }
-        .hero-gradient {
-            /* Ganti 'di.jpg' dengan path file gambar Anda jika dijalankan secara lokal */
-            background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(30, 58, 138, 0.75)), 
-                        url('di.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-        /* Fallback jika gambar lokal tidak ditemukan di preview ini */
-        .hero-no-img {
-            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(30, 58, 138, 0.85)), 
-                        url('https://images.unsplash.com/photo-1541339907198-e08756ebafe3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-        }
-        .nav-link:hover {
-            color: #3b82f6;
-            transition: 0.3s;
-        }
-        .blue-gradient-bg {
-            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-        }
-    </style>
-</head>
-<body class="bg-slate-50 text-slate-800">
+import React from 'react';
+import Link from 'next/link';
 
-    <!-- Navigasi -->
-    <nav class="fixed w-full z-50 bg-white shadow-md border-b border-blue-100">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="bg-blue-700 p-2 rounded-lg text-white shadow-md">
-                    <i class="fas fa-mosque fa-lg"></i>
-                </div>
-                <div>
-                    <h1 class="font-bold text-lg leading-none text-blue-900">DARUL IHSAN</h1>
-                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pesantren Modern</p>
-                </div>
-            </div>
-            
-            <div class="hidden md:flex space-x-6 font-medium text-sm">
-                <a href="#beranda" class="nav-link text-slate-600">Beranda</a>
-                <a href="#profil" class="nav-link text-slate-600">Profil</a>
-                <a href="#galeri" class="nav-link text-slate-600">Galeri</a>
-                <a href="#visimisi" class="nav-link text-slate-600">Visi & Misi</a>
-                <a href="#program" class="nav-link text-slate-600">Program</a>
-                <a href="#kontak" class="nav-link text-slate-600">Kontak</a>
-                <a href="#" class="bg-blue-700 text-white px-5 py-2 rounded-full hover:bg-blue-800 transition shadow-md">PPDB Online</a>
-            </div>
-
-            <button class="md:hidden text-blue-900" onclick="toggleMenu()">
-                <i class="fas fa-bars fa-xl"></i>
-            </button>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t px-4 py-4 space-y-3 shadow-lg text-center">
-            <a href="#beranda" class="block font-medium text-slate-700 p-2 hover:bg-blue-50 rounded">Beranda</a>
-            <a href="#profil" class="block font-medium text-slate-700 p-2 hover:bg-blue-50 rounded">Profil</a>
-            <a href="#galeri" class="block font-medium text-slate-700 p-2 hover:bg-blue-50 rounded">Galeri</a>
-            <a href="#visimisi" class="block font-medium text-slate-700 p-2 hover:bg-blue-50 rounded">Visi & Misi</a>
-            <a href="#program" class="block font-medium text-slate-700 p-2 hover:bg-blue-50 rounded">Program</a>
-            <a href="#kontak" class="block font-medium text-slate-700 p-2 hover:bg-blue-50 rounded">Kontak</a>
-        </div>
-    </nav>
-
-    <!-- Hero Section dengan Gambar yang Diunggah -->
-    <section id="beranda" class="hero-gradient h-screen flex items-center justify-center text-center text-white px-4">
-        <div class="max-w-4xl">
-            <div class="inline-block px-4 py-2 bg-blue-600/30 backdrop-blur-md rounded-full mb-6 border border-white/20">
-                <p class="text-xs md:text-sm font-bold tracking-[0.2em] uppercase">Apel Tahunan & Parade Konsulat</p>
-            </div>
-            <h1 class="text-4xl md:text-7xl font-bold mb-6 drop-shadow-lg">Darul Ihsan Modern Boarding School</h1>
-            <p class="text-lg md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed font-light">
-                "Mendidik dengan Hati, Membangun Negeri dengan Prestasi dan Akhlakul Karimah."
-            </p>
-            <div class="flex flex-col md:flex-row justify-center gap-4">
-                <a href="#galeri" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition duration-300 shadow-xl flex items-center justify-center">
-                    Lihat Dokumentasi <i class="fas fa-images ml-2"></i>
-                </a>
-                <a href="#profil" class="bg-white/10 border-2 border-white/30 hover:bg-white hover:text-blue-900 text-white px-8 py-4 rounded-xl font-bold transition duration-300 backdrop-blur-sm">
-                    Tentang Kami
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Galeri / Dashboard Foto -->
-    <section id="galeri" class="py-24 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-                <div class="max-w-2xl">
-                    <h2 class="text-blue-600 font-bold text-sm uppercase tracking-widest mb-2">Dokumentasi Kegiatan</h2>
-                    <h3 class="text-3xl md:text-4xl font-bold text-slate-900 leading-tight">Momen Berharga Santri Darul Ihsan</h3>
-                </div>
-                <div class="flex gap-2">
-                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold shadow-md hover:bg-blue-700 transition">Semua Foto</button>
-                    <button class="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg text-sm font-bold hover:bg-slate-200 transition">Kegiatan</button>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Foto yang diunggah diletakkan di posisi utama -->
-                <div class="md:col-span-2 relative group overflow-hidden rounded-3xl shadow-xl h-[400px]">
-                    <img src="di.jpg" alt="Apel Tahunan Darul Ihsan" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1541339907198-e08756ebafe3?auto=format&fit=crop&w=1200&q=80'">
-                    <div class="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8 text-white">
-                        <h4 class="text-xl font-bold mb-1 uppercase tracking-wider">Apel Tahunan & Parade Konsulat</h4>
-                        <p class="text-sm text-blue-200">Kebersamaan ustadz dan santri dalam menyambut tahun ajaran baru.</p>
+export default function Home() {
+    return (
+        <>
+            {/* Floating Modern Header */}
+            <header className="fixed top-4 left-4 right-4 z-50 max-w-7xl mx-auto rounded-3xl bg-white/70 backdrop-blur-xl border border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.08)] animate-fade-in-up [animation-delay:100ms] [animation-fill-mode:backwards]">
+                <div className="flex justify-between items-center px-5 py-3.5">
+                    <div className="flex items-center gap-3">
+                        <div className="bg-primary/10 p-2 rounded-full">
+                            <span className="material-symbols-outlined text-primary text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>menu_book</span>
+                        </div>
+                        <span className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent tracking-tight font-h3 hidden sm:inline-block">Darul Ihsan</span>
+                        <span className="text-xl font-bold text-primary tracking-tight font-h3 sm:hidden">DI</span>
                     </div>
-                    <div class="absolute top-4 left-4 bg-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">Highlight Utama</div>
+                    <button className="bg-gradient-to-r from-tertiary-container to-secondary-container text-white px-5 py-2.5 rounded-full font-label-caps text-[11px] tracking-widest uppercase hover:shadow-lg hover:shadow-secondary/20 hover:scale-105 active:scale-95 transition-all duration-300">
+                        PPDB Online
+                    </button>
                 </div>
+            </header>
 
-                <!-- Foto Tambahan -->
-                <div class="grid grid-rows-2 gap-6">
-                    <div class="relative group overflow-hidden rounded-3xl shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Kegiatan Belajar" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        <div class="absolute inset-0 bg-blue-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <i class="fas fa-search-plus text-white text-3xl"></i>
+            <main className="pt-0">
+                {/* Dynamic Hero Section */}
+                <section className="relative min-h-[85vh] flex flex-col justify-center px-6 overflow-hidden pt-24 rounded-b-[3rem] shadow-sm">
+                    <div className="absolute inset-0 z-0 bg-primary-container">
+                        <div className="absolute inset-0 hero-gradient scale-105 animate-pulse-slow object-cover" data-alt="Grand architecture of a modern boarding school with students in uniform during a formal parade under a golden morning sky."></div>
+                    </div>
+
+                    {/* Subtle Decorative Blobs */}
+                    <div className="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] bg-secondary-container/40 rounded-full mix-blend-overlay filter blur-[100px] opacity-70 animate-float pointer-events-none"></div>
+                    <div className="absolute bottom-[-10%] right-[-10%] w-[40rem] h-[40rem] bg-tertiary-container/40 rounded-full mix-blend-overlay filter blur-[100px] opacity-70 animate-float pointer-events-none" style={{ animationDelay: '2s' }}></div>
+
+                    <div className="relative z-10 space-y-8 max-w-xl mx-auto lg:mx-0 lg:ml-[5%] text-center lg:text-left">
+                        <div className="inline-flex items-center px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full animate-fade-in-up [animation-delay:200ms] [animation-fill-mode:backwards]">
+                            <span className="text-tertiary-fixed-dim font-label-caps text-[11px] tracking-widest flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-pulse"></span>
+                                APEL TAHUNAN &amp; PARADE KONSULAT
+                            </span>
+                        </div>
+
+                        <h1 className="font-h1 text-5xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-on-primary via-primary-fixed to-primary-fixed-dim leading-tight drop-shadow-sm animate-fade-in-up [animation-delay:300ms] [animation-fill-mode:backwards]">
+                            Darul Ihsan Modern Boarding School
+                        </h1>
+
+                        <p className="font-body-lg text-primary-fixed/90 leading-relaxed italic border-l-2 border-tertiary-fixed-dim pl-5 animate-fade-in-up [animation-delay:400ms] [animation-fill-mode:backwards]">
+                            &quot;Mendidik dengan Hati, Membangun Negeri dengan Prestasi dan Akhlakul Karimah.&quot;
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row gap-4 pt-6 animate-fade-in-up [animation-delay:500ms] [animation-fill-mode:backwards]">
+                            <button className="bg-gradient-to-r from-tertiary-fixed to-tertiary-fixed-dim text-tertiary font-bold px-8 py-4 rounded-2xl shadow-[0_8px_30px_rgba(104,219,169,0.3)] flex items-center justify-center gap-3 hover:scale-105 active:scale-95 transition-all duration-300">
+                                <span>Lihat Dokumentasi</span>
+                                <span className="material-symbols-outlined">arrow_forward</span>
+                            </button>
+                            <button className="bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold px-8 py-4 rounded-2xl hover:bg-white/20 hover:scale-105 active:scale-95 transition-all duration-300">
+                                Tentang Kami
+                            </button>
                         </div>
                     </div>
-                    <div class="relative group overflow-hidden rounded-3xl shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1524178232363-1fb28f74b671?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Diskusi Santri" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        <div class="absolute inset-0 bg-blue-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <i class="fas fa-search-plus text-white text-3xl"></i>
+                </section>
+
+                {/* Elevated Stats Section */}
+                <section className="relative -mt-16 z-20 px-6 max-w-5xl mx-auto">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 animate-fade-in-up [animation-delay:600ms] [animation-fill-mode:backwards]">
+                        <div className="bg-white/80 backdrop-blur-xl p-8 rounded-3xl shadow-[0_8px_30px_rgb(30,58,138,0.08)] border border-white/60 flex flex-col items-center text-center hover:-translate-y-2 hover:shadow-[0_16px_40px_rgb(30,58,138,0.12)] transition-all duration-500 group">
+                            <span className="text-secondary font-h2 text-4xl mb-2 group-hover:scale-110 transition-transform duration-500">6998</span>
+                            <span className="text-outline font-label-caps text-[10px] tracking-widest">NPSN NASIONAL</span>
+                        </div>
+                        <div className="bg-white/80 backdrop-blur-xl p-8 rounded-3xl shadow-[0_8px_30px_rgb(30,58,138,0.08)] border border-white/60 flex flex-col items-center text-center hover:-translate-y-2 hover:shadow-[0_16px_40px_rgb(30,58,138,0.12)] transition-all duration-500 group">
+                            <span className="text-tertiary-fixed-dim font-h2 text-4xl mb-2 group-hover:scale-110 transition-transform duration-500">A</span>
+                            <span className="text-outline font-label-caps text-[10px] tracking-widest">AKREDITASI</span>
+                        </div>
+                        <div className="bg-white/80 backdrop-blur-xl p-8 rounded-3xl shadow-[0_8px_30px_rgb(30,58,138,0.08)] border border-white/60 flex flex-col items-center text-center hover:-translate-y-2 hover:shadow-[0_16px_40px_rgb(30,58,138,0.12)] transition-all duration-500 group hidden lg:flex">
+                            <span className="text-primary font-h2 text-4xl mb-2 group-hover:scale-110 transition-transform duration-500">2004</span>
+                            <span className="text-outline font-label-caps text-[10px] tracking-widest">TAHUN BERDIRI</span>
+                        </div>
+                        <div className="bg-white/80 backdrop-blur-xl p-8 rounded-3xl shadow-[0_8px_30px_rgb(30,58,138,0.08)] border border-white/60 flex flex-col items-center text-center hover:-translate-y-2 hover:shadow-[0_16px_40px_rgb(30,58,138,0.12)] transition-all duration-500 group hidden lg:flex">
+                            <span className="text-secondary-container font-h2 text-4xl mb-2 group-hover:scale-110 transition-transform duration-500">100+</span>
+                            <span className="text-outline font-label-caps text-[10px] tracking-widest">PRESTASI</span>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                </section>
 
-    <!-- Profil Section Ringkas -->
-    <section id="profil" class="py-24 bg-slate-50">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col lg:flex-row items-center gap-16">
-                <div class="lg:w-1/2">
-                    <div class="inline-block px-4 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-bold mb-4 uppercase tracking-wider">Tentang Kami</div>
-                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 leading-tight">Mencetak Santri Berwawasan Luas & Berkarakter</h2>
-                    <p class="text-slate-600 leading-relaxed mb-6 text-lg">
-                        Pesantren Modern Darul Ihsan mengintegrasikan pendidikan agama yang mendalam dengan kurikulum nasional berkualitas tinggi, menciptakan lingkungan belajar yang inspiratif bagi para calon pemimpin masa depan.
-                    </p>
-                    <div class="grid grid-cols-2 gap-4 mt-8">
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-blue-50">
-                            <p class="text-2xl font-bold text-blue-700">6998</p>
-                            <p class="text-xs text-slate-500 uppercase font-bold">NPSN</p>
+                {/* Dynamic Profile Section */}
+                <section className="py-24 px-6 islamic-pattern relative">
+                    <div className="absolute inset-0 bg-gradient-to-b from-surface to-surface-container/30 z-[-1]"></div>
+                    <div className="max-w-4xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+                        <div className="space-y-8 animate-fade-in-up [animation-delay:200ms] [animation-fill-mode:backwards]">
+                            <div className="flex flex-col items-start gap-4">
+                                <div className="h-1.5 w-16 bg-gradient-to-r from-secondary to-primary rounded-full"></div>
+                                <h2 className="font-h2 text-4xl text-transparent bg-clip-text bg-gradient-to-br from-primary to-secondary leading-tight">
+                                    Mencetak Santri Berwawasan Luas &amp; Berkarakter
+                                </h2>
+                            </div>
+                            <p className="font-body-lg text-on-surface-variant leading-relaxed">
+                                Kami mengintegrasikan kurikulum agama yang mendalam dengan kurikulum nasional yang progresif. Pendekatan kami berfokus pada keseimbangan intelektual dan spiritual, memastikan setiap santri siap menghadapi tantangan zaman dengan fondasi iman yang kokoh.
+                            </p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 pt-4">
+                                <div className="flex items-center gap-4 p-4 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-secondary/20 hover:-translate-y-1 transition-all duration-300">
+                                    <div className="bg-tertiary-container/10 p-2.5 rounded-xl">
+                                        <span className="material-symbols-outlined text-tertiary-fixed-dim text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>model_training</span>
+                                    </div>
+                                    <span className="text-on-surface font-semibold">Pembinaan Karakter Unggul</span>
+                                </div>
+                                <div className="flex items-center gap-4 p-4 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-100 hover:shadow-md hover:border-secondary/20 hover:-translate-y-1 transition-all duration-300">
+                                    <div className="bg-tertiary-container/10 p-2.5 rounded-xl">
+                                        <span className="material-symbols-outlined text-tertiary-fixed-dim text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>auto_stories</span>
+                                    </div>
+                                    <span className="text-on-surface font-semibold">Kurikulum Tahfidz &amp; Akademik</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-blue-50">
-                            <p class="text-2xl font-bold text-blue-700">A</p>
-                            <p class="text-xs text-slate-500 uppercase font-bold">Akreditasi</p>
+
+                        <div className="relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] h-[500px] animate-fade-in-up [animation-delay:400ms] [animation-fill-mode:backwards]">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img alt="" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRZJWXqORGeEzW3_Tn8maivpbfE2JRRTxWFWE5V8TOULOHvt8-RwWt-j3yK-j6sN6nbfE3nrTtFVJdBlHdMxWkiVNFEiwvI86OAcHm8yNsZ6nAeifhXyQU_nTLGhdUpd7PM-nw0e0bQBzxOg-kFigco5bnyAdBNSTW5isb28XOZeT7y0-3uHWOIZbsRUZ4X-p7wMsOTS3o0ZnpcYy9drC_ZT_EiZWWEYohjAsXwJu8vYgYetlMFbHpEqLCMdqufmXSTNxrarmH6Zct" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
+                            <div className="absolute bottom-6 left-6 right-6">
+                                <div className="bg-white/20 backdrop-blur-md border border-white/30 p-5 rounded-2xl">
+                                    <p className="text-white font-medium italic leading-relaxed">
+                                        "Lingkungan yang mendukung perkembangan intelektual dan spiritual secara seimbang."
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="lg:w-1/2 relative">
-                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Fasilitas Pesantren" class="rounded-3xl shadow-2xl relative z-10 border-4 border-white">
-                    <div class="absolute -bottom-6 -right-6 bg-blue-700 text-white p-6 rounded-2xl shadow-xl z-20 hidden md:block">
-                        <p class="text-sm font-semibold italic">"Mendidik dengan Adab"</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                </section>
 
-    <!-- Footer -->
-    <footer id="kontak" class="bg-slate-900 text-slate-400 py-20">
-        <div class="container mx-auto px-4">
-            <div class="grid lg:grid-cols-4 gap-12 mb-12">
-                <div class="lg:col-span-2">
-                    <div class="flex items-center space-x-3 text-white mb-6">
-                        <div class="bg-blue-600 p-2 rounded-lg"><i class="fas fa-mosque"></i></div>
-                        <h2 class="text-xl font-bold tracking-tight">Darul Ihsan Modern School</h2>
-                    </div>
-                    <p class="mb-6 max-w-sm">Jl. H. Mustafa Kamil, Kampung Selemak, Deli Serdang, Sumatera Utara. Hubungi kami untuk kunjungan atau informasi pendaftaran.</p>
-                    <div class="flex space-x-4">
-                        <a href="https://wa.me/6282362845422" class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center hover:bg-blue-600 transition"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/5 rounded-lg flex items-center justify-center hover:bg-blue-600 transition"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="text-white font-bold mb-6">Navigasi</h3>
-                    <ul class="space-y-3 text-sm">
-                        <li><a href="#beranda" class="hover:text-blue-400">Beranda</a></li>
-                        <li><a href="#profil" class="hover:text-blue-400">Tentang Kami</a></li>
-                        <li><a href="#galeri" class="hover:text-blue-400">Galeri Kegiatan</a></li>
-                        <li><a href="#program" class="hover:text-blue-400">Kurikulum</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-white font-bold mb-6">Kontak</h3>
-                    <ul class="space-y-3 text-sm">
-                        <li class="flex items-center"><i class="fas fa-phone mr-3 text-blue-500"></i> +62 823-6284-5422</li>
-                        <li class="flex items-center"><i class="fas fa-envelope mr-3 text-blue-500"></i> info@darulihsan.sch.id</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-white/5 pt-8 text-center text-xs">
-                <p>© 2024 Pesantren Modern Darul Ihsan. Terakreditasi A.</p>
-            </div>
-        </div>
-    </footer>
+                {/* Gallery Section */}
+                <section className="py-24 bg-gradient-to-b from-primary-container/[0.03] to-primary-container/[0.08] px-6">
+                    <div className="max-w-5xl mx-auto">
+                        <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 animate-fade-in-up">
+                            <div>
+                                <h3 className="font-h3 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary text-3xl mb-2">Dokumentasi Kegiatan</h3>
+                                <p className="text-on-surface-variant text-lg">Momen berharga di Pesantren Darul Ihsan</p>
+                            </div>
+                            <button className="hidden md:flex text-primary font-bold items-center gap-2 hover:bg-primary/5 px-6 py-3 rounded-full transition-colors group">
+                                <span>Lihat Koleksi Lengkap</span>
+                                <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                            </button>
+                        </div>
 
-    <script>
-        function toggleMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-    </script>
-</body>
-</html>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in-up [animation-delay:200ms]">
+                            <div className="relative h-80 md:h-[500px] rounded-[2rem] overflow-hidden group shadow-lg">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img alt="" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdbzh3vYNozZ5N3hisgp976CBKgVtP_NsEAh3Wg5duxGBDfz7DuRDep3er9QOCV83R_Uh5x-M-pE65YXaAwOaMTAowdWzS9g837_3ltwLe3F-L1pcj2V9mrFgRiMII_MfWF8zT6RcdNIJnM_3PPtwjaUGDTyKSNHMffUJyK6gzF8jO6JppJv8CBFB4ADbZVhKFwZy2nyRoSxPOKw1CwxamLXR6A-hZzBNdYVGbYxClBk9us7-ylGuQzAS8Ch6WZH_g3DAnarDoVCDq" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                <div className="absolute top-6 left-6">
+                                    <span className="bg-tertiary-fixed text-tertiary text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg">Highlight Utama</span>
+                                </div>
+                                <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <p className="text-white font-h2 text-2xl mb-2">Gema Muharram 1445 H</p>
+                                    <p className="text-white/80 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">Perayaan penuh makna yang menyatukan seluruh santri dalam semangat keagamaan.</p>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 gap-6">
+                                <div className="relative h-40 md:h-auto md:flex-1 rounded-[2rem] overflow-hidden group shadow-lg">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img alt="" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtf7tmGM7HpSEger1fa28CoUbhxsuhlOq8JQpJCnYa7QjeuoDXVUPW19Fki4qEyK6SC3mO193zPR4kKMoSJHjnCshtzCx_gN2HklfV-ts2G0ig1NtDG-_PWxKLtiC1IZzrhU9HU8Ck6qkC7rTVaao0IcVn34kKPn82qp22WLlZ-tIDqktzV_namP7u57OESEMI3ceZvMyiP8DZsmUS2t3PeqTTP-gtTqL1uS_lpcK9D-Mxr3lh-lWx-YF7JqS3HEeBfsxkzaRHmPUm" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+                                    <div className="absolute bottom-6 left-6">
+                                        <p className="text-white font-semibold text-lg">Kajian Kitab Kuning</p>
+                                    </div>
+                                </div>
+
+                                <div className="relative h-40 md:h-auto md:flex-1 rounded-[2rem] overflow-hidden group shadow-lg">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img alt="" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRZJWXqORGeEzW3_Tn8maivpbfE2JRRTxWFWE5V8TOULOHvt8-RwWt-j3yK-j6sN6nbfE3nrTtFVJdBlHdMxWkiVNFEiwvI86OAcHm8yNsZ6nAeifhXyQU_nTLGhdUpd7PM-nw0e0bQBzxOg-kFigco5bnyAdBNSTW5isb28XOZeT7y0-3uHWOIZbsRUZ4X-p7wMsOTS3o0ZnpcYy9drC_ZT_EiZWWEYohjAsXwJu8vYgYetlMFbHpEqLCMdqufmXSTNxrarmH6Zct" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+                                    <div className="absolute bottom-6 left-6">
+                                        <p className="text-white font-semibold text-lg">Eksperimen Laboratorium</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button className="md:hidden w-full mt-8 py-4 bg-primary-container/10 border-2 border-primary-container text-primary-container font-bold rounded-2xl flex items-center justify-center gap-2 hover:bg-primary-container/20 transition-colors">
+                            <span>Lihat Koleksi Lengkap</span>
+                            <span className="material-symbols-outlined">collections</span>
+                        </button>
+                    </div>
+                </section>
+
+                {/* Improved Footer */}
+                <footer className="relative bg-gradient-to-br from-primary via-[#001c59] to-[#001036] text-on-primary-fixed pt-20 pb-36 px-6 overflow-hidden rounded-t-[3rem]">
+                    {/* Subtle Background Pattern */}
+                    <div className="absolute inset-0 islamic-pattern opacity-10"></div>
+
+                    <div className="relative z-10 max-w-7xl mx-auto space-y-16">
+                        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8">
+                            <div className="lg:col-span-4 space-y-8">
+                                <div className="flex items-center gap-3">
+                                    <div className="bg-white/10 p-3 rounded-2xl backdrop-blur-sm border border-white/10">
+                                        <span className="material-symbols-outlined text-tertiary-fixed-dim text-3xl">school</span>
+                                    </div>
+                                    <div>
+                                        <h4 className="font-h3 text-white text-2xl tracking-tight">Darul Ihsan</h4>
+                                        <p className="text-primary-fixed text-sm">Modern Boarding School</p>
+                                    </div>
+                                </div>
+                                <p className="text-primary-fixed opacity-90 leading-relaxed font-body-md">
+                                    Terakreditasi A. Membina generasi Qur&apos;ani yang cerdas, mandiri, dan berakhlak mulia sejak 2004.
+                                </p>
+                                <div className="space-y-4">
+                                    <div className="flex items-start gap-4">
+                                        <span className="material-symbols-outlined text-tertiary-fixed-dim bg-tertiary-fixed-dim/10 p-2 rounded-lg">location_on</span>
+                                        <span className="text-sm text-primary-fixed hover:text-white transition-colors mt-1 cursor-pointer">Jl. Pendidikan No. 12, Aceh Besar, Indonesia</span>
+                                    </div>
+                                    <Link className="flex items-center gap-4 text-tertiary-fixed-dim font-bold hover:text-white hover:bg-white/5 p-2 -ml-2 rounded-lg transition-all" href="https://wa.me/628123456789">
+                                        <span className="material-symbols-outlined bg-tertiary-fixed-dim/20 p-2 rounded-lg">chat</span>
+                                        <span>Hubungi WhatsApp CS</span>
+                                    </Link>
+                                </div>
+                            </div>
+
+                            <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8">
+                                <div className="space-y-6">
+                                    <h5 className="text-white font-bold text-sm uppercase tracking-widest flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-secondary"></span> Akademik
+                                    </h5>
+                                    <ul className="space-y-4 text-primary-fixed opacity-80 text-sm">
+                                        <li><Link href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all">Kurikulum</Link></li>
+                                        <li><Link href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all">Pendaftaran</Link></li>
+                                        <li><Link href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all">Fasilitas</Link></li>
+                                        <li><Link href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all">Alumni</Link></li>
+                                    </ul>
+                                </div>
+                                <div className="space-y-6">
+                                    <h5 className="text-white font-bold text-sm uppercase tracking-widest flex items-center gap-2">
+                                        <span className="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span> Informasi
+                                    </h5>
+                                    <ul className="space-y-4 text-primary-fixed opacity-80 text-sm">
+                                        <li><Link href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all">Berita Berita Terbaru</Link></li>
+                                        <li><Link href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all">Kalender Akademik</Link></li>
+                                        <li><Link href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all">Galeri Kegiatan</Link></li>
+                                        <li><Link href="#" className="hover:text-white hover:translate-x-1 inline-block transition-all">Kontak Kami</Link></li>
+                                    </ul>
+                                </div>
+                                <div className="col-span-2 md:col-span-1 border-t border-white/10 pt-8 md:pt-0 md:border-0 space-y-6">
+                                    <h5 className="text-white font-bold text-sm uppercase tracking-widest">Berlangganan</h5>
+                                    <p className="text-sm text-primary-fixed opacity-80">Dapatkan informasi pendaftaran dan berita terbaru.</p>
+                                    <div className="relative">
+                                        <input type="email" placeholder="Email Anda" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-tertiary-fixed-dim focus:border-transparent transition-all" />
+                                        <button className="absolute right-2 top-2 bottom-2 bg-tertiary-fixed text-tertiary p-2 rounded-lg hover:bg-white transition-colors flex items-center justify-center">
+                                            <span className="material-symbols-outlined text-[20px]">send</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t border-white/10">
+                            <p className="text-[13px] text-primary-fixed opacity-60">
+                                © {new Date().getFullYear()} Pesantren Modern Darul Ihsan. Terakreditasi A.
+                            </p>
+                            <div className="flex gap-4">
+                                <a href="#" className="text-primary-fixed opacity-60 hover:opacity-100 transition-opacity">
+                                    <span className="sr-only">Facebook</span>
+                                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
+                                    </svg>
+                                </a>
+                                <a href="#" className="text-primary-fixed opacity-60 hover:opacity-100 transition-opacity">
+                                    <span className="sr-only">Instagram</span>
+                                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clipRule="evenodd" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </main>
+
+            {/* Re-designed Bottom Navigation Bar (Mobile Only) */}
+            <nav className="fixed bottom-4 left-4 right-4 z-50 bg-white/90 backdrop-blur-xl border border-white rounded-3xl flex justify-around items-center px-2 py-3 shadow-[0_8px_30px_rgba(0,0,0,0.12)] md:hidden">
+                <Link className="flex flex-col items-center justify-center text-primary-container relative px-4 py-1 group" href="#">
+                    <div className="absolute inset-0 bg-primary-container/10 rounded-2xl scale-100 transition-transform"></div>
+                    <span className="material-symbols-outlined relative z-10" style={{ fontVariationSettings: "'FILL' 1" }}>home</span>
+                    <span className="font-sans text-[10px] font-bold mt-1 relative z-10">Beranda</span>
+                </Link>
+                <Link className="flex flex-col items-center justify-center text-slate-500 hover:text-primary px-4 py-1 group transition-colors" href="#">
+                    <span className="material-symbols-outlined group-hover:-translate-y-1 transition-transform">school</span>
+                    <span className="font-sans text-[10px] font-medium mt-1">Program</span>
+                </Link>
+                <Link className="flex flex-col items-center justify-center text-slate-500 hover:text-primary px-4 py-1 group transition-colors" href="#">
+                    <span className="material-symbols-outlined group-hover:-translate-y-1 transition-transform">photo_library</span>
+                    <span className="font-sans text-[10px] font-medium mt-1">Galeri</span>
+                </Link>
+                <Link className="flex flex-col items-center justify-center text-slate-500 hover:text-primary px-4 py-1 group transition-colors" href="#">
+                    <span className="material-symbols-outlined group-hover:-translate-y-1 transition-transform">contact_support</span>
+                    <span className="font-sans text-[10px] font-medium mt-1">Kontak</span>
+                </Link>
+            </nav>
+
+            <div className="fixed bottom-28 md:bottom-10 right-6 z-40">
+                <button className="w-14 h-14 bg-gradient-to-r from-tertiary-container to-secondary-container text-white rounded-full shadow-[0_10px_25px_rgba(74,192,143,0.4)] flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 ring-4 ring-white">
+                    <span className="material-symbols-outlined text-3xl shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>support_agent</span>
+                </button>
