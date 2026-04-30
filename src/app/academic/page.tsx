@@ -36,7 +36,7 @@ export default function AcademicPage() {
             {/* Curriculum Grid */}
             <section className="py-24 max-w-[1200px] mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                    {programs.map((p, i) => (
+                    {programs.map((p: any, i: number) => (
                         <div key={i} className="flex flex-col h-full bg-white border border-slate-100 rounded-3xl p-8 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
                             <div className={`w-14 h-14 ${p.color} rounded-2xl flex items-center justify-center mb-6`}>
                                 <span className="material-symbols-outlined text-2xl">{p.icon}</span>
@@ -48,7 +48,7 @@ export default function AcademicPage() {
                             <div className="mt-auto space-y-3">
                                 <p className="text-xs font-bold text-secondary uppercase tracking-widest">Core Subjects</p>
                                 <div className="flex flex-wrap gap-2">
-                                    {p.items.map((item, idx) => (
+                                    {p.items.map((item: any, idx: number) => (
                                         <span key={idx} className="px-3 py-1 bg-slate-100 text-on-surface text-[11px] font-semibold rounded-full">
                                             {item}
                                         </span>

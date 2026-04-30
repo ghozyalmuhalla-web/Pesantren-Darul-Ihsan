@@ -28,7 +28,7 @@ export default async function NewsDetail({ params }: { params: Promise<{ id: str
                     <hr className="border-slate-100" />
 
                     <div className="prose prose-slate max-w-none prose-p:text-on-surface-variant prose-p:leading-relaxed prose-p:text-lg">
-                        {news.content.split('\n').map((paragraph, index) => (
+                        {news.content.split('\n').map((paragraph: any, index: any) => (
                             paragraph.trim() && <p key={index} className="mb-6">{paragraph}</p>
                         ))}
                     </div>

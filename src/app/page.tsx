@@ -104,7 +104,7 @@ export default async function Home() {
 
         {galleryItems.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {galleryItems.map((item) => (
+            {galleryItems.map((item: any) => (
               <div key={item.id} className="group relative overflow-hidden rounded-2xl aspect-square shadow-sm hover:shadow-xl transition-all duration-500">
                 <Image
                   src={item.imageUrl}

@@ -22,7 +22,7 @@ export default function Navigation() {
                     <h1 className="text-xl font-bold text-blue-900 dark:text-blue-50 tracking-tight font-serif">Pesantren Modern Darul Ihsan</h1>
                 </div>
                 <nav className="hidden md:flex items-center gap-8">
-                    {links.map((link) => {
+                    {links.map((link: any) => {
                         const isActive = pathname === link.href;
                         return (
                             <Link
@@ -44,7 +44,7 @@ export default function Navigation() {
             </header>
 
             <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe pt-2 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 shadow-[0_-4px_20px_rgba(15,23,42,0.05)] md:hidden rounded-t-2xl">
-                {links.map((link) => {
+                {links.map((link: any) => {
                     const isActive = pathname === link.href;
                     return (
                         <Link

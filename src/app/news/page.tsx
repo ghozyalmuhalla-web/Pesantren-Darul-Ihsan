@@ -25,7 +25,7 @@ export default async function NewsList() {
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {newsItems.map((item) => (
+                        {newsItems.map((item: any) => (
                             <Link
                                 key={item.id}
                                 href={`/news/${item.id}`}
