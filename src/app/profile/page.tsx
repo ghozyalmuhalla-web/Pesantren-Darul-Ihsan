@@ -85,9 +85,6 @@ export default async function ProfilePage() {
                             src="/struktur-organisasi.png"
                             alt="Struktur Organisasi MAS Pesantren Modern Darul Ihsan"
                             className="w-full h-auto"
-                            onError={(e) => {
-                                e.currentTarget.src = "https://placehold.co/1200x800?text=Struktur+Organisasi+Darul+Ihsan";
-                            }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-primary-container/20 to-transparent pointer-events-none"></div>
                     </div>
