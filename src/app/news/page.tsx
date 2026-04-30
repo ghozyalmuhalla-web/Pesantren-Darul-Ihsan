@@ -13,7 +13,7 @@ export default async function NewsList() {
             <div className="bg-primary-container text-white py-24 px-6 text-center">
                 <h1 className="font-h1 text-h1 mb-4">Berita & Informasi</h1>
                 <p className="font-body-lg opacity-80 max-w-2xl mx-auto">
-                    Ikuti perkembangan terbaru, prestasi santri, dan pengumuman resmi dari Madrasah Aliyah Swasta Pesantren Modern Darul Ihsan.
+                    Ikuti perkembangan terbaru, prestasi santri, dan pengumuman resmi dari Madrasah Aliyah Swasta (MAS) Pesantren Modern Darul Ihsan.
                 </p>
             </div>
 

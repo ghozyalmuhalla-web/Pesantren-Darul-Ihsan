@@ -32,10 +32,10 @@ export default async function Home() {
               Akreditasi A
             </div>
             <h2 className="font-h1 text-h1 text-primary-container leading-[1.1]">
-              Madrasah Aliyah Swasta Pesantren Modern Darul Ihsan
+              Madrasah Aliyah Swasta (MAS) Pesantren Modern Darul Ihsan
             </h2>
             <p className="font-body-lg text-on-surface-variant leading-relaxed italic">
-              &quot;Mewujudkan lembaga pendidikan Islam yang unggul, modern, dan berkarakter.&quot;
+              &quot;Membentuk Generasi Qur’ani, Berwawasan Global, dan Berakhlakul Karimah&quot;
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
               <button className="px-8 py-4 bg-secondary text-on-secondary rounded-xl font-button shadow-lg hover:shadow-xl transition-shadow flex items-center gap-2 group">
@@ -56,8 +56,8 @@ export default async function Home() {
         <div className="max-w-[1280px] mx-auto px-6 grid md:grid-cols-2 gap-16 items-center relative z-10">
           <div className="space-y-stack-md">
             <h3 className="font-h2 text-h2 text-primary-container">Visi & Misi Kami</h3>
-            <p className="font-body-md text-on-surface-variant">
-              Mewujudkan lembaga pendidikan Islam yang unggul, modern, dan berkarakter, serta melahirkan generasi berakhlak mulia, cerdas, dan mampu bersaing di tingkat global. Setiap santri dibimbing untuk memiliki karakter yang luhur serta penguasaan sains dan teknologi yang mumpuni.
+            <p className="font-body-md text-on-surface-variant leading-relaxed">
+              MAS Pesantren Modern Darul Ihsan merupakan lembaga pendidikan tingkat menengah atas yang terintegrasi dengan sistem pondok pesantren di Deli Serdang. Kami berkomitmen menyeimbangkan keunggulan akademik dan kedalaman spiritual untuk mencetak santri yang cerdas, tangguh, dan mandiri.
             </p>
             <div className="grid grid-cols-2 gap-6 pt-6">
               <div className="p-6 bg-white border border-slate-100 rounded-2xl shadow-sm">

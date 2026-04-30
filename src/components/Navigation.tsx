@@ -19,7 +19,7 @@ export default function Navigation() {
             <header className="sticky top-0 w-full flex justify-between items-center px-6 py-4 max-w-[1280px] mx-auto bg-white/90 dark:bg-slate-900/90 backdrop-blur-md z-50 border-b border-slate-200 dark:border-slate-800 shadow-sm">
                 <div className="flex items-center gap-3">
                     <Image src="/logo.png" alt="Logo Darul Ihsan" width={48} height={48} className="object-contain" />
-                    <h1 className="text-xl font-bold text-blue-900 dark:text-blue-50 tracking-tight font-serif">Pesantren Modern Darul Ihsan</h1>
+                    <h1 className="text-xl font-bold text-blue-900 dark:text-blue-50 tracking-tight font-serif">MAS Pesantren Modern Darul Ihsan</h1>
                 </div>
                 <nav className="hidden md:flex items-center gap-8">
                     {links.map((link: any) => {

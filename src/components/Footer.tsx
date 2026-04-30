@@ -7,12 +7,12 @@ export default function Footer() {
                 <div className="space-y-6">
                     <div className="flex items-center gap-3">
                         <Image src="/logo.png" alt="Logo Darul Ihsan" width={48} height={48} className="object-contain" />
-                        <span className="text-white text-lg font-bold">Pesantren Modern Darul Ihsan</span>
+                        <span className="text-white text-lg font-bold">MAS Pesantren Modern Darul Ihsan</span>
                     </div>
                     <p className="text-slate-400 font-serif text-sm leading-relaxed">
-                        Jl. Al-Hikmah No. 42, Surabaya, Jawa Timur.<br />
-                        Email: info@darulihsan.sch.id<br />
-                        Phone: (031) 123-4567
+                        Desa Selemak, Kec. Hamparan Perak,<br />
+                        Kab. Deli Serdang, Sumatera Utara<br />
+                        Email: info@darulihsan.sch.id
                     </p>
                     <div className="flex gap-4">
                         <a className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-white hover:bg-secondary transition-colors" href="#">
@@ -42,7 +42,7 @@ export default function Footer() {
                 </div>
             </div>
             <p className="text-slate-500 text-xs border-t border-slate-800 pt-8 w-full">
-                © 2024 Al-Hikmah Islamic Boarding School. All rights reserved.
+                © 2024 MAS Pesantren Modern Darul Ihsan. All rights reserved.
             </p>
         </footer>
     );

@@ -8,9 +8,9 @@ export default async function ProfilePage() {
             <div className="bg-primary-container text-white py-32 px-6 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] pointer-events-none"></div>
                 <div className="max-w-[800px] mx-auto text-center relative z-10">
-                    <h1 className="font-h1 text-h1 mb-6">Profil Pesantren</h1>
+                    <h1 className="font-h1 text-h1 mb-6 text-balance">Profil Madrasah Aliyah Swasta (MAS) Pesantren Modern Darul Ihsan</h1>
                     <p className="font-body-lg opacity-90 leading-relaxed">
-                        Mewujudkan lembaga pendidikan Islam yang unggul, modern, dan berkarakter, melahirkan generasi berakhlak mulia dan berdaya saing global.
+                        Membentuk Generasi Qur’ani, Berwawasan Global, dan Berakhlakul Karimah
                     </p>
                 </div>
             </div>
@@ -19,13 +19,13 @@ export default async function ProfilePage() {
             <section className="py-24 max-w-[1000px] mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                     <div className="space-y-6">
-                        <h2 className="font-h2 text-h2 text-primary-container">Sejarah Singkat</h2>
+                        <h2 className="font-h2 text-h2 text-primary-container">Tentang Kami</h2>
                         <div className="prose prose-slate prose-p:leading-relaxed prose-p:text-on-surface-variant">
                             <p>
-                                Pesantren Modern Darul Ihsan didirikan dengan cita-cita luhur untuk menyediakan wadah pendidikan Islam yang komprehensif. Sejak awal berdirinya, lembaga ini berkomitmen untuk memadukan kedalaman ilmu agama (Tafaqquh Fiddin) dengan penguasaan sains dan teknologi terkini.
+                                MAS Pesantren Modern Darul Ihsan merupakan lembaga pendidikan tingkat menengah atas yang terintegrasi dengan sistem pondok pesantren. Terletak di Desa Selemak Kecamatan Hamparan Perak, Kabupaten Deli Serdang, Sumatera Utara, madrasah ini hadir sebagai jawaban atas kebutuhan masyarakat akan institusi pendidikan yang mampu menyeimbangkan antara keunggulan akademik dan kedalaman spiritual.
                             </p>
                             <p>
-                                Melalui bimbingan para asatidz yang kompeten, Darul Ihsan terus berkembang menjadi salah satu lembaga pendidikan Islam rujukan di wilayahnya, mencetak alumni yang berkontribusi aktif di berbagai lini kehidupan masyarakat.
+                                Dengan memadukan kurikulum Kementerian Agama RI dan kurikulum khas pesantren modern, kami berkomitmen mencetak santri yang tidak hanya cerdas secara intelektual, tetapi juga tangguh secara mental dan memiliki kemandirian hidup.
                             </p>
                         </div>
                     </div>
@@ -49,7 +49,7 @@ export default async function ProfilePage() {
                             </div>
                             <h3 className="font-h2 text-h2 text-primary-container mb-6">Visi</h3>
                             <p className="text-on-surface-variant text-lg leading-relaxed">
-                                Mewujudkan lembaga pendidikan Islam yang unggul, modern, dan berkarakter, serta melahirkan generasi berakhlak mulia, cerdas, dan mampu bersaing di tingkat global.
+                                Membentuk Generasi Qur’ani, Berwawasan Global, dan Berakhlakul Karimah.
                             </p>
                         </div>
 

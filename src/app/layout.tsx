@@ -17,8 +17,8 @@ const notoSerif = Noto_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Madrasah Aliyah Swasta Pesantren Modern Darul Ihsan",
-  description: "Membentuk Generasi Qur’ani yang Beradab, Berilmu, dan Berwawasan Global di Era Digital.",
+  title: "Madrasah Aliyah Swasta (MAS) Pesantren Modern Darul Ihsan",
+  description: "Membentuk Generasi Qur’ani, Berwawasan Global, dan Berakhlakul Karimah.",
 };
 
 export default function RootLayout({
