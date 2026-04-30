@@ -49,7 +49,7 @@ export default async function ProfilePage() {
                             </div>
                             <h3 className="font-h2 text-h2 text-primary-container mb-6">Visi</h3>
                             <p className="text-on-surface-variant text-lg leading-relaxed">
-                                Membentuk Generasi Qur’ani, Berwawasan Global, dan Berakhlakul Karimah.
+                                Mewujudkan lembaga pendidikan Islam yang unggul, modern, dan berkarakter, menghasilkan generasi berakhlak mulia, cerdas, serta berdaya saing global.
                             </p>
                         </div>
 
@@ -60,10 +60,10 @@ export default async function ProfilePage() {
                             <h3 className="font-h2 text-h2 text-primary-container mb-6">Misi</h3>
                             <ul className="space-y-4 text-on-surface-variant">
                                 {[
-                                    "Menumbuhkan keimanan serta membentuk adab santri.",
+                                    "Menumbuhkan iman dan membangun adab santri.",
                                     "Mengembangkan potensi santri melalui kurikulum modern tanpa meninggalkan nilai-nilai keislaman.",
-                                    "Memperdalam pemahaman Al-Qur'an dan Hadis.",
-                                    "Menciptakan generasi yang berwawasan IMTAK (Iman dan Taqwa) serta IPTEK (Ilmu Pengetahuan dan Teknologi)."
+                                    "Pendalaman Al-Qur'an dan Hadist.",
+                                    "Mewujudkan generasi yang berwawasan Imtak (Iman dan Taqwa) dan Iptek (Ilmu Pengetahuan dan Teknologi)."
                                 ].map((item, i) => (
                                     <li key={i} className="flex gap-4">
                                         <span className="text-secondary font-bold">•</span>
