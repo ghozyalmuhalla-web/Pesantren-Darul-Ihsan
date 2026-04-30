@@ -26,7 +26,7 @@ export default async function GalleryAdmin() {
                 </div>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                    {items.map((item) => (
+                    {items.map((item: any) => (
                         <div key={item.id} className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden group">
                             <div className="relative h-48">
                                 <Image src={item.imageUrl} alt={item.title} fill className="object-cover" unoptimized />

@@ -34,7 +34,7 @@ export default async function NewsAdmin() {
                             </tr>
                         </thead>
                         <tbody>
-                            {newsList.map((news) => (
+                            {newsList.map((news: any) => (
                                 <tr key={news.id} className="border-b border-slate-50 hover:bg-slate-50 transition-colors">
                                     <td className="px-6 py-4 font-medium text-on-surface max-w-sm truncate">{news.title}</td>
                                     <td className="px-6 py-4 text-on-surface-variant hidden md:table-cell">
