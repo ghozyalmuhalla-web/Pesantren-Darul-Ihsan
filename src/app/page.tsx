@@ -75,9 +75,9 @@ export default async function Home() {
           <div className="relative">
             <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl rotate-3">
               <img
-                alt="Modern Santri Life"
+                alt="Suasana Pesantren"
                 className="w-full h-full object-cover"
-                src="/images/modern-santri.png"
+                src="/images/pesantren-vibe.png"
               />
             </div>
             <div className="absolute -bottom-6 -left-6 p-8 bg-primary-container text-white rounded-3xl shadow-xl max-w-xs -rotate-3">
