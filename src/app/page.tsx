@@ -19,9 +19,9 @@ export default async function Home() {
       <section className="relative min-h-[751px] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            alt="Campus"
+            alt="Darul Ihsan Campus"
             className="w-full h-full object-cover"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKcu8YXrgymCRP78gEadoz5zuOmGkCSL937KEIQWunVcBBdIYtBXaBKaDqgEbXAR2sPdeRP9qR1aKiqWgGLd6DJpLOYCujnZIRh9_mH5BXYvdORjhYDMke-BeiLOMV51wKHN_bkDhhv3JSxm4EsPv0A6z6Qjer-b1TqknvLjpbp7ot4fD9yMCFFPJOWtF8fILwWPkvG1tr-5mki8NdY5g77N6G4rnIVsPUa8tfwr_qRtn0fyUjvV1GAu3q-Izhaj99NZdeL6Ikllg"
+            src="/images/hero-main.png"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
         </div>
@@ -35,7 +35,7 @@ export default async function Home() {
               Madrasah Aliyah Swasta Pesantren Modern Darul Ihsan
             </h2>
             <p className="font-body-lg text-on-surface-variant leading-relaxed italic">
-              &quot;Membentuk Generasi Qur’ani yang Beradab, Berilmu, dan Berwawasan Global di Era Digital.&quot;
+              &quot;Mewujudkan lembaga pendidikan Islam yang unggul, modern, dan berkarakter.&quot;
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
               <button className="px-8 py-4 bg-secondary text-on-secondary rounded-xl font-button shadow-lg hover:shadow-xl transition-shadow flex items-center gap-2 group">
@@ -55,9 +55,9 @@ export default async function Home() {
         <div className="geometric-pattern absolute inset-0 opacity-40"></div>
         <div className="max-w-[1280px] mx-auto px-6 grid md:grid-cols-2 gap-16 items-center relative z-10">
           <div className="space-y-stack-md">
-            <h3 className="font-h2 text-h2 text-primary-container">Mendidik dengan Adab</h3>
+            <h3 className="font-h2 text-h2 text-primary-container">Visi & Misi Kami</h3>
             <p className="font-body-md text-on-surface-variant">
-              Di Darul Ihsan, kami percaya bahwa ilmu tanpa adab adalah hampa. Visi kami adalah mengintegrasikan tradisi kesantunan Islam dengan ketangkasan intelektual modern. Setiap santri dibimbing untuk memiliki karakter yang luhur sebelum mereka menguasai sains dan teknologi.
+              Mewujudkan lembaga pendidikan Islam yang unggul, modern, dan berkarakter, serta melahirkan generasi berakhlak mulia, cerdas, dan mampu bersaing di tingkat global. Setiap santri dibimbing untuk memiliki karakter yang luhur serta penguasaan sains dan teknologi yang mumpuni.
             </p>
             <div className="grid grid-cols-2 gap-6 pt-6">
               <div className="p-6 bg-white border border-slate-100 rounded-2xl shadow-sm">
@@ -75,9 +75,9 @@ export default async function Home() {
           <div className="relative">
             <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl rotate-3">
               <img
-                alt="Student Life"
+                alt="Modern Santri Life"
                 className="w-full h-full object-cover"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlx5EZK8cE5Fprqdm5RKx8_yxbMRjznhCpsr6VkVfUahG89rQjgRqQU-mXEsUuSsSTF4QskBYyQOYs83RecO6_F5LUoAGyxIj6k-lvy1xrtIcoMDz81eOTVyHPgdZwNtYCP2qt2vk-WhMo0LTvGONgrVnJITJdv0rw9OpKTubKioy4fKf72-KDX9lhjDU_KnPZEM1xtW4zbpms2qdXUM1704BFdVrIR0JJ_xYgrvi4S-BbBRGM41Jwzo6n_BsWhE5P9qrQvfiuw4A"
+                src="/images/modern-santri.png"
               />
             </div>
             <div className="absolute -bottom-6 -left-6 p-8 bg-primary-container text-white rounded-3xl shadow-xl max-w-xs -rotate-3">

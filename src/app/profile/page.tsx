@@ -10,7 +10,7 @@ export default async function ProfilePage() {
                 <div className="max-w-[800px] mx-auto text-center relative z-10">
                     <h1 className="font-h1 text-h1 mb-6">Profil Pesantren</h1>
                     <p className="font-body-lg opacity-90 leading-relaxed">
-                        Membentuk generasi Qur&apos;ani yang berakhlak mulia, cerdas, dan mandiri berlandaskan nilai-nilai keislaman dan kemodernan.
+                        Mewujudkan lembaga pendidikan Islam yang unggul, modern, dan berkarakter, melahirkan generasi berakhlak mulia dan berdaya saing global.
                     </p>
                 </div>
             </div>
@@ -31,8 +31,8 @@ export default async function ProfilePage() {
                     </div>
                     <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl skew-y-2">
                         <img
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKHs3KSu5k94tgoGry27IJ1wLbWgtVZPY5T0qk3iRbcedW3dreG1R5MtoP9ApXcKtwz4GZChXYW4PVW8yyE_12oYkvNpj4zrNwxhmvMVgEwHgkIUEjtx-vrAi8hGLzS5g7h4wluDeUsNb_90z1xVVeIyQesTokIN_zk7LCaP18QxXx2sCOyyMox4dQvNuGT0iiIeqFk21G1i1KX8zop2s7iaFKshRrWuqEkbqxhzaeboK1CKjkjlFg9kYD20Gwt73X4izpu2tYuus"
-                            alt="Darul Ihsan Building"
+                            src="/images/modern-campus.png"
+                            alt="Darul Ihsan Modern Campus"
                             className="w-full h-full object-cover -skew-y-2 scale-110"
                         />
                     </div>
@@ -49,7 +49,7 @@ export default async function ProfilePage() {
                             </div>
                             <h3 className="font-h2 text-h2 text-primary-container mb-6">Visi</h3>
                             <p className="text-on-surface-variant text-lg leading-relaxed">
-                                Menjadi lembaga pendidikan Islam unggulan yang melahirkan pemimpin masa depan berjiwa Qur&apos;ani, berwawasan luas, dan berkepribadian mulia (Akhlakul Karimah).
+                                Mewujudkan lembaga pendidikan Islam yang unggul, modern, dan berkarakter, serta melahirkan generasi berakhlak mulia, cerdas, dan mampu bersaing di tingkat global.
                             </p>
                         </div>
 
@@ -60,10 +60,10 @@ export default async function ProfilePage() {
                             <h3 className="font-h2 text-h2 text-primary-container mb-6">Misi</h3>
                             <ul className="space-y-4 text-on-surface-variant">
                                 {[
-                                    "Menyelenggarakan pendidikan berbasis kurikulum terpadu.",
-                                    "Membentuk lingkungan belajar yang kental dengan nilai-nilai adab.",
-                                    "Mengembangkan potensi minat dan bakat santri melalui ekstrakurikuler.",
-                                    "Mendorong kemandirian dan jiwa kepemimpinan dalam setiap santri."
+                                    "Menumbuhkan keimanan serta membentuk adab santri.",
+                                    "Mengembangkan potensi santri melalui kurikulum modern tanpa meninggalkan nilai-nilai keislaman.",
+                                    "Memperdalam pemahaman Al-Qur'an dan Hadis.",
+                                    "Menciptakan generasi yang berwawasan IMTAK (Iman dan Taqwa) serta IPTEK (Ilmu Pengetahuan dan Teknologi)."
                                 ].map((item, i) => (
                                     <li key={i} className="flex gap-4">
                                         <span className="text-secondary font-bold">•</span>
@@ -72,6 +72,24 @@ export default async function ProfilePage() {
                                 ))}
                             </ul>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Struktur Organisasi */}
+            <section className="py-24 bg-white">
+                <div className="max-w-[1200px] mx-auto px-6 text-center">
+                    <h2 className="font-h2 text-h2 text-primary-container mb-12">Struktur Organisasi</h2>
+                    <div className="relative rounded-[40px] overflow-hidden shadow-2xl border-8 border-slate-50">
+                        <img
+                            src="/struktur-organisasi.png"
+                            alt="Struktur Organisasi MAS Pesantren Modern Darul Ihsan"
+                            className="w-full h-auto"
+                            onError={(e) => {
+                                e.currentTarget.src = "https://placehold.co/1200x800?text=Struktur+Organisasi+Darul+Ihsan";
+                            }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-primary-container/20 to-transparent pointer-events-none"></div>
                     </div>
                 </div>
             </section>
