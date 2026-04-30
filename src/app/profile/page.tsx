@@ -76,6 +76,63 @@ export default async function ProfilePage() {
                 </div>
             </section>
 
+            {/* Prestasi & Keunggulan */}
+            <section className="py-24 bg-white">
+                <div className="max-w-[1200px] mx-auto px-6">
+                    <h2 className="font-h2 text-h2 text-primary-container mb-12 text-center">Prestasi & Keunggulan</h2>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                        {[
+                            {
+                                title: "🏆 Bidang Akademik",
+                                items: ["Juara olimpiade (Matematika, IPA, Bahasa)", "Lomba karya tulis ilmiah", "Prestasi ujian nasional / asesmen"]
+                            },
+                            {
+                                title: "🕌 Bidang Keagamaan",
+                                items: ["Juara Musabaqah Tilawatil Qur’an (MTQ)", "Hafalan Al-Qur’an (tahfidz)", "Lomba pidato bahasa Arab / Inggris", "Fahmil Qur’an atau syarhil Qur’an"]
+                            },
+                            {
+                                title: "⚽ Bidang Olahraga",
+                                items: ["Sepak bola, futsal", "Pencak silat", "Badminton, voli, dll"]
+                            },
+                            {
+                                title: "🎨 Bidang Seni & Kreativitas",
+                                items: ["Desain poster / kaligrafi", "Lomba nasyid atau hadroh", "Drama / teater"]
+                            },
+                            {
+                                title: "🌍 Bahasa & Internasional",
+                                items: ["Debate bahasa Inggris / Arab", "Speech contest"]
+                            }
+                        ].map((category, i) => (
+                            <div key={i} className="bg-slate-50 p-8 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-xl transition-all duration-300">
+                                <h3 className="font-bold text-xl text-primary-container mb-4">{category.title}</h3>
+                                <ul className="space-y-2">
+                                    {category.items.map((item, j) => (
+                                        <li key={j} className="text-on-surface-variant text-sm flex gap-2">
+                                            <span className="text-secondary">•</span>
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        {[1, 2, 3, 4].map(i => (
+                            <div key={i} className="relative aspect-[4/3] rounded-[32px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group">
+                                <img
+                                    src={`/images/prestasi/prestasi-${i}.jpg`}
+                                    alt={`Prestasi ${i}`}
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* Struktur Organisasi */}
             <section className="py-24 bg-white">
                 <div className="max-w-[1200px] mx-auto px-6 text-center">
