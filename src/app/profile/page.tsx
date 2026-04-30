@@ -96,10 +96,10 @@ export default async function ProfilePage() {
                 <h2 className="font-h2 text-h2 text-primary-container mb-12">Dewan Asatidz</h2>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                     {[
-                        { name: "Ustadzah Pengajar 1", img: "/images/asatidz/asatidz-1.jpg" },
-                        { name: "Ustadz Pengajar 2", img: "/images/asatidz/asatidz-2.jpg" },
-                        { name: "Ustadz Pengajar 3", img: "/images/asatidz/asatidz-3.jpg" },
-                        { name: "Ustadz Pengajar 4", img: "/images/asatidz/asatidz-4.jpg" }
+                        { name: "Ustazah Widya Rada Utami, SE", role: "Tata Usaha/Operator Madrasah", img: "/images/asatidz/asatidz-1.jpg" },
+                        { name: "Ustad H. Amir Hasan, Lc", role: "WKM Kesiswaan", img: "/images/asatidz/asatidz-2.jpg" },
+                        { name: "Ustad Irfan Kurniansyah, M.Pd.", role: "WKM Bid. Kurikulum", img: "/images/asatidz/asatidz-3.jpg" },
+                        { name: "Ustad Julianto, S.Pd. Gr.", role: "Kepala Madrasah", img: "/images/asatidz/asatidz-4.jpg" }
                     ].map((member, i) => (
                         <div key={i} className="group">
                             <div className="aspect-square bg-surface-container-low rounded-full mb-6 overflow-hidden border-4 border-white shadow-md group-hover:border-secondary transition-all">
@@ -110,7 +110,7 @@ export default async function ProfilePage() {
                                 />
                             </div>
                             <h4 className="font-bold text-primary-container">{member.name}</h4>
-                            <p className="text-sm text-on-surface-variant">Bidang Studi Keagamaan</p>
+                            <p className="text-sm text-on-surface-variant">{member.role}</p>
                         </div>
                     ))}
                 </div>
