@@ -1,78 +1,53 @@
-export default function AcademicPage() {
+import prisma from "@/lib/prisma";
+
+export default async function AcademicPage() {
+    const settingsRecords = await prisma.setting.findMany();
+    const s: Record<string, string> = {};
+    settingsRecords.forEach(rec => { s[rec.key] = rec.value; });
+
     const focusAreas = [
         {
-            title: "Tahfidz Al-Qur’an",
-            desc: "Program setoran hafalan rutin dengan target capaian yang terukur.",
+            title: s.academic_focus_1_title || "Tahfidz Al-Qur'an",
+            desc: s.academic_focus_1_desc || "Program setoran hafalan rutin dengan target capaian yang terukur.",
             icon: "auto_stories"
         },
         {
-            title: "Penguasaan Kitab Kuning",
-            desc: "Pendalaman literatur klasik Islam untuk memperkuat fondasi keagamaan.",
+            title: s.academic_focus_2_title || "Penguasaan Kitab Kuning",
+            desc: s.academic_focus_2_desc || "Pendalaman literatur klasik Islam untuk memperkuat fondasi keagamaan.",
             icon: "menu_book"
         },
         {
-            title: "Language Environment",
-            desc: "Penerapan area wajib bahasa Arab dan Inggris dalam percakapan sehari-hari.",
+            title: s.academic_focus_3_title || "Language Environment",
+            desc: s.academic_focus_3_desc || "Penerapan area wajib bahasa Arab dan Inggris dalam percakapan sehari-hari.",
             icon: "language"
         },
         {
-            title: "Ekstrakurikuler Multimedia & Seni",
-            desc: "Mengasah kreativitas santri di bidang teknologi informasi, seni Islam, dan olahraga.",
+            title: s.academic_focus_4_title || "Ekstrakurikuler Multimedia & Seni",
+            desc: s.academic_focus_4_desc || "Mengasah kreativitas santri di bidang teknologi informasi, seni Islam, dan olahraga.",
             icon: "palette"
         }
     ];
 
-    const mainPrograms = [
-        {
-            number: "1",
-            title: "Pendidikan Terpadu (Agama + Umum)",
-            items: ["Menggabungkan kurikulum diniyah (agama) dan pelajaran umum", "Membentuk santri yang cerdas secara akademik dan kuat secara agama"],
-            icon: "school",
-            color: "bg-blue-50 text-blue-600"
-        },
-        {
-            number: "2",
-            title: "Program Tahfidz Al-Qur’an",
-            items: ["Fokus pada hafalan Al-Qur’an (tahfidz)", "Menjadi salah satu program inti untuk mencetak generasi Qur’ani"],
-            icon: "menu_book",
-            color: "bg-emerald-50 text-emerald-600"
-        },
-        {
-            number: "3",
-            title: "Pembinaan Akhlak & Kedisiplinan",
-            items: ["Kegiatan harian yang terstruktur untuk membentuk karakter islami", "Melatih disiplin dan tanggung jawab"],
-            icon: "verified_user",
-            color: "bg-amber-50 text-amber-600"
-        },
-        {
-            number: "4",
-            title: "Pengembangan Bahasa (Arab & Inggris)",
-            items: ["Pembiasaan komunikasi dan pembelajaran bahasa", "Mendukung kemampuan santri untuk go international"],
-            icon: "public",
-            color: "bg-purple-50 text-purple-600"
-        },
-        {
-            number: "5",
-            title: "Pengembangan Bakat & Keterampilan",
-            items: ["Ekstrakurikuler: Akademik, Seni, Olahraga", "Mengasah potensi santri sesuai minat masing-masing"],
-            icon: "stars",
-            color: "bg-rose-50 text-rose-600"
-        },
-        {
-            number: "6",
-            title: "Program Kemandirian & Leadership",
-            items: ["Melatih kepemimpinan dan jiwa sosial", "Santri dibiasakan aktif dalam organisasi dan kegiatan sosial"],
-            icon: "groups",
-            color: "bg-cyan-50 text-cyan-600"
-        },
-        {
-            number: "7",
-            title: "Sistem Boarding (Asrama)",
-            items: ["Pendidikan berlangsung 24 jam di lingkungan pesantren", "Fokus pada pembinaan ibadah dan kontrol pergaulan"],
-            icon: "home",
-            color: "bg-orange-50 text-orange-600"
-        }
+    const progColors = ["bg-blue-50 text-blue-600","bg-emerald-50 text-emerald-600","bg-amber-50 text-amber-600","bg-purple-50 text-purple-600","bg-rose-50 text-rose-600","bg-cyan-50 text-cyan-600","bg-orange-50 text-orange-600"];
+    const progIcons = ["school","menu_book","verified_user","public","stars","groups","home"];
+    const defaultTitles = ["Pendidikan Terpadu (Agama + Umum)","Program Tahfidz Al-Qur'an","Pembinaan Akhlak & Kedisiplinan","Pengembangan Bahasa (Arab & Inggris)","Pengembangan Bakat & Keterampilan","Program Kemandirian & Leadership","Sistem Boarding (Asrama)"];
+    const defaultItems = [
+        "Menggabungkan kurikulum diniyah (agama) dan pelajaran umum\nMembentuk santri yang cerdas secara akademik dan kuat secara agama",
+        "Fokus pada hafalan Al-Qur'an (tahfidz)\nMenjadi salah satu program inti untuk mencetak generasi Qur'ani",
+        "Kegiatan harian yang terstruktur untuk membentuk karakter islami\nMelatih disiplin dan tanggung jawab",
+        "Pembiasaan komunikasi dan pembelajaran bahasa\nMendukung kemampuan santri untuk go international",
+        "Ekstrakurikuler: Akademik, Seni, Olahraga\nMengasah potensi santri sesuai minat masing-masing",
+        "Melatih kepemimpinan dan jiwa sosial\nSantri dibiasakan aktif dalam organisasi dan kegiatan sosial",
+        "Pendidikan berlangsung 24 jam di lingkungan pesantren\nFokus pada pembinaan ibadah dan kontrol pergaulan"
     ];
+
+    const mainPrograms = Array.from({ length: 7 }, (_, i) => ({
+        number: String(i + 1),
+        title: s[`academic_prog_${i+1}_title`] || defaultTitles[i],
+        items: (s[`academic_prog_${i+1}_items`] || defaultItems[i]).split('\n').filter(Boolean),
+        icon: progIcons[i],
+        color: progColors[i]
+    }));
 
     return (
         <main className="min-h-screen bg-white">
@@ -80,14 +55,14 @@ export default function AcademicPage() {
             <div className="bg-primary-container text-white py-32 px-6 text-center relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] pointer-events-none"></div>
                 <div className="relative z-10 max-w-[1000px] mx-auto">
-                    <h1 className="font-h1 text-h1 mb-6">Program Unggulan</h1>
+                    <h1 className="font-h1 text-h1 mb-6">{s.academic_header_title || "Program Unggulan"}</h1>
                     <p className="font-body-lg opacity-90 max-w-2xl mx-auto leading-relaxed">
-                        Kami menawarkan lingkungan belajar yang kondusif dengan fokus pada pembentukan generasi yang unggul dalam akademik dan spiritual.
+                        {s.academic_header_desc || "Kami menawarkan lingkungan belajar yang kondusif dengan fokus pada pembentukan generasi yang unggul dalam akademik dan spiritual."}
                     </p>
                 </div>
             </div>
 
-            {/* Focus Areas Intro */}
+            {/* Focus Areas */}
             <section className="py-24 max-w-[1200px] mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {focusAreas.map((area, i) => (
@@ -136,13 +111,13 @@ export default function AcademicPage() {
             <section className="py-24 px-6 text-center">
                 <div className="max-w-[800px] mx-auto bg-primary-container text-white p-16 rounded-[60px] shadow-2xl relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-secondary opacity-10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-                    <h2 className="text-3xl font-bold mb-6">Siap Menjadi Bagian dari Kami?</h2>
-                    <p className="opacity-80 mb-10 text-lg">Pendaftaran Santri Baru (PPDB) Tahun Ajaran 2026/2027 telah dibuka.</p>
-                    <a 
-                        href="#" 
+                    <h2 className="text-3xl font-bold mb-6">{s.academic_cta_title || "Siap Menjadi Bagian dari Kami?"}</h2>
+                    <p className="opacity-80 mb-10 text-lg">{s.academic_cta_desc || "Pendaftaran Santri Baru (PPDB) Tahun Ajaran 2026/2027 telah dibuka."}</p>
+                    <a
+                        href={s.academic_cta_btn_url || "#"}
                         className="inline-block bg-secondary text-primary-container px-10 py-4 rounded-full font-bold hover:bg-white hover:scale-105 transition-all shadow-lg"
                     >
-                        Daftar Sekarang
+                        {s.academic_cta_btn_text || "Daftar Sekarang"}
                     </a>
                 </div>
             </section>

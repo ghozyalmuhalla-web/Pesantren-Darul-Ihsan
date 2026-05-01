@@ -7,17 +7,13 @@ import path from "path";
 
 async function saveFile(file: File | null): Promise<string | null> {
     if (!file || file.size === 0) return null;
-    
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    
     const filename = `${Date.now()}-${file.name.replace(/\s+/g, '-')}`;
     const uploadDir = path.join(process.cwd(), "public", "uploads");
-    
     try {
         await mkdir(uploadDir, { recursive: true });
-        const filepath = path.join(uploadDir, filename);
-        await writeFile(filepath, buffer);
+        await writeFile(path.join(uploadDir, filename), buffer);
         return `/uploads/${filename}`;
     } catch (e) {
         console.error("Error saving file:", e);
@@ -25,85 +21,112 @@ async function saveFile(file: File | null): Promise<string | null> {
     }
 }
 
-export async function saveHomeSettings(prevState: any, formData: FormData) {
+async function upsertSetting(key: string, value: string) {
+    await prisma.setting.upsert({ where: { key }, update: { value }, create: { key, value } });
+}
+
+export async function saveSettings(prevState: any, formData: FormData) {
     try {
-        // All text/textarea keys
-        const textKeys = [
-            // Hero
-            "home_title",
-            "home_tagline",
-            "home_btn_ppdb_text",
-            "home_btn_ppdb_url",
-            "home_btn_curriculum_text",
-            // Profile/Visi Misi
-            "home_visi_heading",
-            "home_about",
-            "home_accreditation_label",
-            "home_accreditation_grade",
-            "home_accreditation_inst",
-            "home_npsn_label",
-            "home_npsn_number",
-            "home_npsn_status",
-            "home_quote",
-            "home_quote_author",
-            // Berita section
-            "home_news_eyebrow",
-            "home_news_heading",
-            "home_news_link_text",
-            // Fasilitas section
-            "home_fasilitas_heading",
-            "home_fasilitas_desc",
-            "home_fasilitas_list",
-            // MOU section
+        // ── HOME ──
+        const homeTextKeys = [
+            "home_title", "home_tagline", "home_btn_ppdb_text", "home_btn_ppdb_url", "home_btn_curriculum_text",
+            "home_visi_heading", "home_about",
+            "home_accreditation_label", "home_accreditation_grade", "home_accreditation_inst",
+            "home_npsn_label", "home_npsn_number", "home_npsn_status",
+            "home_quote", "home_quote_author",
+            "home_news_eyebrow", "home_news_heading", "home_news_link_text",
+            "home_fasilitas_heading", "home_fasilitas_desc", "home_fasilitas_list",
             "home_mou_heading",
-            // Gallery section
-            "home_gallery_eyebrow",
-            "home_gallery_heading",
-            "home_gallery_link_text",
+            "home_gallery_eyebrow", "home_gallery_heading", "home_gallery_link_text",
+        ];
+        const homeFileKeys = ["home_hero_image", "home_logo_kemenag", "home_logo_akreditasi", "home_about_image", "home_fasilitas_image", "home_mou_image_1", "home_mou_image_2", "home_mou_image_3"];
+
+        // ── ACADEMIC ──
+        const academicTextKeys = [
+            "academic_header_title", "academic_header_desc",
+            "academic_focus_1_title", "academic_focus_1_desc",
+            "academic_focus_2_title", "academic_focus_2_desc",
+            "academic_focus_3_title", "academic_focus_3_desc",
+            "academic_focus_4_title", "academic_focus_4_desc",
+            "academic_prog_1_title", "academic_prog_1_items",
+            "academic_prog_2_title", "academic_prog_2_items",
+            "academic_prog_3_title", "academic_prog_3_items",
+            "academic_prog_4_title", "academic_prog_4_items",
+            "academic_prog_5_title", "academic_prog_5_items",
+            "academic_prog_6_title", "academic_prog_6_items",
+            "academic_prog_7_title", "academic_prog_7_items",
+            "academic_cta_title", "academic_cta_desc", "academic_cta_btn_text", "academic_cta_btn_url",
         ];
 
-        for (const key of textKeys) {
+        // ── PROFILE ──
+        const profileTextKeys = [
+            "profile_header_title", "profile_header_tagline",
+            "profile_tentang_title", "profile_tentang_p1", "profile_tentang_p2",
+            "profile_visi_text", "profile_misi_items",
+            "profile_prestasi_1_title", "profile_prestasi_1_items",
+            "profile_prestasi_2_title", "profile_prestasi_2_items",
+            "profile_prestasi_3_title", "profile_prestasi_3_items",
+            "profile_prestasi_4_title", "profile_prestasi_4_items",
+            "profile_prestasi_5_title", "profile_prestasi_5_items",
+            "profile_asatidz_1_name", "profile_asatidz_1_role",
+            "profile_asatidz_2_name", "profile_asatidz_2_role",
+            "profile_asatidz_3_name", "profile_asatidz_3_role",
+            "profile_asatidz_4_name", "profile_asatidz_4_role",
+        ];
+        const profileFileKeys = [
+            "profile_tentang_image", "profile_struktur_image",
+            "profile_prestasi_img_1", "profile_prestasi_img_2", "profile_prestasi_img_3", "profile_prestasi_img_4",
+            "profile_asatidz_1_img", "profile_asatidz_2_img", "profile_asatidz_3_img", "profile_asatidz_4_img",
+        ];
+
+        // ── FOOTER ──
+        const footerTextKeys = [
+            "footer_school_name", "footer_address", "footer_email",
+            "footer_instagram_url", "footer_instagram_label",
+            "footer_tiktok_url", "footer_tiktok_label",
+            "footer_copyright",
+        ];
+
+        // ── FASILITAS PAGE ──
+        const fasilitasTextKeys = [
+            "fasilitas_header_title", "fasilitas_header_desc",
+            "fasilitas_section_title", "fasilitas_section_desc", "fasilitas_list",
+            "fasilitas_programs_title",
+            "fasilitas_prog_1_title", "fasilitas_prog_1_items",
+            "fasilitas_prog_2_title", "fasilitas_prog_2_items",
+            "fasilitas_prog_3_title", "fasilitas_prog_3_items",
+            "fasilitas_prog_4_title", "fasilitas_prog_4_items",
+            "fasilitas_prog_5_title", "fasilitas_prog_5_items",
+            "fasilitas_prog_6_title", "fasilitas_prog_6_items",
+            "fasilitas_prog_7_title", "fasilitas_prog_7_items",
+        ];
+        const fasilitasFileKeys = [
+            "fasilitas_poster_1", "fasilitas_poster_2", "fasilitas_poster_3", "fasilitas_poster_4"
+        ];
+
+        const allTextKeys = [...homeTextKeys, ...academicTextKeys, ...profileTextKeys, ...footerTextKeys, ...fasilitasTextKeys];
+        const allFileKeys = [...homeFileKeys, ...profileFileKeys, ...fasilitasFileKeys];
+
+        for (const key of allTextKeys) {
             const value = formData.get(key) as string;
-            if (value !== null && value !== undefined) {
-                await prisma.setting.upsert({
-                    where: { key },
-                    update: { value },
-                    create: { key, value }
-                });
-            }
+            if (value !== null && value !== undefined) await upsertSetting(key, value);
         }
-
-        // File upload keys
-        const fileKeys = [
-            "home_hero_image",
-            "home_logo_kemenag",
-            "home_logo_akreditasi",
-            "home_about_image",
-            "home_fasilitas_image",
-            "home_mou_image_1",
-            "home_mou_image_2",
-            "home_mou_image_3",
-        ];
-        
-        for (const key of fileKeys) {
+        for (const key of allFileKeys) {
             const file = formData.get(key) as File;
             if (file && file.size > 0) {
                 const url = await saveFile(file);
-                if (url) {
-                    await prisma.setting.upsert({
-                        where: { key },
-                        update: { value: url },
-                        create: { key, value: url }
-                    });
-                }
+                if (url) await upsertSetting(key, url);
             }
         }
 
         revalidatePath("/");
+        revalidatePath("/academic");
+        revalidatePath("/profile");
+        revalidatePath("/fasilitas");
         revalidatePath("/admin/settings");
-        return { success: "Pengaturan berhasil disimpan!" };
+        return { success: "Semua pengaturan berhasil disimpan!" };
     } catch (error) {
         console.error("Failed to save settings:", error);
-        return { error: "Terjadi kesalahan saat menyimpan pengaturan." };
+        return { error: "Terjadi kesalahan saat menyimpan." };
     }
 }
