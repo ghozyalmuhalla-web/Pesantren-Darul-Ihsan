@@ -139,7 +139,7 @@ export default async function ProfilePage() {
                     <h2 className="font-h2 text-h2 text-primary-container mb-12">Struktur Organisasi</h2>
                     <div className="relative rounded-[40px] overflow-hidden shadow-2xl border-8 border-slate-50">
                         <img
-                            src="/struktur-organisasi.png"
+                            src="/images/struktur-organisasi.jpg"
                             alt="Struktur Organisasi MAS Pesantren Modern Darul Ihsan"
                             className="w-full h-auto"
                         />
