@@ -8,10 +8,6 @@ export default async function Home() {
     orderBy: { createdAt: 'desc' }
   });
 
-  const recentNews = await prisma.news.findMany({
-    take: 3,
-    orderBy: { createdAt: 'desc' }
-  });
 
   return (
     <main className="min-h-screen">
@@ -89,50 +85,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Recent News Section */}
-      <section className="py-24 bg-slate-50">
-        <div className="max-w-[1280px] mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-            <div>
-              <p className="text-secondary font-bold tracking-widest text-label-caps uppercase mb-2">Update Terbaru</p>
-              <h3 className="font-h2 text-h2">Berita & Informasi</h3>
-            </div>
-            <Link href="/news" className="flex items-center gap-2 text-secondary font-bold hover:underline">
-              Lihat Semua Berita
-              <span className="material-symbols-outlined">trending_flat</span>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {recentNews.map((news: any) => (
-              <div key={news.id} className="bg-white rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col h-full border border-slate-100">
-                <div className="relative aspect-video overflow-hidden">
-                  <Image
-                    src={news.imageUrl}
-                    alt={news.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    unoptimized
-                  />
-                </div>
-                <div className="p-8 flex flex-col flex-1">
-                  <div className="text-xs font-bold text-secondary uppercase tracking-widest mb-4">
-                    {new Date(news.createdAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
-                  </div>
-                  <h4 className="font-bold text-xl text-primary-container mb-4 line-clamp-2">{news.title}</h4>
-                  <p className="text-on-surface-variant text-sm line-clamp-3 mb-6 flex-1">
-                    {news.content.replace(/<[^>]*>/g, '')}
-                  </p>
-                  <Link href={`/news/${news.id}`} className="text-secondary font-bold text-sm flex items-center gap-2 group/btn">
-                    Baca Selengkapnya
-                    <span className="material-symbols-outlined text-base group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Fasilitas Pendukung Section */}
       <section className="py-24 bg-white">
