@@ -12,13 +12,25 @@ export default function Footer() {
                     <p className="text-slate-400 font-serif text-sm leading-relaxed">
                         Desa Selemak, Kec. Hamparan Perak,<br />
                         Kab. Deli Serdang, Sumatera Utara<br />
-                        Email: info@darulihsan.sch.id
+                        Email: maspmdi@gmail.com
                     </p>
                     <div className="flex gap-4">
-                        <a className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-white hover:bg-secondary transition-colors" href="#">
+                        <a 
+                            className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-white hover:bg-secondary transition-colors" 
+                            href="https://www.tiktok.com/@mas_pmdi"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="TikTok @mas_pmdi"
+                        >
                             <span className="material-symbols-outlined text-lg">social_leaderboard</span>
                         </a>
-                        <a className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-white hover:bg-secondary transition-colors" href="#">
+                        <a 
+                            className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-white hover:bg-secondary transition-colors" 
+                            href="https://www.instagram.com/maspmdi"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Instagram @maspmdi"
+                        >
                             <span className="material-symbols-outlined text-lg">photo_camera</span>
                         </a>
                     </div>
