@@ -81,11 +81,30 @@ export default function FasilitasDanProgram() {
                     <p className="text-on-surface-variant leading-relaxed text-center max-w-3xl mx-auto mb-12 text-lg">
                         Untuk menunjang proses belajar mengajar dan kenyamanan santri, MAS Darul Ihsan dilengkapi dengan:
                     </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
                         {fasilitas.map((item, i) => (
                             <div key={i} className="flex gap-4 p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-xl transition-all duration-300 group">
                                 <span className="material-symbols-outlined text-secondary text-2xl group-hover:scale-110 transition-transform mt-1">check_circle</span>
                                 <span className="font-medium text-on-surface-variant">{item}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Poster Gallery */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {[
+                            { src: "/images/lingkungan-poster.jpg", alt: "Lingkungan Madrasah" },
+                            { src: "/images/fasilitas-poster-2.jpg", alt: "Fasilitas Penunjang Madrasah" },
+                            { src: "/images/mou-poster-1.jpg", alt: "Kerja Sama MOU" },
+                            { src: "/images/mou-poster-2.jpg", alt: "Kerja Sama MOU Lanjutan" }
+                        ].map((img, i) => (
+                            <div key={i} className="relative rounded-[32px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group border-8 border-slate-50">
+                                <img
+                                    src={img.src}
+                                    alt={img.alt}
+                                    className="w-full h-auto group-hover:scale-105 transition-transform duration-700"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-primary-container/20 to-transparent pointer-events-none"></div>
                             </div>
                         ))}
                     </div>
