@@ -144,6 +144,7 @@ export default async function ProfilePage() {
                             className="w-full h-auto"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-primary-container/20 to-transparent pointer-events-none"></div>
+                    </div>
                 </div>
             </section>
 
