@@ -42,9 +42,9 @@ export default async function Home() {
                 Mulai Pendaftaran
                 <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
               </button>
-              <button className="px-8 py-4 bg-white border-2 border-secondary text-secondary rounded-xl font-button hover:bg-secondary-fixed transition-colors">
+              <Link href="/academic" className="px-8 py-4 bg-white border-2 border-secondary text-secondary rounded-xl font-button hover:bg-secondary-fixed transition-colors text-center">
                 Lihat Kurikulum
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -85,6 +85,108 @@ export default async function Home() {
               <p className="italic font-serif">&quot;Adab lebih tinggi dari ilmu. Kami menanamkan akar yang kuat agar dahan masa depan mereka tegak.&quot;</p>
               <p className="mt-4 font-bold text-sm">— KH. Ahmad Mukhtar</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Recent News Section */}
+      <section className="py-24 bg-slate-50">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+            <div>
+              <p className="text-secondary font-bold tracking-widest text-label-caps uppercase mb-2">Update Terbaru</p>
+              <h3 className="font-h2 text-h2">Berita & Informasi</h3>
+            </div>
+            <Link href="/news" className="flex items-center gap-2 text-secondary font-bold hover:underline">
+              Lihat Semua Berita
+              <span className="material-symbols-outlined">trending_flat</span>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {recentNews.map((news: any) => (
+              <div key={news.id} className="bg-white rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col h-full border border-slate-100">
+                <div className="relative aspect-video overflow-hidden">
+                  <Image
+                    src={news.imageUrl}
+                    alt={news.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    unoptimized
+                  />
+                </div>
+                <div className="p-8 flex flex-col flex-1">
+                  <div className="text-xs font-bold text-secondary uppercase tracking-widest mb-4">
+                    {new Date(news.createdAt).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  </div>
+                  <h4 className="font-bold text-xl text-primary-container mb-4 line-clamp-2">{news.title}</h4>
+                  <p className="text-on-surface-variant text-sm line-clamp-3 mb-6 flex-1">
+                    {news.content.replace(/<[^>]*>/g, '')}
+                  </p>
+                  <Link href={`/news/${news.id}`} className="text-secondary font-bold text-sm flex items-center gap-2 group/btn">
+                    Baca Selengkapnya
+                    <span className="material-symbols-outlined text-base group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Fasilitas Pendukung Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <h2 className="font-h2 text-h2 text-primary-container mb-16 text-center">Fasilitas Pendukung</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8">
+              <p className="text-lg text-on-surface-variant leading-relaxed">
+                Untuk menunjang proses belajar mengajar dan kenyamanan santri, MAS Darul Ihsan dilengkapi dengan fasilitas modern yang representatif.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  { name: "Gedung Ruang Kelas", icon: "school" },
+                  { name: "Asrama Putra & Putri", icon: "home" },
+                  { name: "Laboratorium Komputer", icon: "computer" },
+                  { name: "Perpustakaan Lengkap", icon: "library_books" },
+                  { name: "Sarana Olahraga", icon: "sports_soccer" },
+                  { name: "Masjid Pusat Ibadah", icon: "mosque" },
+                  { name: "Unit Kesehatan 24 Jam", icon: "medical_services" },
+                  { name: "Laboratorium Sains", icon: "science" }
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-4 p-5 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-md transition-all group">
+                    <span className="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">{item.icon}</span>
+                    <span className="font-semibold text-on-surface-variant text-sm">{item.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="relative rounded-[40px] overflow-hidden shadow-2xl border-8 border-slate-50 group">
+              <img
+                src="/images/fasilitas-poster.jpg"
+                alt="Fasilitas Penunjang Madrasah"
+                className="w-full h-auto group-hover:scale-105 transition-transform duration-1000"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary-container/20 to-transparent"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Kerja Sama (MOU) Section */}
+      <section className="py-24 bg-surface-container-lowest">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <h2 className="font-h2 text-h2 text-primary-container mb-12 text-center">Kerja Sama (MOU) Dengan Lembaga</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[1, 2, 3].map(i => (
+              <div key={i} className="relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group border-4 border-white">
+                <img
+                  src={`/images/mou-${i}.jpg`}
+                  alt={`Kerja Sama MOU ${i}`}
+                  className="w-full h-auto group-hover:scale-110 transition-transform duration-700"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -144,31 +246,9 @@ export default async function Home() {
                 <p className="text-white font-bold">Eksperimen Sains</p>
               </div>
             </div>
-            <div className="col-span-1 row-span-1 relative group overflow-hidden rounded-2xl">
-              <img
-                alt="Archery"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2OtH6V9IOjYtRcR05mhU6vLlwaZahZxYnQske4FCZb1Y1fWhnB81W2xqSVeZZvSOcoNE_aWRIyOGRwH457RZfVdflzBUv79DTgUtGxBMcTDp4T3047_izBvrGC-Kz_bb3ElDs8nHD03n-C_A1a7lQZCzGHaEIaaYyWYBwdTYcSN_o3YTIYryu8UtLW8u-jD4au8NbTIkK3Y1YKJgiOnb9yJsY2qNo40IgBxE3bjbmEthEgz6LVHw-_q8L62ud9N4VVeo6gcz2ARQ"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
-                <p className="text-white text-sm font-bold">Memanah</p>
-              </div>
-            </div>
-            <div className="col-span-1 row-span-1 relative group overflow-hidden rounded-2xl">
-              <img
-                alt="Robotics"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCawJbTii6bW4yGwTWYjXk-TmfJwyTXqUac5KY_ptNTC7YzioScx4Mt3UrvzIYckUtTUi5Y32nV92uyhBxHZjyoSF0qELXWw6gOK884FcKraOO-1kQkmf8ZAY8LZfVU_Z8-SOZiNWWe2Ft-Ni1xisPBji3mqMQy0o95nNb5wlYNXRnOse8BO_c5GO7DdVQOWcEABuWwnLQ1WH37Q-m4hnao_wMExUGkIioIZ2BiYJ_uWJ-Rbh0K5Tr8YnCanotyThdpFEJs_o5eIm4"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
-                <p className="text-white text-sm font-bold">Robotics</p>
-              </div>
-            </div>
           </div>
         )}
       </section>
-
-
     </main>
   );
 }
