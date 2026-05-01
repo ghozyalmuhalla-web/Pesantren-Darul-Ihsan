@@ -110,7 +110,7 @@ export default async function Home() {
               <div key={news.id} className="bg-white rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col h-full border border-slate-100">
                 <div className="relative aspect-video overflow-hidden">
                   <Image
-                    src={news.imageUrl}
+                    src={news.imageUrl || '/images/hero-main.png'}
                     alt={news.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"

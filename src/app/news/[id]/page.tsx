@@ -28,9 +28,21 @@ export default async function NewsDetail({ params }: { params: Promise<{ id: str
                     <hr className="border-slate-100" />
 
                     <div className="prose prose-slate max-w-none prose-p:text-on-surface-variant prose-p:leading-relaxed prose-p:text-lg">
-                        {news.content.split('\n').map((paragraph: any, index: any) => (
-                            paragraph.trim() && <p key={index} className="mb-6">{paragraph}</p>
-                        ))}
+                        {news.content.split('\n').map((paragraph: string, index: number) => {
+                            const trimmed = paragraph.trim();
+                            if (!trimmed) return null;
+                            if (trimmed.startsWith('IMAGE:')) {
+                                return (
+                                    <img 
+                                        key={index} 
+                                        src={trimmed.substring(6)} 
+                                        alt="Ilustrasi Berita" 
+                                        className="w-full h-auto rounded-2xl shadow-md my-8 border border-slate-100" 
+                                    />
+                                );
+                            }
+                            return <p key={index} className="mb-6">{trimmed}</p>;
+                        })}
                     </div>
                 </article>
 
