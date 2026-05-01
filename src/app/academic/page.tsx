@@ -137,7 +137,7 @@ export default function AcademicPage() {
                 <div className="max-w-[800px] mx-auto bg-primary-container text-white p-16 rounded-[60px] shadow-2xl relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-secondary opacity-10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
                     <h2 className="text-3xl font-bold mb-6">Siap Menjadi Bagian dari Kami?</h2>
-                    <p className="opacity-80 mb-10 text-lg">Pendaftaran Santri Baru (PPDB) Tahun Ajaran 2025/2026 telah dibuka.</p>
+                    <p className="opacity-80 mb-10 text-lg">Pendaftaran Santri Baru (PPDB) Tahun Ajaran 2026/2027 telah dibuka.</p>
                     <a 
                         href="#" 
                         className="inline-block bg-secondary text-primary-container px-10 py-4 rounded-full font-bold hover:bg-white hover:scale-105 transition-all shadow-lg"
