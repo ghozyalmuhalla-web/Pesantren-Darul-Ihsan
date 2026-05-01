@@ -13,6 +13,9 @@ export default async function Home() {
     orderBy: { createdAt: 'desc' }
   });
 
+  const settingsRecords = await prisma.setting.findMany();
+  const settings: Record<string, string> = {};
+  settingsRecords.forEach(s => { settings[s.key] = s.value; });
 
   return (
     <main className="min-h-screen">
@@ -22,21 +25,21 @@ export default async function Home() {
           <img
             alt="Darul Ihsan Campus"
             className="w-full h-full object-cover"
-            src="/images/hero-main.png"
+            src={settings.home_hero_image || "/images/hero-main.png"}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
         </div>
         <div className="relative z-10 max-w-[1280px] mx-auto px-6 w-full py-20">
           <div className="max-w-2xl space-y-stack-lg">
             <div className="flex items-center gap-6 mb-6">
-              <img src="/images/logo-kemenag.jpg" alt="Logo Kemenag Ikhlas Beramal" className="h-20 w-auto object-contain mix-blend-multiply" />
-              <img src="/images/logo-akreditasi.jpg" alt="Logo Terakreditasi A" className="h-20 w-auto object-contain mix-blend-multiply" />
+              <img src={settings.home_logo_kemenag || "/images/logo-kemenag.jpg"} alt="Logo Kemenag Ikhlas Beramal" className="h-20 w-auto object-contain mix-blend-multiply" />
+              <img src={settings.home_logo_akreditasi || "/images/logo-akreditasi.jpg"} alt="Logo Terakreditasi A" className="h-20 w-auto object-contain mix-blend-multiply" />
             </div>
             <h2 className="font-h1 text-h1 text-primary-container leading-[1.1]">
-              Madrasah Aliyah Swasta (MAS) Pesantren Modern Darul Ihsan
+              {settings.home_title || "Madrasah Aliyah Swasta (MAS) Pesantren Modern Darul Ihsan"}
             </h2>
             <p className="font-body-lg text-on-surface-variant leading-relaxed italic">
-              &quot;Membentuk Generasi Qur’ani, Berwawasan Global, dan Berakhlakul Karimah&quot;
+              {settings.home_tagline || "\"Membentuk Generasi Qur’ani, Berwawasan Global, dan Berakhlakul Karimah\""}
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
               <button className="px-8 py-4 bg-secondary text-on-secondary rounded-xl font-button shadow-lg hover:shadow-xl transition-shadow flex items-center gap-2 group">
@@ -58,18 +61,18 @@ export default async function Home() {
           <div className="space-y-stack-md">
             <h3 className="font-h2 text-h2 text-primary-container">Visi & Misi Kami</h3>
             <p className="font-body-md text-on-surface-variant leading-relaxed">
-              MAS Pesantren Modern Darul Ihsan merupakan lembaga pendidikan tingkat menengah atas yang terintegrasi dengan sistem pondok pesantren di Deli Serdang. Kami berkomitmen menyeimbangkan keunggulan akademik dan kedalaman spiritual untuk mencetak santri yang cerdas, tangguh, dan mandiri.
+              {settings.home_about || "MAS Pesantren Modern Darul Ihsan merupakan lembaga pendidikan tingkat menengah atas yang terintegrasi dengan sistem pondok pesantren di Deli Serdang. Kami berkomitmen menyeimbangkan keunggulan akademik dan kedalaman spiritual untuk mencetak santri yang cerdas, tangguh, dan mandiri."}
             </p>
             <div className="grid grid-cols-2 gap-6 pt-6">
               <div className="p-6 bg-white border border-slate-100 rounded-2xl shadow-sm">
                 <p className="text-label-caps text-secondary mb-2 uppercase">Status Akreditasi</p>
-                <p className="font-h3 text-h3 text-on-background">Grade A</p>
-                <p className="text-body-sm text-on-surface-variant">Kemendikbud Ristek</p>
+                <p className="font-h3 text-h3 text-on-background">{settings.home_accreditation_grade || "Grade A"}</p>
+                <p className="text-body-sm text-on-surface-variant">{settings.home_accreditation_inst || "Kemendikbud Ristek"}</p>
               </div>
               <div className="p-6 bg-white border border-slate-100 rounded-2xl shadow-sm">
                 <p className="text-label-caps text-secondary mb-2 uppercase">NPSN</p>
-                <p className="font-h3 text-h3 text-on-background">69981240</p>
-                <p className="text-body-sm text-on-surface-variant">Nasional Terdaftar</p>
+                <p className="font-h3 text-h3 text-on-background">{settings.home_npsn_number || "69981240"}</p>
+                <p className="text-body-sm text-on-surface-variant">{settings.home_npsn_status || "Nasional Terdaftar"}</p>
               </div>
             </div>
           </div>
@@ -78,13 +81,13 @@ export default async function Home() {
               <img
                 alt="Suasana Pesantren"
                 className="w-full h-full object-cover"
-                src="/images/pesantren-vibe.png"
+                src={settings.home_about_image || "/images/pesantren-vibe.png"}
               />
             </div>
             <div className="absolute -bottom-6 -left-6 p-8 bg-primary-container text-white rounded-3xl shadow-xl max-w-xs -rotate-3">
               <span className="material-symbols-outlined text-4xl text-tertiary-fixed-dim mb-4">format_quote</span>
-              <p className="italic font-serif">&quot;Adab lebih tinggi dari ilmu. Kami menanamkan akar yang kuat agar dahan masa depan mereka tegak.&quot;</p>
-              <p className="mt-4 font-bold text-sm">— KH. Ahmad Mukhtar</p>
+              <p className="italic font-serif">{settings.home_quote || "\"Adab lebih tinggi dari ilmu. Kami menanamkan akar yang kuat agar dahan masa depan mereka tegak.\""}</p>
+              <p className="mt-4 font-bold text-sm">{settings.home_quote_author || "— KH. Ahmad Mukhtar"}</p>
             </div>
           </div>
         </div>

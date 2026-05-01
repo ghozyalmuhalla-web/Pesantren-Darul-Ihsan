@@ -8,6 +8,7 @@ const navItems = [
     { label: "User", href: "/admin/users", icon: "group" },
     { label: "Berita", href: "/admin/news", icon: "newspaper" },
     { label: "Galeri", href: "/admin/gallery", icon: "photo_library" },
+    { label: "Pengaturan Web", href: "/admin/settings", icon: "settings" },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
