@@ -36,20 +36,25 @@ export default function Footer() {
                     </div>
                 </div>
                 <div className="space-y-6">
-                    <h5 className="text-white font-bold uppercase text-xs tracking-[0.2em]">Quick Links</h5>
-                    <div className="flex flex-col gap-3">
-                        <a className="text-slate-400 font-serif text-sm hover:text-white transition-colors underline" href="#">Academic Calendar</a>
-                        <a className="text-slate-400 font-serif text-sm hover:text-white transition-colors underline" href="#">Privacy Policy</a>
-                        <a className="text-slate-400 font-serif text-sm hover:text-white transition-colors underline" href="#">Alumni Portal</a>
-                        <a className="text-slate-400 font-serif text-sm hover:text-white transition-colors underline" href="#">Support Us</a>
+                    <h5 className="text-white font-bold uppercase text-xs tracking-[0.2em]">Media Sosial</h5>
+                    <div className="flex flex-col gap-4">
+                        <a className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors" href="https://www.instagram.com/maspmdi" target="_blank" rel="noopener noreferrer">
+                            <span className="material-symbols-outlined text-xl text-secondary">photo_camera</span>
+                            <span className="text-sm font-serif">IG: @maspmdi</span>
+                        </a>
+                        <a className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors" href="https://www.tiktok.com/@mas_pmdi" target="_blank" rel="noopener noreferrer">
+                            <span className="material-symbols-outlined text-xl text-secondary">social_leaderboard</span>
+                            <span className="text-sm font-serif">Tiktok: mas_pmdi</span>
+                        </a>
                     </div>
                 </div>
                 <div className="space-y-6">
-                    <h5 className="text-white font-bold uppercase text-xs tracking-[0.2em]">Newsletter</h5>
-                    <p className="text-slate-400 font-serif text-sm">Dapatkan update terbaru seputar pendaftaran dan kegiatan santri.</p>
-                    <div className="flex gap-2">
-                        <input className="bg-slate-800 border-none rounded-lg text-white px-4 py-2 w-full focus:ring-2 focus:ring-secondary" placeholder="Email Anda" type="email" />
-                        <button className="bg-amber-500 text-slate-900 px-4 py-2 rounded-lg font-bold">Gabung</button>
+                    <h5 className="text-white font-bold uppercase text-xs tracking-[0.2em]">Hubungi Kami</h5>
+                    <div className="flex flex-col gap-4">
+                        <a className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors" href="mailto:maspmdi@gmail.com">
+                            <span className="material-symbols-outlined text-xl text-secondary">mail</span>
+                            <span className="text-sm font-serif">Email: maspmdi@gmail.com</span>
+                        </a>
                     </div>
                 </div>
             </div>
