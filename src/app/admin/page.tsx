@@ -4,8 +4,10 @@ import prisma from "@/lib/prisma";
 export default async function AdminDashboard() {
     const newsCount = await prisma.news.count();
     const galleryCount = await prisma.gallery.count();
+    const userCount = await prisma.user.count();
 
     const stats = [
+        { label: "Total User", value: userCount, icon: "group", href: "/admin/users", color: "text-blue-600" },
         { label: "Total Berita", value: newsCount, icon: "newspaper", href: "/admin/news", color: "text-secondary" },
         { label: "Total Galeri", value: galleryCount, icon: "photo_library", href: "/admin/gallery", color: "text-tertiary-fixed-dim" },
     ];

@@ -5,6 +5,7 @@ import { logout } from "@/app/actions/auth";
 
 const navItems = [
     { label: "Dashboard", href: "/admin", icon: "dashboard" },
+    { label: "User", href: "/admin/users", icon: "group" },
     { label: "Berita", href: "/admin/news", icon: "newspaper" },
     { label: "Galeri", href: "/admin/gallery", icon: "photo_library" },
 ];
