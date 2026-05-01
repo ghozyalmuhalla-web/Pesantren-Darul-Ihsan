@@ -10,6 +10,8 @@ export default function Navigation() {
     const links = [
         { name: "Home", href: "/", icon: "home" },
         { name: "Academic", href: "/academic", icon: "school" },
+        { name: "Fasilitas", href: "/fasilitas", icon: "business" },
+        { name: "News", href: "/news", icon: "newspaper" },
         { name: "Profile", href: "/profile", icon: "person" },
     ];
 
