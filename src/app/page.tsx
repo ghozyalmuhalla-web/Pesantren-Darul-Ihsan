@@ -27,9 +27,9 @@ export default async function Home() {
         </div>
         <div className="relative z-10 max-w-[1280px] mx-auto px-6 w-full py-20">
           <div className="max-w-2xl space-y-stack-lg">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full text-label-caps uppercase tracking-widest">
-              <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-              Akreditasi A
+            <div className="flex items-center gap-6 mb-6">
+              <img src="/images/logo-kemenag.jpg" alt="Logo Kemenag Ikhlas Beramal" className="h-20 w-auto object-contain mix-blend-multiply" />
+              <img src="/images/logo-akreditasi.jpg" alt="Logo Terakreditasi A" className="h-20 w-auto object-contain mix-blend-multiply" />
             </div>
             <h2 className="font-h1 text-h1 text-primary-container leading-[1.1]">
               Madrasah Aliyah Swasta (MAS) Pesantren Modern Darul Ihsan
