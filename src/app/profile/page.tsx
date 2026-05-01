@@ -148,6 +148,62 @@ export default async function ProfilePage() {
                 </div>
             </section>
 
+            {/* Fasilitas Pendukung */}
+            <section className="py-24 bg-slate-50">
+                <div className="max-w-[1200px] mx-auto px-6">
+                    <h2 className="font-h2 text-h2 text-primary-container mb-12 text-center">Fasilitas Pendukung</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-16">
+                        <div className="space-y-6">
+                            <p className="text-on-surface-variant leading-relaxed">
+                                Untuk menunjang proses belajar mengajar dan kenyamanan santri, MAS Darul Ihsan dilengkapi dengan:
+                            </p>
+                            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {[
+                                    "Gedung Ruang Kelas representatif",
+                                    "Asrama Putra & Putri nyaman",
+                                    "Laboratorium Komputer digital",
+                                    "Perpustakaan Lengkap",
+                                    "Sarana Olahraga & Aula",
+                                    "Masjid Pusat Ibadah",
+                                    "Unit Kesehatan 24 Jam",
+                                    "Laboratorium Sains (Kimia, Biologi, Fisika)"
+                                ].map((item, i) => (
+                                    <li key={i} className="flex gap-3 text-sm text-on-surface-variant items-center bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+                                        <span className="material-symbols-outlined text-secondary text-base">check_circle</span>
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div className="relative rounded-[40px] overflow-hidden shadow-2xl border-8 border-white">
+                            <img
+                                src="/images/fasilitas-poster.jpg"
+                                alt="Fasilitas Penunjang Madrasah"
+                                className="w-full h-auto"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Kerja Sama (MOU) */}
+            <section className="py-24 bg-white">
+                <div className="max-w-[1200px] mx-auto px-6">
+                    <h2 className="font-h2 text-h2 text-primary-container mb-12 text-center">Kerja Sama (MOU) Dengan Lembaga</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {[1, 2, 3].map(i => (
+                            <div key={i} className="relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
+                                <img
+                                    src={`/images/mou-${i}.jpg`}
+                                    alt={`Kerja Sama MOU ${i}`}
+                                    className="w-full h-auto"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* Faculty / Asatidz */}
             <section className="py-24 max-w-[1200px] mx-auto px-6 text-center">
                 <h2 className="font-h2 text-h2 text-primary-container mb-12">Dewan Asatidz</h2>
