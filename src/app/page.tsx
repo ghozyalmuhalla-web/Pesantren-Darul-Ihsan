@@ -14,8 +14,23 @@ export default async function Home() {
   });
 
   const settingsRecords = await prisma.setting.findMany();
-  const settings: Record<string, string> = {};
-  settingsRecords.forEach(s => { settings[s.key] = s.value; });
+  const s: Record<string, string> = {};
+  settingsRecords.forEach(rec => { s[rec.key] = rec.value; });
+
+  // Fasilitas list from comma-separated setting
+  const fasilitasList = (s.home_fasilitas_list || "Gedung Ruang Kelas,Asrama Putra & Putri,Laboratorium Komputer,Perpustakaan Lengkap,Sarana Olahraga,Masjid Pusat Ibadah,Unit Kesehatan 24 Jam,Laboratorium Sains")
+    .split(',').map(f => f.trim()).filter(Boolean);
+
+  const fasilitasIcons: Record<string, string> = {
+    "Gedung Ruang Kelas": "school",
+    "Asrama Putra & Putri": "home",
+    "Laboratorium Komputer": "computer",
+    "Perpustakaan Lengkap": "library_books",
+    "Sarana Olahraga": "sports_soccer",
+    "Masjid Pusat Ibadah": "mosque",
+    "Unit Kesehatan 24 Jam": "medical_services",
+    "Laboratorium Sains": "science",
+  };
 
   return (
     <main className="min-h-screen">
@@ -25,54 +40,54 @@ export default async function Home() {
           <img
             alt="Darul Ihsan Campus"
             className="w-full h-full object-cover"
-            src={settings.home_hero_image || "/images/hero-main.png"}
+            src={s.home_hero_image || "/images/hero-main.png"}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
         </div>
         <div className="relative z-10 max-w-[1280px] mx-auto px-6 w-full py-20">
           <div className="max-w-2xl space-y-stack-lg">
             <div className="flex items-center gap-6 mb-6">
-              <img src={settings.home_logo_kemenag || "/images/logo-kemenag.jpg"} alt="Logo Kemenag Ikhlas Beramal" className="h-20 w-auto object-contain mix-blend-multiply" />
-              <img src={settings.home_logo_akreditasi || "/images/logo-akreditasi.jpg"} alt="Logo Terakreditasi A" className="h-20 w-auto object-contain mix-blend-multiply" />
+              <img src={s.home_logo_kemenag || "/images/logo-kemenag.jpg"} alt="Logo Kemenag Ikhlas Beramal" className="h-20 w-auto object-contain mix-blend-multiply" />
+              <img src={s.home_logo_akreditasi || "/images/logo-akreditasi.jpg"} alt="Logo Terakreditasi A" className="h-20 w-auto object-contain mix-blend-multiply" />
             </div>
             <h2 className="font-h1 text-h1 text-primary-container leading-[1.1]">
-              {settings.home_title || "Madrasah Aliyah Swasta (MAS) Pesantren Modern Darul Ihsan"}
+              {s.home_title || "Madrasah Aliyah Swasta (MAS) Pesantren Modern Darul Ihsan"}
             </h2>
             <p className="font-body-lg text-on-surface-variant leading-relaxed italic">
-              {settings.home_tagline || "\"Membentuk Generasi Qur’ani, Berwawasan Global, dan Berakhlakul Karimah\""}
+              {s.home_tagline || "\"Membentuk Generasi Qur'ani, Berwawasan Global, dan Berakhlakul Karimah\""}
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
-              <button className="px-8 py-4 bg-secondary text-on-secondary rounded-xl font-button shadow-lg hover:shadow-xl transition-shadow flex items-center gap-2 group">
-                Mulai Pendaftaran
+              <a href={s.home_btn_ppdb_url || "#"} className="px-8 py-4 bg-secondary text-on-secondary rounded-xl font-button shadow-lg hover:shadow-xl transition-shadow flex items-center gap-2 group">
+                {s.home_btn_ppdb_text || "Mulai Pendaftaran"}
                 <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
-              </button>
+              </a>
               <Link href="/academic" className="px-8 py-4 bg-white border-2 border-secondary text-secondary rounded-xl font-button hover:bg-secondary-fixed transition-colors text-center">
-                Lihat Kurikulum
+                {s.home_btn_curriculum_text || "Lihat Kurikulum"}
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Profile Section */}
+      {/* Profile / Visi Misi Section */}
       <section className="section-gap bg-surface-container-lowest relative overflow-hidden">
         <div className="geometric-pattern absolute inset-0 opacity-40"></div>
         <div className="max-w-[1280px] mx-auto px-6 grid md:grid-cols-2 gap-16 items-center relative z-10">
           <div className="space-y-stack-md">
-            <h3 className="font-h2 text-h2 text-primary-container">Visi & Misi Kami</h3>
+            <h3 className="font-h2 text-h2 text-primary-container">{s.home_visi_heading || "Visi & Misi Kami"}</h3>
             <p className="font-body-md text-on-surface-variant leading-relaxed">
-              {settings.home_about || "MAS Pesantren Modern Darul Ihsan merupakan lembaga pendidikan tingkat menengah atas yang terintegrasi dengan sistem pondok pesantren di Deli Serdang. Kami berkomitmen menyeimbangkan keunggulan akademik dan kedalaman spiritual untuk mencetak santri yang cerdas, tangguh, dan mandiri."}
+              {s.home_about || "MAS Pesantren Modern Darul Ihsan merupakan lembaga pendidikan tingkat menengah atas yang terintegrasi dengan sistem pondok pesantren di Deli Serdang. Kami berkomitmen menyeimbangkan keunggulan akademik dan kedalaman spiritual untuk mencetak santri yang cerdas, tangguh, dan mandiri."}
             </p>
             <div className="grid grid-cols-2 gap-6 pt-6">
               <div className="p-6 bg-white border border-slate-100 rounded-2xl shadow-sm">
-                <p className="text-label-caps text-secondary mb-2 uppercase">Status Akreditasi</p>
-                <p className="font-h3 text-h3 text-on-background">{settings.home_accreditation_grade || "Grade A"}</p>
-                <p className="text-body-sm text-on-surface-variant">{settings.home_accreditation_inst || "Kemendikbud Ristek"}</p>
+                <p className="text-label-caps text-secondary mb-2 uppercase">{s.home_accreditation_label || "Status Akreditasi"}</p>
+                <p className="font-h3 text-h3 text-on-background">{s.home_accreditation_grade || "Grade A"}</p>
+                <p className="text-body-sm text-on-surface-variant">{s.home_accreditation_inst || "Kemendikbud Ristek"}</p>
               </div>
               <div className="p-6 bg-white border border-slate-100 rounded-2xl shadow-sm">
-                <p className="text-label-caps text-secondary mb-2 uppercase">NPSN</p>
-                <p className="font-h3 text-h3 text-on-background">{settings.home_npsn_number || "69981240"}</p>
-                <p className="text-body-sm text-on-surface-variant">{settings.home_npsn_status || "Nasional Terdaftar"}</p>
+                <p className="text-label-caps text-secondary mb-2 uppercase">{s.home_npsn_label || "NPSN"}</p>
+                <p className="font-h3 text-h3 text-on-background">{s.home_npsn_number || "69981240"}</p>
+                <p className="text-body-sm text-on-surface-variant">{s.home_npsn_status || "Nasional Terdaftar"}</p>
               </div>
             </div>
           </div>
@@ -81,29 +96,28 @@ export default async function Home() {
               <img
                 alt="Suasana Pesantren"
                 className="w-full h-full object-cover"
-                src={settings.home_about_image || "/images/pesantren-vibe.png"}
+                src={s.home_about_image || "/images/pesantren-vibe.png"}
               />
             </div>
             <div className="absolute -bottom-6 -left-6 p-8 bg-primary-container text-white rounded-3xl shadow-xl max-w-xs -rotate-3">
               <span className="material-symbols-outlined text-4xl text-tertiary-fixed-dim mb-4">format_quote</span>
-              <p className="italic font-serif">{settings.home_quote || "\"Adab lebih tinggi dari ilmu. Kami menanamkan akar yang kuat agar dahan masa depan mereka tegak.\""}</p>
-              <p className="mt-4 font-bold text-sm">{settings.home_quote_author || "— KH. Ahmad Mukhtar"}</p>
+              <p className="italic font-serif">{s.home_quote || "\"Adab lebih tinggi dari ilmu. Kami menanamkan akar yang kuat agar dahan masa depan mereka tegak.\""}</p>
+              <p className="mt-4 font-bold text-sm">{s.home_quote_author || "— KH. Ahmad Mukhtar"}</p>
             </div>
           </div>
         </div>
       </section>
-
 
       {/* Recent News Section */}
       <section className="py-24 bg-slate-50">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
             <div>
-              <p className="text-secondary font-bold tracking-widest text-label-caps uppercase mb-2">Update Terbaru</p>
-              <h3 className="font-h2 text-h2">Berita & Informasi</h3>
+              <p className="text-secondary font-bold tracking-widest text-label-caps uppercase mb-2">{s.home_news_eyebrow || "Update Terbaru"}</p>
+              <h3 className="font-h2 text-h2">{s.home_news_heading || "Berita & Informasi"}</h3>
             </div>
             <Link href="/news" className="flex items-center gap-2 text-secondary font-bold hover:underline">
-              Lihat Semua Berita
+              {s.home_news_link_text || "Lihat Semua Berita"}
               <span className="material-symbols-outlined">trending_flat</span>
             </Link>
           </div>
@@ -142,33 +156,26 @@ export default async function Home() {
       {/* Fasilitas Pendukung Section */}
       <section className="py-24 bg-white">
         <div className="max-w-[1280px] mx-auto px-6">
-          <h2 className="font-h2 text-h2 text-primary-container mb-16 text-center">Fasilitas Pendukung</h2>
+          <h2 className="font-h2 text-h2 text-primary-container mb-16 text-center">{s.home_fasilitas_heading || "Fasilitas Pendukung"}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
               <p className="text-lg text-on-surface-variant leading-relaxed">
-                Untuk menunjang proses belajar mengajar dan kenyamanan santri, MAS Darul Ihsan dilengkapi dengan fasilitas modern yang representatif.
+                {s.home_fasilitas_desc || "Untuk menunjang proses belajar mengajar dan kenyamanan santri, MAS Darul Ihsan dilengkapi dengan fasilitas modern yang representatif."}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {[
-                  { name: "Gedung Ruang Kelas", icon: "school" },
-                  { name: "Asrama Putra & Putri", icon: "home" },
-                  { name: "Laboratorium Komputer", icon: "computer" },
-                  { name: "Perpustakaan Lengkap", icon: "library_books" },
-                  { name: "Sarana Olahraga", icon: "sports_soccer" },
-                  { name: "Masjid Pusat Ibadah", icon: "mosque" },
-                  { name: "Unit Kesehatan 24 Jam", icon: "medical_services" },
-                  { name: "Laboratorium Sains", icon: "science" }
-                ].map((item, i) => (
+                {fasilitasList.map((item, i) => (
                   <div key={i} className="flex gap-4 p-5 bg-slate-50 rounded-2xl border border-slate-100 hover:bg-white hover:shadow-md transition-all group">
-                    <span className="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">{item.icon}</span>
-                    <span className="font-semibold text-on-surface-variant text-sm">{item.name}</span>
+                    <span className="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">
+                      {fasilitasIcons[item] || "check_circle"}
+                    </span>
+                    <span className="font-semibold text-on-surface-variant text-sm">{item}</span>
                   </div>
                 ))}
               </div>
             </div>
             <div className="relative rounded-[40px] overflow-hidden shadow-2xl border-8 border-slate-50 group">
               <img
-                src="/images/fasilitas-poster.jpg"
+                src={s.home_fasilitas_image || "/images/fasilitas-poster.jpg"}
                 alt="Fasilitas Penunjang Madrasah"
                 className="w-full h-auto group-hover:scale-105 transition-transform duration-1000"
               />
@@ -181,13 +188,17 @@ export default async function Home() {
       {/* Kerja Sama (MOU) Section */}
       <section className="py-24 bg-surface-container-lowest">
         <div className="max-w-[1280px] mx-auto px-6">
-          <h2 className="font-h2 text-h2 text-primary-container mb-12 text-center">Kerja Sama (MOU) Dengan Lembaga</h2>
+          <h2 className="font-h2 text-h2 text-primary-container mb-12 text-center">{s.home_mou_heading || "Kerja Sama (MOU) Dengan Lembaga"}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[1, 2, 3].map(i => (
+            {[
+              s.home_mou_image_1 || "/images/mou-1.jpg",
+              s.home_mou_image_2 || "/images/mou-2.jpg",
+              s.home_mou_image_3 || "/images/mou-3.jpg",
+            ].map((src, i) => (
               <div key={i} className="relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group border-4 border-white">
                 <img
-                  src={`/images/mou-${i}.jpg`}
-                  alt={`Kerja Sama MOU ${i}`}
+                  src={src}
+                  alt={`Kerja Sama MOU ${i + 1}`}
                   className="w-full h-auto group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
@@ -200,11 +211,11 @@ export default async function Home() {
       <section className="py-section-gap max-w-[1280px] mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
           <div>
-            <p className="text-secondary font-bold tracking-widest text-label-caps uppercase mb-2">Life at Darul Ihsan</p>
-            <h3 className="font-h2 text-h2">Galeri Aktivitas Santri</h3>
+            <p className="text-secondary font-bold tracking-widest text-label-caps uppercase mb-2">{s.home_gallery_eyebrow || "Life at Darul Ihsan"}</p>
+            <h3 className="font-h2 text-h2">{s.home_gallery_heading || "Galeri Aktivitas Santri"}</h3>
           </div>
           <Link href="/gallery" className="flex items-center gap-2 text-secondary font-bold hover:underline">
-            Lihat Selengkapnya
+            {s.home_gallery_link_text || "Lihat Selengkapnya"}
             <span className="material-symbols-outlined">trending_flat</span>
           </Link>
         </div>
