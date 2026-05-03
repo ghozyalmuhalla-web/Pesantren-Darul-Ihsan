@@ -33,6 +33,10 @@ export async function createNews(prevState: any, formData: FormData) {
     const file = formData.get("image") as File;
     const imageUrl = await saveFile(file);
 
+    if (file && file.size > 0 && !imageUrl) {
+        return { error: "Gagal mengunggah gambar berita. Pastikan 'SUPABASE_SERVICE_ROLE_KEY' sudah benar di Vercel." };
+    }
+
     try {
         await prisma.news.create({ 
             data: { 
@@ -77,6 +81,10 @@ export async function updateNews(prevState: any, formData: FormData) {
     const file = formData.get("image") as File;
     const newImageUrl = await saveFile(file);
 
+    if (file && file.size > 0 && !newImageUrl) {
+        return { error: "Gagal mengunggah gambar baru. Periksa konfigurasi Supabase Anda." };
+    }
+
     const dataToUpdate: any = {
         title, slug, lead, content, excerpt, 
         imageCaption, imageAlt, 
@@ -118,7 +126,7 @@ export async function createGallery(prevState: any, formData: FormData) {
 
     const file = formData.get("image") as File;
     const imageUrl = await saveFile(file);
-    if (!imageUrl) return { error: "Gambar wajib diunggah." };
+    if (!imageUrl) return { error: "Gagal mengunggah gambar. Pastikan 'SUPABASE_SERVICE_ROLE_KEY' sudah benar di Vercel." };
 
     try {
         await prisma.gallery.create({ 

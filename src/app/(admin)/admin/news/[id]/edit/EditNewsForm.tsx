@@ -33,7 +33,7 @@ export default function EditNewsForm({ news }: { news: News }) {
                 </div>
             )}
 
-            <form action={formAction} className="flex flex-col lg:flex-row gap-6">
+            <form action={formAction} encType="multipart/form-data" className="flex flex-col lg:flex-row gap-6">
                 <input type="hidden" name="id" value={news.id} />
                 
                 {/* Main Content Area */}

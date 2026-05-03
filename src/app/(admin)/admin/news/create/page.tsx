@@ -26,7 +26,7 @@ export default function CreateNewsPage() {
                 </div>
             )}
 
-            <form action={formAction} className="flex flex-col lg:flex-row gap-6">
+            <form action={formAction} encType="multipart/form-data" className="flex flex-col lg:flex-row gap-6">
                 
                 {/* Main Content Area */}
                 <div className="flex-1 space-y-6">

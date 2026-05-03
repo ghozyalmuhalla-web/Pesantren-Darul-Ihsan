@@ -35,7 +35,7 @@ export default function CreateGalleryPage() {
 
             <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 items-start">
                 <div className="xl:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
-                    <form action={formAction} className="space-y-6">
+                    <form action={formAction} encType="multipart/form-data" className="space-y-6">
                         {state?.error && (
                             <div className="bg-error-container text-on-error-container px-4 py-3 rounded-xl text-sm font-medium">
                                 {state.error}

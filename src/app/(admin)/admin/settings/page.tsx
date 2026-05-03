@@ -153,7 +153,7 @@ export default function SettingsPage() {
                 ))}
             </div>
 
-            <form action={formAction} className="space-y-10">
+            <form action={formAction} encType="multipart/form-data" className="space-y-10">
                 {/* ── TAB HOME ── */}
                 <div className={`space-y-8 animate-fade-in ${tab === 0 ? "block" : "hidden"}`}>
                     <Card title="🖼️ Hero Experience">
