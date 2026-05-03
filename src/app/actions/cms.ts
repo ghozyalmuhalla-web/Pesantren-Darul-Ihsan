@@ -4,6 +4,8 @@ import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { saveFile } from "@/lib/storage";
+import { getSession } from "@/lib/auth";
+import bcrypt from "bcryptjs";
 
 export async function createNews(prevState: any, formData: FormData) {
     const title = formData.get("title") as string;
@@ -167,8 +169,6 @@ export async function deleteGallery(id: string) {
     revalidatePath("/admin/gallery");
 }
 
-import bcrypt from "bcryptjs";
-
 export async function createUser(prevState: any, formData: FormData) {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
@@ -226,7 +226,19 @@ export async function submitPendaftaran(prevState: any, formData: FormData) {
             }
         });
         revalidatePath("/admin/pendaftaran");
-        return { success: "Pendaftaran berhasil dikirim! Panitia akan menghubungi Anda melalui WhatsApp." };
+        
+        // Build WA notification link for admin
+        const adminWaSetting = await prisma.setting.findUnique({ where: { key: 'ppdb_wa_number' } });
+        const adminWa = adminWaSetting?.value || '6281234567890';
+        const waMessage = encodeURIComponent(
+            `*[PPDB BARU]* Pendaftaran masuk!\n\nNama: ${namaLengkap}\nAsal Sekolah: ${asalSekolah}\nWA Ortu: ${nomorWhatsapp}\n\nSegera cek dashboard: /admin/pendaftaran`
+        );
+        const waLink = `https://wa.me/${adminWa}?text=${waMessage}`;
+        
+        return { 
+            success: "Pendaftaran berhasil dikirim! Panitia akan menghubungi Anda melalui WhatsApp.",
+            waLink 
+        };
     } catch (e) {
         console.error(e);
         return { error: "Gagal mengirim pendaftaran. Silakan coba lagi." };
@@ -254,4 +266,28 @@ export async function deletePendaftaran(id: string) {
     } catch (e) {
         return { error: "Gagal menghapus pendaftaran." };
     }
+}
+
+export async function changePassword(prevState: any, formData: FormData) {
+    const session = await getSession();
+    if (!session?.userId) return { error: "Sesi tidak valid." };
+
+    const currentPassword = formData.get("currentPassword") as string;
+    const newPassword = formData.get("newPassword") as string;
+    const confirmPassword = formData.get("confirmPassword") as string;
+
+    if (!currentPassword || !newPassword || !confirmPassword) return { error: "Semua field wajib diisi." };
+    if (newPassword.length < 6) return { error: "Password baru minimal 6 karakter." };
+    if (newPassword !== confirmPassword) return { error: "Konfirmasi password tidak cocok." };
+
+    const user = await prisma.user.findUnique({ where: { id: session.userId as string } });
+    if (!user) return { error: "User tidak ditemukan." };
+
+    const match = await bcrypt.compare(currentPassword, user.password);
+    if (!match) return { error: "Password lama salah." };
+
+    const hashed = await bcrypt.hash(newPassword, 10);
+    await prisma.user.update({ where: { id: user.id }, data: { password: hashed } });
+
+    return { success: "Password berhasil diperbarui!" };
 }
