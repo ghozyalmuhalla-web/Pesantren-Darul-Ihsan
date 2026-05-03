@@ -29,7 +29,7 @@ export async function saveFile(file: File | null): Promise<{ success: boolean; u
                 .toBuffer();
             
             if (processed) {
-                buffer = processed;
+                buffer = Buffer.from(processed);
                 contentType = "image/webp";
                 finalFilename = finalFilename.replace(/\.[^/.]+$/, "") + ".webp";
             }
