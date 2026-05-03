@@ -11,7 +11,7 @@ export default async function Home() {
   });
 
   const recentNews = await prisma.news.findMany({
-    take: 3,
+    take: 6,
     orderBy: { createdAt: 'desc' }
   });
 
