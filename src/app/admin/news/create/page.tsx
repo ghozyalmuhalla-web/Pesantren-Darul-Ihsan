@@ -1,13 +1,12 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState } from "react";
 import { createNews } from "@/app/actions/cms";
 import Link from "next/link";
 import RichTextEditor from "@/components/RichTextEditor";
 
 export default function CreateNewsPage() {
     const [state, formAction, pending] = useActionState(createNews, null);
-    const [activeTab, setActiveTab] = useState("content"); // content, seo, media, publish
 
     return (
         <div className="space-y-6 pb-24">
@@ -31,32 +30,15 @@ export default function CreateNewsPage() {
                 
                 {/* Main Content Area */}
                 <div className="flex-1 space-y-6">
-                    {/* Tabs Navigation */}
-                    <div className="flex bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
-                        {[
-                            { id: "content", label: "Konten & Teks", icon: "edit_document" },
-                            { id: "media", label: "Media & Foto", icon: "perm_media" },
-                            { id: "seo", label: "SEO & Meta", icon: "travel_explore" }
-                        ].map(tab => (
-                            <button
-                                key={tab.id}
-                                type="button"
-                                onClick={() => setActiveTab(tab.id)}
-                                className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-bold transition-colors ${
-                                    activeTab === tab.id 
-                                    ? "bg-secondary text-white" 
-                                    : "bg-white text-on-surface-variant hover:bg-slate-50 border-r last:border-r-0 border-slate-200"
-                                }`}
-                            >
-                                <span className="material-symbols-outlined text-[18px]">{tab.icon}</span>
-                                {tab.label}
-                            </button>
-                        ))}
-                    </div>
+                    {/* Form Sections */}
 
                     <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 space-y-6">
-                        {/* TAB: CONTENT */}
-                        <div className={activeTab === "content" ? "block" : "hidden"}>
+                        {/* SECTION: CONTENT */}
+                        <div className="space-y-6">
+                            <h3 className="font-bold border-b border-slate-100 pb-2 text-primary-container flex items-center gap-2">
+                                <span className="material-symbols-outlined text-[18px]">edit_document</span>
+                                Konten & Teks
+                            </h3>
                             <div className="space-y-6">
                                 <div>
                                     <label className="block text-sm font-bold text-primary-container mb-2">Judul Utama Berita (Headline) <span className="text-red-500">*</span></label>
@@ -81,9 +63,12 @@ export default function CreateNewsPage() {
                                 </div>
                             </div>
                         </div>
-
-                        {/* TAB: MEDIA */}
-                        <div className={activeTab === "media" ? "block" : "hidden"}>
+                        {/* SECTION: MEDIA */}
+                        <div className="space-y-6 pt-6 border-t border-slate-100">
+                            <h3 className="font-bold border-b border-slate-100 pb-2 text-primary-container flex items-center gap-2">
+                                <span className="material-symbols-outlined text-[18px]">perm_media</span>
+                                Media & Foto
+                            </h3>
                             <div className="space-y-6">
                                 <div>
                                     <label className="block text-sm font-bold text-primary-container mb-2">Gambar Utama (Thumbnail)</label>
@@ -102,9 +87,12 @@ export default function CreateNewsPage() {
                                 </div>
                             </div>
                         </div>
-
-                        {/* TAB: SEO & META */}
-                        <div className={activeTab === "seo" ? "block" : "hidden"}>
+                        {/* SECTION: SEO & META */}
+                        <div className="space-y-6 pt-6 border-t border-slate-100">
+                            <h3 className="font-bold border-b border-slate-100 pb-2 text-primary-container flex items-center gap-2">
+                                <span className="material-symbols-outlined text-[18px]">travel_explore</span>
+                                SEO & Meta
+                            </h3>
                             <div className="space-y-6">
                                 <div>
                                     <label className="block text-sm font-bold text-primary-container mb-2">Judul SEO (Meta Title)</label>

@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
+import Carousel from "@/components/Carousel";
 import Image from "next/image";
 
 export default async function Home() {
@@ -22,28 +23,26 @@ export default async function Home() {
     .split(',').map(f => f.trim()).filter(Boolean);
 
   const fasilitasIcons: Record<string, string> = {
-    "Gedung Ruang Kelas": "school",
-    "Asrama Putra & Putri": "home",
+    "Gedung Ruang Kelas": "domain",
+    "Asrama Putra & Putri": "hotel",
     "Laboratorium Komputer": "computer",
     "Perpustakaan Lengkap": "library_books",
     "Sarana Olahraga": "sports_soccer",
     "Masjid Pusat Ibadah": "mosque",
     "Unit Kesehatan 24 Jam": "medical_services",
-    "Laboratorium Sains": "science",
+    "Laboratorium Sains": "biotech",
   };
 
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
       <section className="relative min-h-[751px] flex items-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img
-            alt="Darul Ihsan Campus"
-            className="w-full h-full object-cover"
-            src={s.home_hero_image || "/images/hero-main.png"}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
-        </div>
+        <Carousel 
+          images={s.home_hero_image || "/images/hero-main.png"} 
+          className="absolute inset-0 z-0"
+          brightness={parseInt(s.home_hero_brightness || "100")}
+          overlayOpacity={parseInt(s.home_hero_overlay_opacity || "90")}
+        />
         <div className="relative z-10 max-w-[1280px] mx-auto px-6 w-full py-20">
           <div className="max-w-2xl space-y-stack-lg">
             <div className="flex items-center gap-6 mb-6">
@@ -57,10 +56,10 @@ export default async function Home() {
               {s.home_tagline || "\"Membentuk Generasi Qur'ani, Berwawasan Global, dan Berakhlakul Karimah\""}
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
-              <a href={s.home_btn_ppdb_url || "#"} className="px-8 py-4 bg-secondary text-on-secondary rounded-xl font-button shadow-lg hover:shadow-xl transition-shadow flex items-center gap-2 group">
+              <Link href={s.home_btn_ppdb_url || "/ppdb"} className="px-8 py-4 bg-secondary text-on-secondary rounded-xl font-button shadow-lg hover:shadow-xl transition-shadow flex items-center gap-2 group">
                 {s.home_btn_ppdb_text || "Mulai Pendaftaran"}
                 <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
-              </a>
+              </Link>
               <Link href="/academic" className="px-8 py-4 bg-white border-2 border-secondary text-secondary rounded-xl font-button hover:bg-secondary-fixed transition-colors text-center">
                 {s.home_btn_curriculum_text || "Lihat Kurikulum"}
               </Link>
@@ -70,7 +69,7 @@ export default async function Home() {
       </section>
 
       {/* Profile / Visi Misi Section */}
-      <section className="section-gap bg-surface-container-lowest relative overflow-hidden">
+      <section className="py-32 bg-surface-container-lowest relative overflow-visible">
         <div className="geometric-pattern absolute inset-0 opacity-40"></div>
         <div className="max-w-[1280px] mx-auto px-6 grid md:grid-cols-2 gap-16 items-center relative z-10">
           <div className="space-y-stack-md">
@@ -92,14 +91,15 @@ export default async function Home() {
             </div>
           </div>
           <div className="relative">
-            <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl rotate-3">
-              <img
-                alt="Suasana Pesantren"
-                className="w-full h-full object-cover"
-                src={s.home_about_image || "/images/pesantren-vibe.png"}
+            <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl relative group bg-white/50">
+              <Carousel 
+                images={s.home_about_image || "/images/pesantren-vibe.png"} 
+                overlay={false}
+                objectFit="contain"
+                className="w-full h-full"
               />
             </div>
-            <div className="absolute -bottom-6 -left-6 p-8 bg-primary-container text-white rounded-3xl shadow-xl max-w-xs -rotate-3">
+            <div className="absolute -bottom-10 -left-6 p-8 bg-primary-container text-white rounded-3xl shadow-2xl max-w-xs -rotate-3 z-20">
               <span className="material-symbols-outlined text-4xl text-tertiary-fixed-dim mb-4">format_quote</span>
               <p className="italic font-serif">{s.home_quote || "\"Adab lebih tinggi dari ilmu. Kami menanamkan akar yang kuat agar dahan masa depan mereka tegak.\""}</p>
               <p className="mt-4 font-bold text-sm">{s.home_quote_author || "— KH. Ahmad Mukhtar"}</p>
@@ -173,13 +173,13 @@ export default async function Home() {
                 ))}
               </div>
             </div>
-            <div className="relative rounded-[40px] overflow-hidden shadow-2xl border-8 border-slate-50 group">
-              <img
-                src={s.home_fasilitas_image || "/images/fasilitas-poster.jpg"}
-                alt="Fasilitas Penunjang Madrasah"
-                className="w-full h-auto group-hover:scale-105 transition-transform duration-1000"
+            <div className="relative rounded-[40px] overflow-hidden shadow-2xl border-8 border-slate-50 group aspect-[4/3] bg-white/50">
+              <Carousel 
+                images={s.home_fasilitas_image || "/images/fasilitas-poster.jpg"} 
+                overlay={false}
+                objectFit="contain"
+                className="w-full h-full"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary-container/20 to-transparent"></div>
             </div>
           </div>
         </div>
@@ -189,20 +189,25 @@ export default async function Home() {
       <section className="py-24 bg-surface-container-lowest">
         <div className="max-w-[1280px] mx-auto px-6">
           <h2 className="font-h2 text-h2 text-primary-container mb-12 text-center">{s.home_mou_heading || "Kerja Sama (MOU) Dengan Lembaga"}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              s.home_mou_image_1 || "/images/mou-1.jpg",
-              s.home_mou_image_2 || "/images/mou-2.jpg",
-              s.home_mou_image_3 || "/images/mou-3.jpg",
-            ].map((src, i) => (
-              <div key={i} className="relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group border-4 border-white">
-                <img
-                  src={src}
-                  alt={`Kerja Sama MOU ${i + 1}`}
-                  className="w-full h-auto group-hover:scale-110 transition-transform duration-700"
-                />
-              </div>
-            ))}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+            {(() => {
+              let images = ["/images/mou-1.jpg", "/images/mou-2.jpg", "/images/mou-3.jpg"];
+              try {
+                if (s.home_mou_images?.startsWith("[")) images = JSON.parse(s.home_mou_images);
+                else if (s.home_mou_images) images = [s.home_mou_images];
+              } catch (e) {}
+              
+              return images.map((src, i) => (
+                <div key={i} className="relative rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-500 group border border-slate-100 aspect-square bg-white p-4">
+                  <Carousel 
+                    images={src} 
+                    overlay={false}
+                    objectFit="contain"
+                    className="w-full h-full"
+                  />
+                </div>
+              ));
+            })()}
           </div>
         </div>
       </section>

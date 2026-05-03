@@ -7,7 +7,9 @@ import Link from "@tiptap/extension-link";
 import Highlight from "@tiptap/extension-highlight";
 import Placeholder from "@tiptap/extension-placeholder";
 import CharacterCount from "@tiptap/extension-character-count";
-import { useEffect, useCallback } from "react";
+import Image from "@tiptap/extension-image";
+import TextAlign from "@tiptap/extension-text-align";
+import { useEffect, useCallback, useRef, useState } from "react";
 
 interface RichTextEditorProps {
     name: string;
@@ -15,22 +17,35 @@ interface RichTextEditorProps {
     placeholder?: string;
 }
 
-function ToolbarBtn({ onClick, active, title, children }: { onClick: () => void; active?: boolean; title: string; children: React.ReactNode }) {
+function ToolbarBtn({ onClick, active, title, disabled, children }: { onClick: () => void; active?: boolean; title: string; disabled?: boolean; children: React.ReactNode }) {
     return (
-        <button type="button" onClick={onClick} title={title}
-            className={`w-8 h-8 flex items-center justify-center rounded-lg text-sm font-bold transition-colors ${active ? "bg-secondary text-white" : "hover:bg-slate-100 text-slate-600"}`}>
+        <button type="button" onClick={onClick} title={title} disabled={disabled}
+            className={`w-8 h-8 flex items-center justify-center rounded-lg text-sm font-bold transition-colors ${active ? "bg-secondary text-white" : "hover:bg-slate-100 text-slate-600"} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}>
             {children}
         </button>
     );
 }
 
 export default function RichTextEditor({ name, defaultValue = "", placeholder = "Tulis isi berita di sini..." }: RichTextEditorProps) {
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [isUploading, setIsUploading] = useState(false);
+
     const editor = useEditor({
         extensions: [
             StarterKit,
             Underline,
             Highlight,
             CharacterCount,
+            Image.configure({
+                inline: true,
+                HTMLAttributes: {
+                    class: 'rounded-xl shadow-md my-4 max-w-full h-auto',
+                },
+            }),
+            TextAlign.configure({
+                types: ['heading', 'paragraph'],
+                alignments: ['left', 'center', 'right', 'justify'],
+            }),
             Placeholder.configure({ placeholder }),
             Link.configure({ openOnClick: false, HTMLAttributes: { class: "text-blue-600 underline" } }),
         ],
@@ -51,6 +66,39 @@ export default function RichTextEditor({ name, defaultValue = "", placeholder = 
         editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
     }, [editor]);
 
+    const addImage = useCallback(() => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    }, []);
+
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file || !editor) return;
+
+        try {
+            setIsUploading(true);
+            const formData = new FormData();
+            formData.append("file", file);
+
+            const res = await fetch("/api/upload", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!res.ok) throw new Error("Gagal mengupload gambar");
+
+            const data = await res.json();
+            editor.chain().focus().setImage({ src: data.url }).run();
+        } catch (error) {
+            console.error(error);
+            alert("Terjadi kesalahan saat mengupload gambar.");
+        } finally {
+            setIsUploading(false);
+            if (fileInputRef.current) fileInputRef.current.value = ""; // Reset input
+        }
+    };
+
     if (!editor) return null;
 
     const content = editor.getHTML();
@@ -58,8 +106,15 @@ export default function RichTextEditor({ name, defaultValue = "", placeholder = 
 
     return (
         <div className="border border-slate-200 rounded-xl overflow-hidden bg-white">
-            {/* Hidden input for form submission */}
+            {/* Hidden inputs */}
             <input type="hidden" name={name} value={editor.getHTML()} />
+            <input 
+                type="file" 
+                ref={fileInputRef} 
+                onChange={handleFileChange} 
+                accept="image/*" 
+                className="hidden" 
+            />
 
             {/* Toolbar */}
             <div className="flex flex-wrap gap-1 p-2 border-b border-slate-200 bg-slate-50">
@@ -92,9 +147,32 @@ export default function RichTextEditor({ name, defaultValue = "", placeholder = 
                     <span className="material-symbols-outlined text-base">format_quote</span>
                 </ToolbarBtn>
 
-                {/* Link */}
+                {/* Link & Image */}
                 <ToolbarBtn onClick={setLink} active={editor.isActive("link")} title="Insert Link">
                     <span className="material-symbols-outlined text-base">link</span>
+                </ToolbarBtn>
+                <ToolbarBtn onClick={addImage} title={isUploading ? "Uploading..." : "Insert Image"} disabled={isUploading}>
+                    {isUploading ? (
+                        <span className="material-symbols-outlined text-base animate-spin">progress_activity</span>
+                    ) : (
+                        <span className="material-symbols-outlined text-base">image</span>
+                    )}
+                </ToolbarBtn>
+
+                <div className="w-px bg-slate-200 mx-1" />
+
+                {/* Alignment */}
+                <ToolbarBtn onClick={() => editor.chain().focus().setTextAlign('left').run()} active={editor.isActive({ textAlign: 'left' })} title="Align Left">
+                    <span className="material-symbols-outlined text-base">format_align_left</span>
+                </ToolbarBtn>
+                <ToolbarBtn onClick={() => editor.chain().focus().setTextAlign('center').run()} active={editor.isActive({ textAlign: 'center' })} title="Align Center">
+                    <span className="material-symbols-outlined text-base">format_align_center</span>
+                </ToolbarBtn>
+                <ToolbarBtn onClick={() => editor.chain().focus().setTextAlign('right').run()} active={editor.isActive({ textAlign: 'right' })} title="Align Right">
+                    <span className="material-symbols-outlined text-base">format_align_right</span>
+                </ToolbarBtn>
+                <ToolbarBtn onClick={() => editor.chain().focus().setTextAlign('justify').run()} active={editor.isActive({ textAlign: 'justify' })} title="Justify">
+                    <span className="material-symbols-outlined text-base">format_align_justify</span>
                 </ToolbarBtn>
 
                 <div className="w-px bg-slate-200 mx-1" />

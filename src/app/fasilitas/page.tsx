@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import Carousel from "@/components/Carousel";
 
 export default async function FasilitasDanProgram() {
     const settingsRecords = await prisma.setting.findMany();
@@ -65,13 +66,8 @@ export default async function FasilitasDanProgram() {
                     {/* Poster Gallery */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {posterImages.map((src, i) => (
-                            <div key={i} className="relative rounded-[32px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group border-8 border-slate-50">
-                                <img
-                                    src={src}
-                                    alt={`Poster ${i + 1}`}
-                                    className="w-full h-auto group-hover:scale-105 transition-transform duration-700"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-primary-container/20 to-transparent pointer-events-none"></div>
+                            <div key={i} className="relative rounded-[40px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group border-8 border-slate-50 aspect-[4/3] bg-white p-4">
+                                <Carousel images={src} overlay={false} objectFit="contain" className="w-full h-full" />
                             </div>
                         ))}
                     </div>

@@ -2,21 +2,31 @@
 
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { writeFile, mkdir } from "fs/promises";
+import { mkdir } from "fs/promises";
 import path from "path";
+import sharp from "sharp";
 
 async function saveFile(file: File | null): Promise<string | null> {
     if (!file || file.size === 0) return null;
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    const filename = `${Date.now()}-${file.name.replace(/\s+/g, '-')}`;
+    
+    // Change extension to .webp
+    const baseName = file.name.replace(/\.[^/.]+$/, "").replace(/\s+/g, '-');
+    const filename = `${Date.now()}-${baseName}.webp`;
     const uploadDir = path.join(process.cwd(), "public", "uploads");
+    
     try {
         await mkdir(uploadDir, { recursive: true });
-        await writeFile(path.join(uploadDir, filename), buffer);
+        
+        // Convert to WebP while maintaining transparency
+        await sharp(buffer)
+            .webp({ quality: 80 })
+            .toFile(path.join(uploadDir, filename));
+            
         return `/uploads/${filename}`;
     } catch (e) {
-        console.error("Error saving file:", e);
+        console.error("Error saving file with sharp:", e);
         return null;
     }
 }
@@ -38,8 +48,10 @@ export async function saveSettings(prevState: any, formData: FormData) {
             "home_fasilitas_heading", "home_fasilitas_desc", "home_fasilitas_list",
             "home_mou_heading",
             "home_gallery_eyebrow", "home_gallery_heading", "home_gallery_link_text",
+            "home_hero_brightness", "home_hero_overlay_opacity",
+            "home_mou_images",
         ];
-        const homeFileKeys = ["home_hero_image", "home_logo_kemenag", "home_logo_akreditasi", "home_about_image", "home_fasilitas_image", "home_mou_image_1", "home_mou_image_2", "home_mou_image_3"];
+        const homeFileKeys = ["home_hero_image", "home_logo_kemenag", "home_logo_akreditasi", "home_about_image", "home_fasilitas_image", "home_mou_images"];
 
         // ── ACADEMIC ──
         const academicTextKeys = [
@@ -112,10 +124,48 @@ export async function saveSettings(prevState: any, formData: FormData) {
             if (value !== null && value !== undefined) await upsertSetting(key, value);
         }
         for (const key of allFileKeys) {
-            const file = formData.get(key) as File;
-            if (file && file.size > 0) {
-                const url = await saveFile(file);
-                if (url) await upsertSetting(key, url);
+            const files = formData.getAll(key) as File[];
+            const existingUrlsJson = formData.get(`${key}_existing`) as string;
+            let existingUrls: string[] = [];
+            try {
+                if (existingUrlsJson) {
+                    existingUrls = JSON.parse(existingUrlsJson);
+                } else {
+                    // Fallback: if it was a single string before
+                    const current = await prisma.setting.findUnique({ where: { key } });
+                    if (current?.value && !current.value.startsWith("[")) {
+                        existingUrls = [current.value];
+                    } else if (current?.value) {
+                        existingUrls = JSON.parse(current.value);
+                    }
+                }
+            } catch (e) {
+                console.error("Error parsing existing URLs:", e);
+            }
+
+            const newUrls: string[] = [];
+            for (const file of files) {
+                if (file && file.size > 0) {
+                    const url = await saveFile(file);
+                    if (url) newUrls.push(url);
+                }
+            }
+
+            // Combine existing (that weren't deleted) and new
+            // Note: The admin UI will need to send the list of remaining existing URLs
+            const finalUrls = [...existingUrls, ...newUrls];
+            
+            if (finalUrls.length > 0) {
+                // If it's just one and we want to keep backward compatibility for non-multi fields, 
+                // we could store as string. But for "swipeable" fields, we should use JSON.
+                // For now, let's use JSON if length > 1, or if it's a known multi-key.
+                const multiKeys = ["home_hero_image", "home_mou_images", "home_about_image", "home_fasilitas_image", "fasilitas_poster_1", "fasilitas_poster_2", "fasilitas_poster_3", "fasilitas_poster_4", "profile_prestasi_img_1", "profile_prestasi_img_2", "profile_prestasi_img_3", "profile_prestasi_img_4"];
+                
+                if (multiKeys.includes(key) || finalUrls.length > 1) {
+                    await upsertSetting(key, JSON.stringify(finalUrls));
+                } else {
+                    await upsertSetting(key, finalUrls[0]);
+                }
             }
         }
 

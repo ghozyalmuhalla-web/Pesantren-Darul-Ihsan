@@ -59,11 +59,11 @@ export async function createNews(prevState: any, formData: FormData) {
             } 
         });
         revalidatePath("/admin/news");
-        redirect("/admin/news");
     } catch (e) {
         console.error(e);
         return { error: "Gagal menyimpan berita. Slug mungkin sudah digunakan." };
     }
+    redirect("/admin/news");
 }
 
 export async function updateNews(prevState: any, formData: FormData) {
@@ -110,11 +110,11 @@ export async function updateNews(prevState: any, formData: FormData) {
             data: dataToUpdate
         });
         revalidatePath("/admin/news");
-        redirect("/admin/news");
     } catch (e) {
         console.error(e);
         return { error: "Gagal memperbarui berita. Slug mungkin sudah digunakan." };
     }
+    redirect("/admin/news");
 }
 
 export async function deleteNews(id: string) {
@@ -124,14 +124,152 @@ export async function deleteNews(id: string) {
 
 export async function createGallery(prevState: any, formData: FormData) {
     const title = formData.get("title") as string;
-    const imageUrl = formData.get("imageUrl") as string;
-    if (!title || !imageUrl) return { error: "Semua field wajib diisi." };
-    await prisma.gallery.create({ data: { title, imageUrl } });
-    revalidatePath("/admin/gallery");
+    const category = formData.get("category") as string || null;
+    const event = formData.get("event") as string || null;
+    
+    const eventDateStr = formData.get("eventDate") as string;
+    const eventDate = eventDateStr ? new Date(eventDateStr) : null;
+
+    if (!title) return { error: "Judul foto wajib diisi." };
+
+    const file = formData.get("image") as File;
+    const imageUrl = await saveFile(file);
+    if (!imageUrl) return { error: "Gambar wajib diunggah." };
+
+    try {
+        await prisma.gallery.create({ 
+            data: { title, imageUrl, category, event, eventDate } 
+        });
+        revalidatePath("/admin/gallery");
+    } catch (e) {
+        console.error(e);
+        return { error: "Gagal menyimpan foto galeri." };
+    }
+    redirect("/admin/gallery");
+}
+
+export async function updateGallery(prevState: any, formData: FormData) {
+    const id = formData.get("id") as string;
+    const title = formData.get("title") as string;
+    const category = formData.get("category") as string || null;
+    const event = formData.get("event") as string || null;
+    
+    const eventDateStr = formData.get("eventDate") as string;
+    const eventDate = eventDateStr ? new Date(eventDateStr) : null;
+
+    if (!title) return { error: "Judul foto wajib diisi." };
+
+    const file = formData.get("image") as File;
+    const newImageUrl = await saveFile(file);
+
+    const dataToUpdate: any = { title, category, event, eventDate };
+    if (newImageUrl) {
+        dataToUpdate.imageUrl = newImageUrl;
+    }
+
+    try {
+        await prisma.gallery.update({ 
+            where: { id }, 
+            data: dataToUpdate 
+        });
+        revalidatePath("/admin/gallery");
+    } catch (e) {
+        console.error(e);
+        return { error: "Gagal memperbarui foto galeri." };
+    }
     redirect("/admin/gallery");
 }
 
 export async function deleteGallery(id: string) {
     await prisma.gallery.delete({ where: { id } });
     revalidatePath("/admin/gallery");
+}
+
+import bcrypt from "bcryptjs";
+
+export async function createUser(prevState: any, formData: FormData) {
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    if (!email || !password) return { error: "Email dan password wajib diisi." };
+    if (password.length < 6) return { error: "Password minimal 6 karakter." };
+
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await prisma.user.create({
+            data: { email, password: hashedPassword }
+        });
+        revalidatePath("/admin/users");
+        return { success: "User berhasil ditambahkan." };
+    } catch (e) {
+        return { error: "Email sudah terdaftar." };
+    }
+}
+
+export async function deleteUser(id: string) {
+    const userCount = await prisma.user.count();
+    if (userCount <= 1) return { error: "Tidak bisa menghapus user terakhir." };
+    
+    await prisma.user.delete({ where: { id } });
+    revalidatePath("/admin/users");
+}
+
+export async function submitPendaftaran(prevState: any, formData: FormData) {
+    const namaLengkap = formData.get("namaLengkap") as string;
+    const tempatLahir = formData.get("tempatLahir") as string;
+    const tanggalLahirStr = formData.get("tanggalLahir") as string;
+    const jenisKelamin = formData.get("jenisKelamin") as string;
+    const asalSekolah = formData.get("asalSekolah") as string;
+    const namaAyah = formData.get("namaAyah") as string;
+    const namaIbu = formData.get("namaIbu") as string;
+    const nomorWhatsapp = formData.get("nomorWhatsapp") as string;
+    const alamat = formData.get("alamat") as string;
+
+    if (!namaLengkap || !tempatLahir || !tanggalLahirStr || !jenisKelamin || !asalSekolah || !namaAyah || !namaIbu || !nomorWhatsapp || !alamat) {
+        return { error: "Semua kolom wajib diisi." };
+    }
+
+    try {
+        await prisma.pendaftaran.create({
+            data: {
+                namaLengkap,
+                tempatLahir,
+                tanggalLahir: new Date(tanggalLahirStr),
+                jenisKelamin,
+                asalSekolah,
+                namaAyah,
+                namaIbu,
+                nomorWhatsapp,
+                alamat
+            }
+        });
+        revalidatePath("/admin/pendaftaran");
+        return { success: "Pendaftaran berhasil dikirim! Panitia akan menghubungi Anda melalui WhatsApp." };
+    } catch (e) {
+        console.error(e);
+        return { error: "Gagal mengirim pendaftaran. Silakan coba lagi." };
+    }
+}
+
+export async function updatePendaftaranStatus(id: string, status: string) {
+    try {
+        await prisma.pendaftaran.update({
+            where: { id },
+            data: { status }
+        });
+        revalidatePath("/admin/pendaftaran");
+        return { success: "Status berhasil diperbarui." };
+    } catch (e) {
+        return { error: "Gagal memperbarui status." };
+    }
+}
+
+export async function deletePendaftaran(id: string) {
+    try {
+        await prisma.pendaftaran.delete({ where: { id } });
+        revalidatePath("/admin/pendaftaran");
+        return { success: "Pendaftaran berhasil dihapus." };
+    } catch (e) {
+        return { error: "Gagal menghapus pendaftaran." };
+    }
 }

@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import Carousel from "@/components/Carousel";
 
 export default async function ProfilePage() {
     const settingsRecords = await prisma.setting.findMany();
@@ -32,16 +33,16 @@ export default async function ProfilePage() {
         { name: "Ustad Julianto, S.Pd. Gr.", role: "Kepala Madrasah" },
     ];
 
-    const asatidz = Array.from({ length: 4 }, (_, i) => ({
-        name: s[`profile_asatidz_${i+1}_name`] || defaultAsatidz[i].name,
-        role: s[`profile_asatidz_${i+1}_role`] || defaultAsatidz[i].role,
-        img: s[`profile_asatidz_${i+1}_img`] || `/images/asatidz/asatidz-${i+1}.jpg`,
-    }));
+    const asatidz = Array.from({ length: 8 }, (_, i) => ({
+        name: s[`profile_asatidz_${i+1}_name`] || (i < defaultAsatidz.length ? defaultAsatidz[i].name : ""),
+        role: s[`profile_asatidz_${i+1}_role`] || (i < defaultAsatidz.length ? defaultAsatidz[i].role : ""),
+        img: s[`profile_asatidz_${i+1}_img`] || (i < defaultAsatidz.length ? `/images/asatidz/asatidz-${i+1}.jpg` : ""),
+    })).filter(a => a.name);
 
     return (
         <main className="min-h-screen bg-white">
             {/* Hero Section */}
-            <div className="bg-primary-container text-white py-32 px-6 relative overflow-hidden">
+            <div className="bg-primary-container text-white py-40 px-6 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] pointer-events-none"></div>
                 <div className="max-w-[800px] mx-auto text-center relative z-10">
                     <h1 className="font-h1 text-h1 mb-6 text-balance">
@@ -54,21 +55,17 @@ export default async function ProfilePage() {
             </div>
 
             {/* Tentang Kami */}
-            <section className="py-24 max-w-[1000px] mx-auto px-6">
+            <section className="py-24 max-w-[1200px] mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                     <div className="space-y-6">
                         <h2 className="font-h2 text-h2 text-primary-container">{s.profile_tentang_title || "Tentang Kami"}</h2>
-                        <div className="prose prose-slate prose-p:leading-relaxed prose-p:text-on-surface-variant">
+                        <div className="prose prose-lg prose-slate prose-p:leading-relaxed prose-p:text-on-surface-variant">
                             <p>{s.profile_tentang_p1 || "MAS Pesantren Modern Darul Ihsan merupakan lembaga pendidikan tingkat menengah atas yang terintegrasi dengan sistem pondok pesantren. Terletak di Desa Selemak Kecamatan Hamparan Perak, Kabupaten Deli Serdang, Sumatera Utara, madrasah ini hadir sebagai jawaban atas kebutuhan masyarakat akan institusi pendidikan yang mampu menyeimbangkan antara keunggulan akademik dan kedalaman spiritual."}</p>
                             <p>{s.profile_tentang_p2 || "Dengan memadukan kurikulum Kementerian Agama RI dan kurikulum khas pesantren modern, kami berkomitmen mencetak santri yang tidak hanya cerdas secara intelektual, tetapi juga tangguh secara mental dan memiliki kemandirian hidup."}</p>
                         </div>
                     </div>
-                    <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl skew-y-2">
-                        <img
-                            src={s.profile_tentang_image || "/images/modern-campus.png"}
-                            alt="Darul Ihsan Modern Campus"
-                            className="w-full h-full object-cover -skew-y-2 scale-110"
-                        />
+                    <div className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl bg-white/50 border-8 border-slate-50">
+                        <Carousel images={s.profile_tentang_image || "/images/modern-campus.png"} overlay={false} objectFit="contain" className="w-full h-full" />
                     </div>
                 </div>
             </section>
@@ -77,7 +74,8 @@ export default async function ProfilePage() {
             <section className="py-24 bg-slate-50">
                 <div className="max-w-[1200px] mx-auto px-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                        <div className="bg-white p-12 rounded-[40px] shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                        <div className="bg-white p-12 rounded-[40px] shadow-sm border border-slate-100 hover:shadow-md transition-shadow relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform"></div>
                             <div className="w-16 h-16 bg-secondary-container rounded-2xl flex items-center justify-center mb-8">
                                 <span className="material-symbols-outlined text-3xl text-secondary">visibility</span>
                             </div>
@@ -86,7 +84,8 @@ export default async function ProfilePage() {
                                 {s.profile_visi_text || "Mewujudkan lembaga pendidikan Islam yang unggul, modern, dan berkarakter, menghasilkan generasi berakhlak mulia, cerdas, serta berdaya saing global."}
                             </p>
                         </div>
-                        <div className="bg-white p-12 rounded-[40px] shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                        <div className="bg-white p-12 rounded-[40px] shadow-sm border border-slate-100 hover:shadow-md transition-shadow relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-tertiary-fixed/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform"></div>
                             <div className="w-16 h-16 bg-tertiary-fixed rounded-2xl flex items-center justify-center mb-8">
                                 <span className="material-symbols-outlined text-3xl text-tertiary-fixed-dim">task_alt</span>
                             </div>
@@ -94,7 +93,7 @@ export default async function ProfilePage() {
                             <ul className="space-y-4 text-on-surface-variant">
                                 {misiItems.map((item, i) => (
                                     <li key={i} className="flex gap-4">
-                                        <span className="text-secondary font-bold">•</span>
+                                        <span className="text-secondary font-bold">✓</span>
                                         {item}
                                     </li>
                                 ))}
@@ -123,15 +122,10 @@ export default async function ProfilePage() {
                             </div>
                         ))}
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         {prestasiImages.map((src, i) => (
-                            <div key={i} className="relative aspect-[4/3] rounded-[32px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group">
-                                <img
-                                    src={src}
-                                    alt={`Prestasi ${i + 1}`}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div key={i} className="relative aspect-square rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 group border border-slate-100 bg-white p-4">
+                                <Carousel images={src} overlay={false} objectFit="contain" className="w-full h-full" />
                             </div>
                         ))}
                     </div>
@@ -139,35 +133,31 @@ export default async function ProfilePage() {
             </section>
 
             {/* Struktur Organisasi */}
-            <section className="py-24 bg-white">
+            <section className="py-24 bg-slate-50">
                 <div className="max-w-[1200px] mx-auto px-6 text-center">
                     <h2 className="font-h2 text-h2 text-primary-container mb-12">Struktur Organisasi</h2>
-                    <div className="relative rounded-[40px] overflow-hidden shadow-2xl border-8 border-slate-50">
-                        <img
-                            src={s.profile_struktur_image || "/images/struktur-organisasi.jpg"}
-                            alt="Struktur Organisasi MAS Pesantren Modern Darul Ihsan"
-                            className="w-full h-auto"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-primary-container/20 to-transparent pointer-events-none"></div>
+                    <div className="relative rounded-[40px] overflow-hidden shadow-2xl border-8 border-white aspect-video md:aspect-[21/9] bg-white">
+                        <Carousel images={s.profile_struktur_image || "/images/struktur-organisasi.jpg"} overlay={false} objectFit="contain" className="w-full h-full" />
                     </div>
                 </div>
             </section>
 
             {/* Dewan Asatidz */}
             <section className="py-24 max-w-[1200px] mx-auto px-6 text-center">
-                <h2 className="font-h2 text-h2 text-primary-container mb-12">Dewan Asatidz</h2>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <h2 className="font-h2 text-h2 text-primary-container mb-4">Dewan Asatidz</h2>
+                <p className="text-on-surface-variant mb-16 max-w-2xl mx-auto italic">Membangun sanubari dengan ilmu, membimbing langkah dengan ketulusan.</p>
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-x-8 gap-y-16">
                     {asatidz.map((member, i) => (
                         <div key={i} className="group">
-                            <div className="aspect-square bg-surface-container-low rounded-full mb-6 overflow-hidden border-4 border-white shadow-md group-hover:border-secondary transition-all">
+                            <div className="aspect-square bg-surface-container-low rounded-[40px] mb-6 overflow-hidden border-4 border-white shadow-lg group-hover:border-secondary transition-all group-hover:-translate-y-2 duration-300">
                                 <img
-                                    src={member.img}
+                                    src={member.img || "https://ui-avatars.com/api/?name=" + encodeURIComponent(member.name) + "&background=random"}
                                     alt={member.name}
                                     className="w-full h-full object-cover"
                                 />
                             </div>
-                            <h4 className="font-bold text-primary-container">{member.name}</h4>
-                            <p className="text-sm text-on-surface-variant">{member.role}</p>
+                            <h4 className="font-bold text-primary-container group-hover:text-secondary transition-colors">{member.name}</h4>
+                            <p className="text-xs uppercase tracking-widest font-bold text-on-surface-variant/60 mt-1">{member.role}</p>
                         </div>
                     ))}
                 </div>

@@ -1,23 +1,30 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { createGallery } from "@/app/actions/cms";
+import { updateGallery } from "@/app/actions/cms";
 import Link from "next/link";
 
-export default function CreateGalleryPage() {
-    const [state, formAction, pending] = useActionState(createGallery, null);
+type Gallery = {
+    id: string;
+    title: string;
+    imageUrl: string;
+    category: string | null;
+    event: string | null;
+    eventDate: Date | null;
+};
 
-    const [title, setTitle] = useState("");
-    const [event, setEvent] = useState("");
-    const [eventDate, setEventDate] = useState("");
-    const [imagePreview, setImagePreview] = useState<string | null>(null);
+export default function EditGalleryForm({ gallery }: { gallery: Gallery }) {
+    const [state, formAction, pending] = useActionState(updateGallery, null);
+
+    const [title, setTitle] = useState(gallery.title);
+    const [event, setEvent] = useState(gallery.event || "");
+    const [eventDate, setEventDate] = useState(gallery.eventDate ? new Date(gallery.eventDate.getTime() - gallery.eventDate.getTimezoneOffset() * 60000).toISOString().slice(0,16) : "");
+    const [imagePreview, setImagePreview] = useState<string | null>(gallery.imageUrl);
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             setImagePreview(URL.createObjectURL(file));
-        } else {
-            setImagePreview(null);
         }
     };
 
@@ -28,14 +35,15 @@ export default function CreateGalleryPage() {
                     <span className="material-symbols-outlined text-on-surface-variant">arrow_back</span>
                 </Link>
                 <div>
-                    <h1 className="text-2xl font-bold text-primary-container font-h2">Tambah Foto Galeri</h1>
-                    <p className="text-on-surface-variant text-sm">Tambahkan foto baru ke galeri aktivitas</p>
+                    <h1 className="text-2xl font-bold text-primary-container font-h2">Edit Foto Galeri</h1>
+                    <p className="text-on-surface-variant text-sm">Perbarui detail foto galeri ini</p>
                 </div>
             </div>
 
             <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 items-start">
                 <div className="xl:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
                     <form action={formAction} className="space-y-6">
+                        <input type="hidden" name="id" value={gallery.id} />
                         {state?.error && (
                             <div className="bg-error-container text-on-error-container px-4 py-3 rounded-xl text-sm font-medium">
                                 {state.error}
@@ -48,20 +56,19 @@ export default function CreateGalleryPage() {
                                     <input
                                         name="title"
                                         type="text"
-                                        required
-                                        value={title}
+                                        defaultValue={gallery.title}
                                         onChange={(e) => setTitle(e.target.value)}
+                                        required
                                         className="w-full px-4 py-3 bg-surface-container-low rounded-xl text-sm outline-none focus:ring-2 focus:ring-secondary"
                                         placeholder="Contoh: Kegiatan Memanah Santri"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-semibold text-on-surface-variant mb-2">File Gambar (Upload)</label>
+                                    <label className="block text-sm font-semibold text-on-surface-variant mb-2">Ganti Gambar (Opsional)</label>
                                     <input
                                         name="image"
                                         type="file"
                                         accept="image/*"
-                                        required
                                         onChange={handleImageChange}
                                         className="w-full px-4 py-3 bg-surface-container-low rounded-xl text-sm outline-none focus:ring-2 focus:ring-secondary file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-secondary file:text-white hover:file:bg-blue-900"
                                     />
@@ -73,6 +80,7 @@ export default function CreateGalleryPage() {
                                     <label className="block text-sm font-semibold text-on-surface-variant mb-2">Kategori (Opsional)</label>
                                     <select
                                         name="category"
+                                        defaultValue={gallery.category || ""}
                                         className="w-full px-4 py-3 bg-surface-container-low rounded-xl text-sm outline-none focus:ring-2 focus:ring-secondary"
                                     >
                                         <option value="">-- Pilih Kategori --</option>
@@ -88,7 +96,7 @@ export default function CreateGalleryPage() {
                                     <input
                                         name="event"
                                         type="text"
-                                        value={event}
+                                        defaultValue={gallery.event || ""}
                                         onChange={(e) => setEvent(e.target.value)}
                                         className="w-full px-4 py-3 bg-surface-container-low rounded-xl text-sm outline-none focus:ring-2 focus:ring-secondary"
                                         placeholder="Contoh: Apel Tahunan 2026"
@@ -99,7 +107,7 @@ export default function CreateGalleryPage() {
                                     <input
                                         name="eventDate"
                                         type="datetime-local"
-                                        value={eventDate}
+                                        defaultValue={eventDate}
                                         onChange={(e) => setEventDate(e.target.value)}
                                         className="w-full px-4 py-3 bg-surface-container-low rounded-xl text-sm outline-none focus:ring-2 focus:ring-secondary"
                                     />
@@ -108,7 +116,7 @@ export default function CreateGalleryPage() {
                         </div>
                         <div className="flex gap-3 pt-2">
                             <button type="submit" disabled={pending} className="px-6 py-3 bg-secondary text-white rounded-xl text-sm font-semibold hover:bg-blue-900 transition-colors disabled:opacity-50">
-                                {pending ? "Menyimpan..." : "Simpan Foto"}
+                                {pending ? "Menyimpan..." : "Simpan Perubahan"}
                             </button>
                             <Link href="/admin/gallery" className="px-6 py-3 bg-slate-100 text-on-surface-variant rounded-xl text-sm font-semibold hover:bg-slate-200 transition-colors">
                                 Batal

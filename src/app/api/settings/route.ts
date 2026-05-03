@@ -9,3 +9,12 @@ export async function GET() {
         return NextResponse.json({ error: "Gagal mengambil pengaturan" }, { status: 500 });
     }
 }
+
+export async function DELETE() {
+    try {
+        await prisma.setting.deleteMany();
+        return NextResponse.json({ success: true });
+    } catch (error) {
+        return NextResponse.json({ error: "Gagal mereset pengaturan" }, { status: 500 });
+    }
+}
