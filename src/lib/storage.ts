@@ -18,27 +18,35 @@ export async function saveFile(file: File | null): Promise<string | null> {
     const bytes = await file.arrayBuffer();
     const rawBuffer = Buffer.from(bytes);
 
-    // Optimize: resize + convert to WebP
-    let buffer: Buffer;
-    try {
-        buffer = await sharp(rawBuffer)
-            .resize(1920, 1920, { fit: "inside", withoutEnlargement: true })
-            .webp({ quality: 80 })
-            .toBuffer();
-    } catch {
-        // If sharp fails (e.g., not an image), use original
-        buffer = rawBuffer;
-    }
+    // Optimize: resize + convert to WebP (Optional, skip if error)
+    let buffer = rawBuffer;
+    let contentType = file.type;
+    let finalFilename = `${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
 
-    const baseName = file.name.replace(/\.[^/.]+$/, "").replace(/\s+/g, "-");
-    const filename = `${Date.now()}-${baseName}.webp`;
+    try {
+        // Only try sharp if it's an image
+        if (file.type.startsWith("image/")) {
+            const processed = await sharp(rawBuffer)
+                .resize(1920, 1920, { fit: "inside", withoutEnlargement: true })
+                .webp({ quality: 80 })
+                .toBuffer();
+            
+            if (processed) {
+                buffer = processed;
+                contentType = "image/webp";
+                finalFilename = finalFilename.replace(/\.[^/.]+$/, "") + ".webp";
+            }
+        }
+    } catch (e) {
+        console.warn("Sharp optimization failed, saving original:", e);
+    }
     const bucket = "uploads";
 
     try {
         const { error } = await supabase.storage
             .from(bucket)
-            .upload(filename, buffer, {
-                contentType: "image/webp",
+            .upload(finalFilename, buffer, {
+                contentType: contentType,
                 upsert: true,
             });
 
@@ -49,7 +57,7 @@ export async function saveFile(file: File | null): Promise<string | null> {
 
         const { data: { publicUrl } } = supabase.storage
             .from(bucket)
-            .getPublicUrl(filename);
+            .getPublicUrl(finalFilename);
 
         return publicUrl;
     } catch (e) {

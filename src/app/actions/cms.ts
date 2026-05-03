@@ -46,11 +46,12 @@ export async function createNews(prevState: any, formData: FormData) {
                 focusKeyword, author, status, scheduledAt, embeds 
             } 
         });
-        revalidatePath("/admin/news");
-    } catch (e) {
-        console.error(e);
-        return { error: "Gagal menyimpan berita. Slug mungkin sudah digunakan." };
+    } catch (e: any) {
+        console.error("Prisma Create Error:", e);
+        return { error: `Gagal menyimpan berita: ${e.message || "Kesalahan database"}` };
     }
+    
+    revalidatePath("/admin/news");
     redirect("/admin/news");
 }
 
@@ -101,11 +102,12 @@ export async function updateNews(prevState: any, formData: FormData) {
             where: { id }, 
             data: dataToUpdate
         });
-        revalidatePath("/admin/news");
-    } catch (e) {
-        console.error(e);
-        return { error: "Gagal memperbarui berita. Slug mungkin sudah digunakan." };
+    } catch (e: any) {
+        console.error("Prisma Update Error:", e);
+        return { error: `Gagal memperbarui berita: ${e.message || "Kesalahan database"}` };
     }
+
+    revalidatePath("/admin/news");
     redirect("/admin/news");
 }
 
@@ -132,11 +134,12 @@ export async function createGallery(prevState: any, formData: FormData) {
         await prisma.gallery.create({ 
             data: { title, imageUrl, category, event, eventDate } 
         });
-        revalidatePath("/admin/gallery");
-    } catch (e) {
-        console.error(e);
-        return { error: "Gagal menyimpan foto galeri." };
+    } catch (e: any) {
+        console.error("Gallery Create Error:", e);
+        return { error: `Gagal menyimpan foto galeri: ${e.message}` };
     }
+
+    revalidatePath("/admin/gallery");
     redirect("/admin/gallery");
 }
 
