@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { mkdir } from "fs/promises";
-import path from "path";
-import sharp from "sharp";
+import { saveFile } from "@/lib/storage";
 
 export async function POST(req: NextRequest) {
     try {
@@ -12,26 +10,15 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
         }
 
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-
-        // Sanitize filename and change to .webp
-        const safeName = file.name.replace(/\.[^/.]+$/, "").replace(/[^a-zA-Z0-9.-]/g, "_");
-        const filename = `${Date.now()}-${safeName}.webp`;
-        const uploadDir = path.join(process.cwd(), "public", "uploads");
-
-        await mkdir(uploadDir, { recursive: true });
+        const url = await saveFile(file);
         
-        // Convert to WebP using sharp
-        await sharp(buffer)
-            .webp({ quality: 80 })
-            .toFile(path.join(uploadDir, filename));
+        if (!url) {
+            return NextResponse.json({ error: "Failed to save file to storage" }, { status: 500 });
+        }
 
-        const url = `/uploads/${filename}`;
-        
         return NextResponse.json({ url });
     } catch (error) {
         console.error("Upload error:", error);
-        return NextResponse.json({ error: "Failed to upload file" }, { status: 500 });
+        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
     }
 }

@@ -28,6 +28,7 @@ function ToolbarBtn({ onClick, active, title, disabled, children }: { onClick: (
 
 export default function RichTextEditor({ name, defaultValue = "", placeholder = "Tulis isi berita di sini..." }: RichTextEditorProps) {
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [content, setContent] = useState(defaultValue);
     const [isUploading, setIsUploading] = useState(false);
 
     const editor = useEditor({
@@ -50,6 +51,9 @@ export default function RichTextEditor({ name, defaultValue = "", placeholder = 
             Link.configure({ openOnClick: false, HTMLAttributes: { class: "text-blue-600 underline" } }),
         ],
         content: defaultValue,
+        onUpdate: ({ editor }) => {
+            setContent(editor.getHTML());
+        },
         editorProps: {
             attributes: {
                 class: "prose prose-slate max-w-none min-h-[300px] p-4 focus:outline-none text-sm leading-relaxed",
@@ -101,13 +105,12 @@ export default function RichTextEditor({ name, defaultValue = "", placeholder = 
 
     if (!editor) return null;
 
-    const content = editor.getHTML();
     const wordCount = editor.storage.characterCount?.words() ?? 0;
 
     return (
         <div className="border border-slate-200 rounded-xl overflow-hidden bg-white">
             {/* Hidden inputs */}
-            <input type="hidden" name={name} value={editor.getHTML()} />
+            <input type="hidden" name={name} value={content} />
             <input 
                 type="file" 
                 ref={fileInputRef} 
