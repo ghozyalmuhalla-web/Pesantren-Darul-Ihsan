@@ -5,7 +5,7 @@ export default function WhatsAppButton() {
     const [waNumber, setWaNumber] = useState("6281234567890"); // Default
 
     useEffect(() => {
-        fetch("/api/settings")
+        fetch("/api/settings", { cache: 'no-store' })
             .then(r => r.json())
             .then(data => {
                 const setting = data.find((d: any) => d.key === "ppdb_wa_number");

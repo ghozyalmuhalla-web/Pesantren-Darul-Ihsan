@@ -155,212 +155,200 @@ export default function SettingsPage() {
 
             <form action={formAction} className="space-y-10">
                 {/* ── TAB HOME ── */}
-                {tab === 0 && (
-                    <div className="space-y-8 animate-fade-in">
-                        <Card title="🖼️ Hero Experience">
-                            <div className="grid md:grid-cols-2 gap-8">
-                                <div className="md:col-span-2"><T label="Main Headline" name="home_title" val={g("home_title","Madrasah Aliyah Swasta (MAS) Pesantren Modern Darul Ihsan")} /></div>
-                                <div className="md:col-span-2"><T label="Inspirational Tagline" name="home_tagline" val={g("home_tagline",`"Membentuk Generasi Qur'ani, Berwawasan Global, dan Berakhlakul Karimah"`)} /></div>
-                                <T label="Primary CTA Text" name="home_btn_ppdb_text" val={g("home_btn_ppdb_text","Mulai Pendaftaran")} />
-                                <T label="Secondary CTA Text" name="home_btn_curriculum_text" val={g("home_btn_curriculum_text","Lihat Kurikulum")} />
-                                <div className="md:col-span-2"><F label="Hero Background Asset" name="home_hero_image" cur={s.home_hero_image || "/images/hero-main.png"} /></div>
-                                <div className="space-y-6">
-                                    <R label="Visual Brightness" name="home_hero_brightness" val={g("home_hero_brightness","100")} />
-                                    <R label="Overlay Intensity" name="home_hero_overlay_opacity" val={g("home_hero_overlay_opacity","90")} />
-                                </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <F label="Kemenag Logo" name="home_logo_kemenag" cur={s.home_logo_kemenag || "/images/logo-kemenag.jpg"} />
-                                    <F label="Accreditation Logo" name="home_logo_akreditasi" cur={s.home_logo_akreditasi || "/images/logo-akreditasi.jpg"} />
-                                </div>
+                <div className={`space-y-8 animate-fade-in ${tab === 0 ? "block" : "hidden"}`}>
+                    <Card title="🖼️ Hero Experience">
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <div className="md:col-span-2"><T label="Main Headline" name="home_title" val={g("home_title","Madrasah Aliyah Swasta (MAS) Pesantren Modern Darul Ihsan")} /></div>
+                            <div className="md:col-span-2"><T label="Inspirational Tagline" name="home_tagline" val={g("home_tagline",`"Membentuk Generasi Qur'ani, Berwawasan Global, dan Berakhlakul Karimah"`)} /></div>
+                            <T label="Primary CTA Text" name="home_btn_ppdb_text" val={g("home_btn_ppdb_text","Mulai Pendaftaran")} />
+                            <T label="Secondary CTA Text" name="home_btn_curriculum_text" val={g("home_btn_curriculum_text","Lihat Kurikulum")} />
+                            <div className="md:col-span-2"><F label="Hero Background Asset" name="home_hero_image" cur={s.home_hero_image || "/images/hero-main.png"} /></div>
+                            <div className="space-y-6">
+                                <R label="Visual Brightness" name="home_hero_brightness" val={g("home_hero_brightness","100")} />
+                                <R label="Overlay Intensity" name="home_hero_overlay_opacity" val={g("home_hero_overlay_opacity","90")} />
                             </div>
-                        </Card>
-                        <Card title="📋 Core Vision & Mission">
-                            <div className="grid md:grid-cols-2 gap-8">
-                                <div className="md:col-span-2"><T label="Section Heading" name="home_visi_heading" val={g("home_visi_heading","Visi & Misi Kami")} /></div>
-                                <div className="md:col-span-2"><TA label="Institutional Narrative" name="home_about" val={g("home_about","MAS Pesantren Modern Darul Ihsan merupakan lembaga pendidikan tingkat menengah atas yang terintegrasi dengan sistem pondok pesantren di Deli Serdang.")} rows={4} /></div>
-                                <div className="grid grid-cols-3 gap-4 md:col-span-2">
-                                    <T label="Grade" name="home_accreditation_grade" val={g("home_accreditation_grade","Grade A")} />
-                                    <T label="NPSN Number" name="home_npsn_number" val={g("home_npsn_number","69981240")} />
-                                    <T label="Inst. Name" name="home_accreditation_inst" val={g("home_accreditation_inst","Kemendikbud Ristek")} />
-                                </div>
-                                <F label="Visionary Image" name="home_about_image" cur={s.home_about_image || "/images/pesantren-vibe.png"} />
-                                <div className="space-y-6">
-                                    <TA label="Leadership Quote" name="home_quote" val={g("home_quote",`"Adab lebih tinggi dari ilmu."`)} rows={2} />
-                                    <T label="Quote Author" name="home_quote_author" val={g("home_quote_author","— KH. Ahmad Mukhtar")} />
-                                </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <F label="Kemenag Logo" name="home_logo_kemenag" cur={s.home_logo_kemenag || "/images/logo-kemenag.jpg"} />
+                                <F label="Accreditation Logo" name="home_logo_akreditasi" cur={s.home_logo_akreditasi || "/images/logo-akreditasi.jpg"} />
                             </div>
-                        </Card>
-                    </div>
-                )}
+                        </div>
+                    </Card>
+                    <Card title="📋 Core Vision & Mission">
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <div className="md:col-span-2"><T label="Section Heading" name="home_visi_heading" val={g("home_visi_heading","Visi & Misi Kami")} /></div>
+                            <div className="md:col-span-2"><TA label="Institutional Narrative" name="home_about" val={g("home_about","MAS Pesantren Modern Darul Ihsan merupakan lembaga pendidikan tingkat menengah atas yang terintegrasi dengan sistem pondok pesantren di Deli Serdang.")} rows={4} /></div>
+                            <div className="grid grid-cols-3 gap-4 md:col-span-2">
+                                <T label="Grade" name="home_accreditation_grade" val={g("home_accreditation_grade","Grade A")} />
+                                <T label="NPSN Number" name="home_npsn_number" val={g("home_npsn_number","69981240")} />
+                                <T label="Inst. Name" name="home_accreditation_inst" val={g("home_accreditation_inst","Kemendikbud Ristek")} />
+                            </div>
+                            <F label="Visionary Image" name="home_about_image" cur={s.home_about_image || "/images/pesantren-vibe.png"} />
+                            <div className="space-y-6">
+                                <TA label="Leadership Quote" name="home_quote" val={g("home_quote",`"Adab lebih tinggi dari ilmu."`)} rows={2} />
+                                <T label="Quote Author" name="home_quote_author" val={g("home_quote_author","— KH. Ahmad Mukhtar")} />
+                            </div>
+                        </div>
+                    </Card>
+                </div>
 
                 {/* ── TAB ACADEMIC ── */}
-                {tab === 1 && (
-                    <div className="space-y-8 animate-fade-in">
-                        <Card title="🎓 Curriculum Strategy">
-                            <div className="grid md:grid-cols-2 gap-8">
-                                <T label="Page Title" name="academic_header_title" val={g("academic_header_title","Program Unggulan")} />
-                                <TA label="Program Philosophy" name="academic_header_desc" val={g("academic_header_desc","Kami menawarkan lingkungan belajar yang kondusif dengan fokus pada pembentukan generasi yang unggul.")} rows={2} />
-                            </div>
-                        </Card>
-                        <Card title="✨ 4 Strategic Pillars">
-                            <div className="grid md:grid-cols-2 gap-6">
-                                {[1,2,3,4].map(i => (
-                                    <div key={i} className="p-6 bg-slate-50 rounded-[32px] border border-slate-100 space-y-3">
-                                        <T label={`Pillar #${i} Title`} name={`academic_focus_${i}_title`} val={g(`academic_focus_${i}_title`,["Tahfidz Al-Qur'an","Penguasaan Kitab Kuning","Language Environment","Ekstrakurikuler Multimedia & Seni"][i-1])} />
-                                        <TA label="Pillar Description" name={`academic_focus_${i}_desc`} val={g(`academic_focus_${i}_desc`,"")} rows={2} />
-                                    </div>
-                                ))}
-                            </div>
-                        </Card>
-                    </div>
-                )}
+                <div className={`space-y-8 animate-fade-in ${tab === 1 ? "block" : "hidden"}`}>
+                    <Card title="🎓 Curriculum Strategy">
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <T label="Page Title" name="academic_header_title" val={g("academic_header_title","Program Unggulan")} />
+                            <TA label="Program Philosophy" name="academic_header_desc" val={g("academic_header_desc","Kami menawarkan lingkungan belajar yang kondusif dengan fokus pada pembentukan generasi yang unggul.")} rows={2} />
+                        </div>
+                    </Card>
+                    <Card title="✨ 4 Strategic Pillars">
+                        <div className="grid md:grid-cols-2 gap-6">
+                            {[1,2,3,4].map(i => (
+                                <div key={i} className="p-6 bg-slate-50 rounded-[32px] border border-slate-100 space-y-3">
+                                    <T label={`Pillar #${i} Title`} name={`academic_focus_${i}_title`} val={g(`academic_focus_${i}_title`,["Tahfidz Al-Qur'an","Penguasaan Kitab Kuning","Language Environment","Ekstrakurikuler Multimedia & Seni"][i-1])} />
+                                    <TA label="Pillar Description" name={`academic_focus_${i}_desc`} val={g(`academic_focus_${i}_desc`,"")} rows={2} />
+                                </div>
+                            ))}
+                        </div>
+                    </Card>
+                </div>
 
                 {/* ── TAB PROFILE ── */}
-                {tab === 2 && (
-                    <div className="space-y-8 animate-fade-in">
-                        <Card title="🏛️ Organizational Legacy">
-                            <div className="grid md:grid-cols-2 gap-8">
-                                <T label="Official Name" name="profile_header_title" val={g("profile_header_title","Profil Madrasah Aliyah Swasta (MAS) Pesantren Modern Darul Ihsan")} />
-                                <T label="Tagline" name="profile_header_tagline" val={g("profile_header_tagline","Membentuk Generasi Qur'ani, Berwawasan Global, dan Berakhlakul Karimah")} />
-                                <div className="md:col-span-2">
-                                    <TA label="Detailed History" name="profile_tentang_p1" val={g("profile_tentang_p1","MAS Pesantren Modern Darul Ihsan merupakan lembaga pendidikan tingkat menengah atas yang terintegrasi dengan sistem pondok pesantren.")} rows={4} />
-                                </div>
-                                <F label="Campus Visual" name="profile_tentang_image" cur={s.profile_tentang_image || "/images/modern-campus.png"} />
-                                <div className="space-y-4">
-                                    <T label="Organization Chart" name="profile_struktur_image_label" val="Preview Struktur" />
-                                    <F label="Struktur Asset" name="profile_struktur_image" cur={s.profile_struktur_image || "/images/struktur-organisasi.jpg"} />
-                                </div>
+                <div className={`space-y-8 animate-fade-in ${tab === 2 ? "block" : "hidden"}`}>
+                    <Card title="🏛️ Organizational Legacy">
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <T label="Official Name" name="profile_header_title" val={g("profile_header_title","Profil Madrasah Aliyah Swasta (MAS) Pesantren Modern Darul Ihsan")} />
+                            <T label="Tagline" name="profile_header_tagline" val={g("profile_header_tagline","Membentuk Generasi Qur'ani, Berwawasan Global, dan Berakhlakul Karimah")} />
+                            <div className="md:col-span-2">
+                                <TA label="Detailed History" name="profile_tentang_p1" val={g("profile_tentang_p1","MAS Pesantren Modern Darul Ihsan merupakan lembaga pendidikan tingkat menengah atas yang terintegrasi dengan sistem pondok pesantren.")} rows={4} />
                             </div>
-                        </Card>
-                        <Card title="👨‍🏫 Distinguished Educators (Top 4)">
-                            <div className="grid md:grid-cols-2 gap-6">
-                                {[1,2,3,4].map(i => {
-                                    const defs = [
-                                        ["Ustazah Widya Rada Utami, SE","Tata Usaha/Operator"],
-                                        ["Ustad H. Amir Hasan, Lc","WKM Kesiswaan"],
-                                        ["Ustad Irfan Kurniansyah, M.Pd.","WKM Kurikulum"],
-                                        ["Ustad Julianto, S.Pd. Gr.","Kepala Madrasah"]
-                                    ];
-                                    return (
-                                        <div key={i} className="p-8 bg-slate-50 rounded-[40px] border border-slate-100 flex items-center gap-6">
-                                            <div className="w-24 h-24 flex-shrink-0">
-                                                <F label="" name={`profile_asatidz_${i}_img`} cur={s[`profile_asatidz_${i}_img`] || `/images/asatidz/asatidz-${i}.jpg`} />
-                                            </div>
-                                            <div className="flex-1 space-y-3">
-                                                <T label="Full Name" name={`profile_asatidz_${i}_name`} val={g(`profile_asatidz_${i}_name`, defs[i-1][0])} />
-                                                <T label="Position" name={`profile_asatidz_${i}_role`} val={g(`profile_asatidz_${i}_role`, defs[i-1][1])} />
-                                            </div>
+                            <F label="Campus Visual" name="profile_tentang_image" cur={s.profile_tentang_image || "/images/modern-campus.png"} />
+                            <div className="space-y-4">
+                                <T label="Organization Chart" name="profile_struktur_image_label" val="Preview Struktur" />
+                                <F label="Struktur Asset" name="profile_struktur_image" cur={s.profile_struktur_image || "/images/struktur-organisasi.jpg"} />
+                            </div>
+                        </div>
+                    </Card>
+                    <Card title="👨‍🏫 Distinguished Educators (Top 4)">
+                        <div className="grid md:grid-cols-2 gap-6">
+                            {[1,2,3,4].map(i => {
+                                const defs = [
+                                    ["Ustazah Widya Rada Utami, SE","Tata Usaha/Operator"],
+                                    ["Ustad H. Amir Hasan, Lc","WKM Kesiswaan"],
+                                    ["Ustad Irfan Kurniansyah, M.Pd.","WKM Kurikulum"],
+                                    ["Ustad Julianto, S.Pd. Gr.","Kepala Madrasah"]
+                                ];
+                                return (
+                                    <div key={i} className="p-8 bg-slate-50 rounded-[40px] border border-slate-100 flex items-center gap-6">
+                                        <div className="w-24 h-24 flex-shrink-0">
+                                            <F label="" name={`profile_asatidz_${i}_img`} cur={s[`profile_asatidz_${i}_img`] || `/images/asatidz/asatidz-${i}.jpg`} />
                                         </div>
-                                    );
-                                })}
-                            </div>
-                        </Card>
-                    </div>
-                )}
+                                        <div className="flex-1 space-y-3">
+                                            <T label="Full Name" name={`profile_asatidz_${i}_name`} val={g(`profile_asatidz_${i}_name`, defs[i-1][0])} />
+                                            <T label="Position" name={`profile_asatidz_${i}_role`} val={g(`profile_asatidz_${i}_role`, defs[i-1][1])} />
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </Card>
+                </div>
 
                 {/* ── TAB FASILITAS ── */}
-                {tab === 3 && (
-                    <div className="space-y-8 animate-fade-in">
-                        {/* Header Section */}
-                        <Card title="🏫 Header Halaman Fasilitas">
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <T label="Judul Halaman" name="fasilitas_header_title" val={g("fasilitas_header_title", "Fasilitas & Program Unggulan")} />
-                                <TA label="Deskripsi Halaman" name="fasilitas_header_desc" val={g("fasilitas_header_desc", "Informasi lengkap mengenai fasilitas penunjang madrasah dan program-program utama yang kami tawarkan.")} rows={3} />
-                            </div>
-                        </Card>
+                <div className={`space-y-8 animate-fade-in ${tab === 3 ? "block" : "hidden"}`}>
+                    {/* Header Section */}
+                    <Card title="🏫 Header Halaman Fasilitas">
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <T label="Judul Halaman" name="fasilitas_header_title" val={g("fasilitas_header_title", "Fasilitas & Program Unggulan")} />
+                            <TA label="Deskripsi Halaman" name="fasilitas_header_desc" val={g("fasilitas_header_desc", "Informasi lengkap mengenai fasilitas penunjang madrasah dan program-program utama yang kami tawarkan.")} rows={3} />
+                        </div>
+                    </Card>
 
-                        {/* Fasilitas List */}
-                        <Card title="📋 Daftar Fasilitas Pendukung">
-                            <div className="space-y-4">
-                                <T label="Judul Seksi" name="fasilitas_section_title" val={g("fasilitas_section_title", "Fasilitas Pendukung")} />
-                                <TA label="Deskripsi Seksi" name="fasilitas_section_desc" val={g("fasilitas_section_desc", "Untuk menunjang proses belajar mengajar dan kenyamanan santri, MAS Darul Ihsan dilengkapi dengan:")} rows={2} />
-                                <TA
-                                    label="Daftar Fasilitas (pisahkan dengan koma)"
-                                    name="fasilitas_list"
-                                    val={g("fasilitas_list", "Gedung Ruang Kelas yang representatif.,Asrama Putra & Putri yang nyaman dan terjaga.,Laboratorium Komputer untuk literasi digital.,Perpustakaan dengan koleksi buku agama dan umum.,Sarana Olahraga dan Aula Serbaguna.,Masjid sebagai pusat aktivitas ibadah dan dakwah.,Unit Kesehatan Sebagai tempat Kesehatan santri 24 Jam.,Laboratorium Sains untuk Melaksanakan Praktik Kimia, Biologi dan Fisika.")}
-                                    rows={6}
-                                />
-                            </div>
-                        </Card>
+                    {/* Fasilitas List */}
+                    <Card title="📋 Daftar Fasilitas Pendukung">
+                        <div className="space-y-4">
+                            <T label="Judul Seksi" name="fasilitas_section_title" val={g("fasilitas_section_title", "Fasilitas Pendukung")} />
+                            <TA label="Deskripsi Seksi" name="fasilitas_section_desc" val={g("fasilitas_section_desc", "Untuk menunjang proses belajar mengajar dan kenyamanan santri, MAS Darul Ihsan dilengkapi dengan:")} rows={2} />
+                            <TA
+                                label="Daftar Fasilitas (pisahkan dengan koma)"
+                                name="fasilitas_list"
+                                val={g("fasilitas_list", "Gedung Ruang Kelas yang representatif.,Asrama Putra & Putri yang nyaman dan terjaga.,Laboratorium Komputer untuk literasi digital.,Perpustakaan dengan koleksi buku agama dan umum.,Sarana Olahraga dan Aula Serbaguna.,Masjid sebagai pusat aktivitas ibadah dan dakwah.,Unit Kesehatan Sebagai tempat Kesehatan santri 24 Jam.,Laboratorium Sains untuk Melaksanakan Praktik Kimia, Biologi dan Fisika.")}
+                                rows={6}
+                            />
+                        </div>
+                    </Card>
 
-                        {/* Poster Images */}
-                        <Card title="🖼️ Foto / Poster Fasilitas (4 Foto)">
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <F label="Foto Fasilitas #1" name="fasilitas_poster_1" cur={s.fasilitas_poster_1 || "/images/lingkungan-poster.jpg"} />
-                                <F label="Foto Fasilitas #2" name="fasilitas_poster_2" cur={s.fasilitas_poster_2 || "/images/fasilitas-poster-2.jpg"} />
-                                <F label="Foto Fasilitas #3" name="fasilitas_poster_3" cur={s.fasilitas_poster_3 || "/images/mou-poster-1.jpg"} />
-                                <F label="Foto Fasilitas #4" name="fasilitas_poster_4" cur={s.fasilitas_poster_4 || "/images/mou-poster-2.jpg"} />
-                            </div>
-                        </Card>
+                    {/* Poster Images */}
+                    <Card title="🖼️ Foto / Poster Fasilitas (4 Foto)">
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <F label="Foto Fasilitas #1" name="fasilitas_poster_1" cur={s.fasilitas_poster_1 || "/images/lingkungan-poster.jpg"} />
+                            <F label="Foto Fasilitas #2" name="fasilitas_poster_2" cur={s.fasilitas_poster_2 || "/images/fasilitas-poster-2.jpg"} />
+                            <F label="Foto Fasilitas #3" name="fasilitas_poster_3" cur={s.fasilitas_poster_3 || "/images/mou-poster-1.jpg"} />
+                            <F label="Foto Fasilitas #4" name="fasilitas_poster_4" cur={s.fasilitas_poster_4 || "/images/mou-poster-2.jpg"} />
+                        </div>
+                    </Card>
 
-                        {/* 7 Program Cards */}
-                        <Card title="📌 7 Program Utama">
-                            <div className="space-y-4">
-                                <T label="Judul Seksi Program" name="fasilitas_programs_title" val={g("fasilitas_programs_title", "7 Program Utama Kami")} />
-                            </div>
-                            <div className="grid md:grid-cols-2 gap-6 mt-4">
-                                {[
-                                    ["Pendidikan Terpadu (Agama + Umum)", "Menggabungkan kurikulum diniyah (agama) dan pelajaran umum\nMembentuk santri yang cerdas secara akademik dan kuat secara agama"],
-                                    ["Program Tahfidz Al-Qur'an", "Fokus pada hafalan Al-Qur'an (tahfidz)\nMenjadi salah satu program inti untuk mencetak generasi Qur'ani"],
-                                    ["Pembinaan Akhlak & Kedisiplinan", "Kegiatan harian yang terstruktur untuk membentuk karakter islami\nMelatih disiplin dan tanggung jawab"],
-                                    ["Pengembangan Bahasa (Arab & Inggris)", "Pembiasaan komunikasi dan pembelajaran bahasa\nMendukung kemampuan santri untuk go international"],
-                                    ["Pengembangan Bakat & Keterampilan", "Ekstrakurikuler: Akademik, Seni, Olahraga\nMengasah potensi santri sesuai minat masing-masing"],
-                                    ["Program Kemandirian & Leadership", "Melatih Kepemimpinan, Jiwa sosial, dan Kemandirian hidup\nSantri dibiasakan aktif dalam organisasi dan kegiatan sosial"],
-                                    ["Sistem Boarding (Asrama)", "Pendidikan berlangsung 24 jam di lingkungan pesantren\nFokus pada: Pembinaan ibadah, Lingkungan islami, Kontrol pergaulan"],
-                                ].map(([defTitle, defItems], i) => (
-                                    <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 space-y-4">
-                                        <p className="text-xs font-black text-secondary uppercase tracking-widest">Program #{i + 1}</p>
-                                        <T
-                                            label="Judul Program"
-                                            name={`fasilitas_prog_${i + 1}_title`}
-                                            val={g(`fasilitas_prog_${i + 1}_title`, defTitle)}
-                                        />
-                                        <TA
-                                            label="Deskripsi (pisahkan per baris)"
-                                            name={`fasilitas_prog_${i + 1}_items`}
-                                            val={g(`fasilitas_prog_${i + 1}_items`, defItems)}
-                                            rows={3}
-                                        />
-                                    </div>
-                                ))}
-                            </div>
-                        </Card>
-                    </div>
-                )}
+                    {/* 7 Program Cards */}
+                    <Card title="📌 7 Program Utama">
+                        <div className="space-y-4">
+                            <T label="Judul Seksi Program" name="fasilitas_programs_title" val={g("fasilitas_programs_title", "7 Program Utama Kami")} />
+                        </div>
+                        <div className="grid md:grid-cols-2 gap-6 mt-4">
+                            {[
+                                ["Pendidikan Terpadu (Agama + Umum)", "Menggabungkan kurikulum diniyah (agama) dan pelajaran umum\nMembentuk santri yang cerdas secara akademik dan kuat secara agama"],
+                                ["Program Tahfidz Al-Qur'an", "Fokus pada hafalan Al-Qur'an (tahfidz)\nMenjadi salah satu program inti untuk mencetak generasi Qur'ani"],
+                                ["Pembinaan Akhlak & Kedisiplinan", "Kegiatan harian yang terstruktur untuk membentuk karakter islami\nMelatih disiplin dan tanggung jawab"],
+                                ["Pengembangan Bahasa (Arab & Inggris)", "Pembiasaan komunikasi dan pembelajaran bahasa\nMendukung kemampuan santri untuk go international"],
+                                ["Pengembangan Bakat & Keterampilan", "Ekstrakurikuler: Akademik, Seni, Olahraga\nMengasah potensi santri sesuai minat masing-masing"],
+                                ["Program Kemandirian & Leadership", "Melatih Kepemimpinan, Jiwa sosial, dan Kemandirian hidup\nSantri dibiasakan aktif dalam organisasi dan kegiatan sosial"],
+                                ["Sistem Boarding (Asrama)", "Pendidikan berlangsung 24 jam di lingkungan pesantren\nFokus pada: Pembinaan ibadah, Lingkungan islami, Kontrol pergaulan"],
+                            ].map(([defTitle, defItems], i) => (
+                                <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 space-y-4">
+                                    <p className="text-xs font-black text-secondary uppercase tracking-widest">Program #{i + 1}</p>
+                                    <T
+                                        label="Judul Program"
+                                        name={`fasilitas_prog_${i + 1}_title`}
+                                        val={g(`fasilitas_prog_${i + 1}_title`, defTitle)}
+                                    />
+                                    <TA
+                                        label="Deskripsi (pisahkan per baris)"
+                                        name={`fasilitas_prog_${i + 1}_items`}
+                                        val={g(`fasilitas_prog_${i + 1}_items`, defItems)}
+                                        rows={3}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </Card>
+                </div>
 
                 {/* ── TAB PPDB ── */}
-                {tab === 4 && (
-                    <div className="space-y-8 animate-fade-in">
-                        <Card title="📝 Admission Workflow">
-                            <div className="grid md:grid-cols-2 gap-8">
-                                <T label="Admission Heading" name="ppdb_title" val={g("ppdb_title", "Mari Bergabung Menjadi")} />
-                                <TA label="Call to Action Narrative" name="ppdb_subtitle" val={g("ppdb_subtitle", "Membuka pendaftaran santri baru tahun ajaran 2025/2026. MAS Pesantren Modern Darul Ihsan mencetak santri yang cerdas, mandiri, dan berakhlakul karimah.")} rows={3} />
-                                <div className="md:col-span-2">
-                                    <TA label="Admission Requirements (comma separated)" name="ppdb_syarat" val={g("ppdb_syarat", "Fotocopy Ijazah/SKL dilegalisir (3 lembar).,Fotocopy Akta Kelahiran (3 lembar).,Fotocopy Kartu Keluarga (3 lembar).,Pas Foto 3x4 & 2x3 (masing-masing 5 lembar).,Fotocopy KIP/PKH (Jika ada).,Surat Keterangan Berkelakuan Baik.")} rows={6} />
-                                </div>
-                                <T label="Official WhatsApp Contact" name="ppdb_wa_number" val={g("ppdb_wa_number", "6281234567890")} />
-                                <T label="Prospectus/Brosur URL" name="ppdb_brosur_url" val={g("ppdb_brosur_url", "#")} />
+                <div className={`space-y-8 animate-fade-in ${tab === 4 ? "block" : "hidden"}`}>
+                    <Card title="📝 Admission Workflow">
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <T label="Admission Heading" name="ppdb_title" val={g("ppdb_title", "Mari Bergabung Menjadi")} />
+                            <TA label="Call to Action Narrative" name="ppdb_subtitle" val={g("ppdb_subtitle", "Membuka pendaftaran santri baru tahun ajaran 2025/2026. MAS Pesantren Modern Darul Ihsan mencetak santri yang cerdas, mandiri, dan berakhlakul karimah.")} rows={3} />
+                            <div className="md:col-span-2">
+                                <TA label="Admission Requirements (comma separated)" name="ppdb_syarat" val={g("ppdb_syarat", "Fotocopy Ijazah/SKL dilegalisir (3 lembar).,Fotocopy Akta Kelahiran (3 lembar).,Fotocopy Kartu Keluarga (3 lembar).,Pas Foto 3x4 & 2x3 (masing-masing 5 lembar).,Fotocopy KIP/PKH (Jika ada).,Surat Keterangan Berkelakuan Baik.")} rows={6} />
                             </div>
-                        </Card>
-                    </div>
-                )}
+                            <T label="Official WhatsApp Contact" name="ppdb_wa_number" val={g("ppdb_wa_number", "6281234567890")} />
+                            <T label="Prospectus/Brosur URL" name="ppdb_brosur_url" val={g("ppdb_brosur_url", "#")} />
+                        </div>
+                    </Card>
+                </div>
 
                 {/* ── TAB FOOTER ── */}
-                {tab === 5 && (
-                    <div className="space-y-8 animate-fade-in">
-                        <Card title="📌 Global Footprint">
-                            <div className="grid md:grid-cols-2 gap-8">
-                                <T label="School Full Name" name="footer_school_name" val={g("footer_school_name","MAS Pesantren Modern Darul Ihsan")} />
-                                <T label="Primary Contact Email" name="footer_email" val={g("footer_email","maspmdi@gmail.com")} />
-                                <div className="md:col-span-2">
-                                    <TA label="Office Address (HTML allowed)" name="footer_address" val={g("footer_address","Desa Selemak, Kec. Hamparan Perak,<br/>Kab. Deli Serdang, Sumatera Utara")} rows={3} />
-                                </div>
-                                <T label="Instagram Handle" name="footer_instagram_label" val={g("footer_instagram_label","IG: @maspmdi")} />
-                                <T label="TikTok Handle" name="footer_tiktok_label" val={g("footer_tiktok_label","Tiktok: mas_pmdi")} />
+                <div className={`space-y-8 animate-fade-in ${tab === 5 ? "block" : "hidden"}`}>
+                    <Card title="📌 Global Footprint">
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <T label="School Full Name" name="footer_school_name" val={g("footer_school_name","MAS Pesantren Modern Darul Ihsan")} />
+                            <T label="Primary Contact Email" name="footer_email" val={g("footer_email","maspmdi@gmail.com")} />
+                            <div className="md:col-span-2">
+                                <TA label="Office Address (HTML allowed)" name="footer_address" val={g("footer_address","Desa Selemak, Kec. Hamparan Perak,<br/>Kab. Deli Serdang, Sumatera Utara")} rows={3} />
                             </div>
-                        </Card>
-                    </div>
-                )}
+                            <T label="Instagram Handle" name="footer_instagram_label" val={g("footer_instagram_label","IG: @maspmdi")} />
+                            <T label="TikTok Handle" name="footer_tiktok_label" val={g("footer_tiktok_label","Tiktok: mas_pmdi")} />
+                        </div>
+                    </Card>
+                </div>
 
                 {/* Sticky Luxury Action Bar */}
                 <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-4xl animate-slide-up">
