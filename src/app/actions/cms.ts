@@ -3,25 +3,7 @@
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
-
-async function saveFile(file: File | null): Promise<string | null> {
-    if (!file || file.size === 0) return null;
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    const filename = `${Date.now()}-${file.name.replace(/\s+/g, '-')}`;
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
-    try {
-        await mkdir(uploadDir, { recursive: true });
-        await writeFile(path.join(uploadDir, filename), buffer);
-        return `/uploads/${filename}`;
-    } catch (e) {
-        console.error("Error saving file:", e);
-        return null;
-    }
-}
+import { saveFile } from "@/lib/storage";
 
 export async function createNews(prevState: any, formData: FormData) {
     const title = formData.get("title") as string;

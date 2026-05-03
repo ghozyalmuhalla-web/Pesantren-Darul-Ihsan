@@ -2,34 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { mkdir } from "fs/promises";
-import path from "path";
-import sharp from "sharp";
-
-async function saveFile(file: File | null): Promise<string | null> {
-    if (!file || file.size === 0) return null;
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    
-    // Change extension to .webp
-    const baseName = file.name.replace(/\.[^/.]+$/, "").replace(/\s+/g, '-');
-    const filename = `${Date.now()}-${baseName}.webp`;
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
-    
-    try {
-        await mkdir(uploadDir, { recursive: true });
-        
-        // Convert to WebP while maintaining transparency
-        await sharp(buffer)
-            .webp({ quality: 80 })
-            .toFile(path.join(uploadDir, filename));
-            
-        return `/uploads/${filename}`;
-    } catch (e) {
-        console.error("Error saving file with sharp:", e);
-        return null;
-    }
-}
+import { saveFile } from "@/lib/storage";
 
 async function upsertSetting(key: string, value: string) {
     await prisma.setting.upsert({ where: { key }, update: { value }, create: { key, value } });
