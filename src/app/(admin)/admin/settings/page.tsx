@@ -261,28 +261,66 @@ export default function SettingsPage() {
                 {/* ── TAB FASILITAS ── */}
                 {tab === 3 && (
                     <div className="space-y-8 animate-fade-in">
-                        <Card title="🏫 Fasilitas Utama">
-                            <div className="grid md:grid-cols-2 gap-8">
-                                <T label="Section Heading" name="fasilitas_header_title" val={g("fasilitas_header_title", "Fasilitas Unggulan")} />
-                                <TA label="Section Description" name="fasilitas_header_desc" val={g("fasilitas_header_desc", "Didukung fasilitas modern untuk menunjang proses belajar dan kehidupan santri.")} rows={3} />
-                                <div className="md:col-span-2">
-                                    <F label="Hero Image Fasilitas" name="fasilitas_hero_image" cur={s.fasilitas_hero_image || "/images/fasilitas-poster.jpg"} />
-                                </div>
-                            </div>
-                        </Card>
-                        <Card title="📋 Daftar Fasilitas (pisahkan dengan koma)">
-                            <div className="space-y-4">
-                                <p className="text-xs text-slate-400">Tulis nama fasilitas dipisahkan koma. Contoh: Gedung Ruang Kelas, Asrama Putra &amp; Putri, Masjid</p>
-                                <TA label="Daftar Fasilitas" name="home_fasilitas_list" val={g("home_fasilitas_list", "Gedung Ruang Kelas,Asrama Putra & Putri,Laboratorium Komputer,Perpustakaan Lengkap,Sarana Olahraga,Masjid Pusat Ibadah,Unit Kesehatan 24 Jam,Laboratorium Sains")} rows={5} />
-                            </div>
-                        </Card>
-                        <Card title="🖼️ Galeri Fasilitas (4 Foto)">
+                        {/* Header Section */}
+                        <Card title="🏫 Header Halaman Fasilitas">
                             <div className="grid md:grid-cols-2 gap-6">
-                                {[1,2,3,4].map(i => (
-                                    <div key={i} className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-3">
-                                        <T label={`Nama Fasilitas #${i}`} name={`fasilitas_item_${i}_title`} val={g(`fasilitas_item_${i}_title`, ["Masjid Al-Ikhlas", "Asrama Modern", "Lab Komputer", "Perpustakaan Digital"][i-1])} />
-                                        <TA label="Deskripsi Singkat" name={`fasilitas_item_${i}_desc`} val={g(`fasilitas_item_${i}_desc`, "")} rows={2} />
-                                        <F label="Foto Fasilitas" name={`fasilitas_item_${i}_image`} cur={s[`fasilitas_item_${i}_image`] || ""} />
+                                <T label="Judul Halaman" name="fasilitas_header_title" val={g("fasilitas_header_title", "Fasilitas & Program Unggulan")} />
+                                <TA label="Deskripsi Halaman" name="fasilitas_header_desc" val={g("fasilitas_header_desc", "Informasi lengkap mengenai fasilitas penunjang madrasah dan program-program utama yang kami tawarkan.")} rows={3} />
+                            </div>
+                        </Card>
+
+                        {/* Fasilitas List */}
+                        <Card title="📋 Daftar Fasilitas Pendukung">
+                            <div className="space-y-4">
+                                <T label="Judul Seksi" name="fasilitas_section_title" val={g("fasilitas_section_title", "Fasilitas Pendukung")} />
+                                <TA label="Deskripsi Seksi" name="fasilitas_section_desc" val={g("fasilitas_section_desc", "Untuk menunjang proses belajar mengajar dan kenyamanan santri, MAS Darul Ihsan dilengkapi dengan:")} rows={2} />
+                                <TA
+                                    label="Daftar Fasilitas (pisahkan dengan koma)"
+                                    name="fasilitas_list"
+                                    val={g("fasilitas_list", "Gedung Ruang Kelas yang representatif.,Asrama Putra & Putri yang nyaman dan terjaga.,Laboratorium Komputer untuk literasi digital.,Perpustakaan dengan koleksi buku agama dan umum.,Sarana Olahraga dan Aula Serbaguna.,Masjid sebagai pusat aktivitas ibadah dan dakwah.,Unit Kesehatan Sebagai tempat Kesehatan santri 24 Jam.,Laboratorium Sains untuk Melaksanakan Praktik Kimia, Biologi dan Fisika.")}
+                                    rows={6}
+                                />
+                            </div>
+                        </Card>
+
+                        {/* Poster Images */}
+                        <Card title="🖼️ Foto / Poster Fasilitas (4 Foto)">
+                            <div className="grid md:grid-cols-2 gap-6">
+                                <F label="Foto Fasilitas #1" name="fasilitas_poster_1" cur={s.fasilitas_poster_1 || "/images/lingkungan-poster.jpg"} />
+                                <F label="Foto Fasilitas #2" name="fasilitas_poster_2" cur={s.fasilitas_poster_2 || "/images/fasilitas-poster-2.jpg"} />
+                                <F label="Foto Fasilitas #3" name="fasilitas_poster_3" cur={s.fasilitas_poster_3 || "/images/mou-poster-1.jpg"} />
+                                <F label="Foto Fasilitas #4" name="fasilitas_poster_4" cur={s.fasilitas_poster_4 || "/images/mou-poster-2.jpg"} />
+                            </div>
+                        </Card>
+
+                        {/* 7 Program Cards */}
+                        <Card title="📌 7 Program Utama">
+                            <div className="space-y-4">
+                                <T label="Judul Seksi Program" name="fasilitas_programs_title" val={g("fasilitas_programs_title", "7 Program Utama Kami")} />
+                            </div>
+                            <div className="grid md:grid-cols-2 gap-6 mt-4">
+                                {[
+                                    ["Pendidikan Terpadu (Agama + Umum)", "Menggabungkan kurikulum diniyah (agama) dan pelajaran umum\nMembentuk santri yang cerdas secara akademik dan kuat secara agama"],
+                                    ["Program Tahfidz Al-Qur'an", "Fokus pada hafalan Al-Qur'an (tahfidz)\nMenjadi salah satu program inti untuk mencetak generasi Qur'ani"],
+                                    ["Pembinaan Akhlak & Kedisiplinan", "Kegiatan harian yang terstruktur untuk membentuk karakter islami\nMelatih disiplin dan tanggung jawab"],
+                                    ["Pengembangan Bahasa (Arab & Inggris)", "Pembiasaan komunikasi dan pembelajaran bahasa\nMendukung kemampuan santri untuk go international"],
+                                    ["Pengembangan Bakat & Keterampilan", "Ekstrakurikuler: Akademik, Seni, Olahraga\nMengasah potensi santri sesuai minat masing-masing"],
+                                    ["Program Kemandirian & Leadership", "Melatih Kepemimpinan, Jiwa sosial, dan Kemandirian hidup\nSantri dibiasakan aktif dalam organisasi dan kegiatan sosial"],
+                                    ["Sistem Boarding (Asrama)", "Pendidikan berlangsung 24 jam di lingkungan pesantren\nFokus pada: Pembinaan ibadah, Lingkungan islami, Kontrol pergaulan"],
+                                ].map(([defTitle, defItems], i) => (
+                                    <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100 space-y-4">
+                                        <p className="text-xs font-black text-secondary uppercase tracking-widest">Program #{i + 1}</p>
+                                        <T
+                                            label="Judul Program"
+                                            name={`fasilitas_prog_${i + 1}_title`}
+                                            val={g(`fasilitas_prog_${i + 1}_title`, defTitle)}
+                                        />
+                                        <TA
+                                            label="Deskripsi (pisahkan per baris)"
+                                            name={`fasilitas_prog_${i + 1}_items`}
+                                            val={g(`fasilitas_prog_${i + 1}_items`, defItems)}
+                                            rows={3}
+                                        />
                                     </div>
                                 ))}
                             </div>
