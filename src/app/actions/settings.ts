@@ -96,51 +96,46 @@ export async function saveSettings(prevState: any, formData: FormData) {
             const value = formData.get(key) as string;
             if (value !== null && value !== undefined) await upsertSetting(key, value);
         }
+        // These keys support MULTIPLE images (carousel / gallery)
+        const multiImageKeys = ["home_hero_image", "home_mou_images", "home_about_image", "home_fasilitas_image"];
+
         for (const key of allFileKeys) {
             const files = formData.getAll(key) as File[];
+            const validFiles = files.filter(f => f && f.size > 0);
             const existingUrlsJson = formData.get(`${key}_existing`) as string;
+
             let existingUrls: string[] = [];
             try {
                 if (existingUrlsJson) {
                     existingUrls = JSON.parse(existingUrlsJson);
-                } else {
-                    // Fallback: if it was a single string before
-                    const current = await prisma.setting.findUnique({ where: { key } });
-                    if (current?.value && !current.value.startsWith("[")) {
-                        existingUrls = [current.value];
-                    } else if (current?.value) {
-                        existingUrls = JSON.parse(current.value);
-                    }
                 }
             } catch (e) {
-                console.error("Error parsing existing URLs:", e);
+                // ignore parse errors
             }
 
+            // Upload new files
             const newUrls: string[] = [];
-            for (const file of files) {
-                if (file && file.size > 0) {
-                    const url = await saveFile(file);
-                    if (url) newUrls.push(url);
-                }
+            for (const file of validFiles) {
+                const url = await saveFile(file);
+                if (url) newUrls.push(url);
             }
 
-            // Combine existing (that weren't deleted) and new
-            // Note: The admin UI will need to send the list of remaining existing URLs
-            const finalUrls = [...existingUrls, ...newUrls];
-            
-            if (finalUrls.length > 0) {
-                // If it's just one and we want to keep backward compatibility for non-multi fields, 
-                // we could store as string. But for "swipeable" fields, we should use JSON.
-                // For now, let's use JSON if length > 1, or if it's a known multi-key.
-                const multiKeys = ["home_hero_image", "home_mou_images", "home_about_image", "home_fasilitas_image", "fasilitas_poster_1", "fasilitas_poster_2", "fasilitas_poster_3", "fasilitas_poster_4", "profile_prestasi_img_1", "profile_prestasi_img_2", "profile_prestasi_img_3", "profile_prestasi_img_4"];
-                
-                if (multiKeys.includes(key) || finalUrls.length > 1) {
+            if (multiImageKeys.includes(key)) {
+                // Multi-image: keep existing (that weren't deleted) + add new
+                const finalUrls = [...existingUrls, ...newUrls];
+                if (finalUrls.length > 0) {
                     await upsertSetting(key, JSON.stringify(finalUrls));
-                } else {
-                    await upsertSetting(key, finalUrls[0]);
+                }
+            } else {
+                // Single-image: if new file uploaded → replace. Otherwise keep existing.
+                if (newUrls.length > 0) {
+                    await upsertSetting(key, newUrls[0]);
+                } else if (existingUrls.length > 0) {
+                    await upsertSetting(key, existingUrls[0]);
                 }
             }
         }
+
 
         revalidatePath("/");
         revalidatePath("/academic");
