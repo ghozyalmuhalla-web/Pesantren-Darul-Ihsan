@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import Carousel from "@/components/Carousel";
 import Image from "next/image";
+import SafeImage from "@/components/SafeImage";
 
 export default async function Home() {
   const galleryItems = await prisma.gallery.findMany({
@@ -127,16 +128,13 @@ export default async function Home() {
             {recentNews.map((news: any) => (
               <div key={news.id} className="bg-white rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col h-full border border-slate-100">
                 <div className="relative aspect-video overflow-hidden">
-                  <Image
+                  <SafeImage
                     src={news.imageUrl || '/images/hero-main.png'}
                     alt={news.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                     unoptimized
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = "/images/hero-main.png";
-                    }}
+                    fallback="/images/hero-main.png"
                   />
                 </div>
                 <div className="p-8 flex flex-col flex-1">
@@ -235,16 +233,13 @@ export default async function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {galleryItems.map((item: any) => (
               <div key={item.id} className="group relative overflow-hidden rounded-2xl aspect-square shadow-sm hover:shadow-xl transition-all duration-500">
-                <Image
+                <SafeImage
                   src={item.imageUrl}
                   alt={item.title}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   unoptimized
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = "/images/pesantren-vibe.png";
-                  }}
+                  fallback="/images/pesantren-vibe.png"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
                   <p className="text-white font-bold text-lg">{item.title}</p>
