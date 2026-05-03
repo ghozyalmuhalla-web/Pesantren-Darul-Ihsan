@@ -31,10 +31,11 @@ export async function createNews(prevState: any, formData: FormData) {
     const scheduledAt = scheduledAtStr ? new Date(scheduledAtStr) : null;
 
     const file = formData.get("image") as File;
-    const imageUrl = await saveFile(file);
-
-    if (file && file.size > 0 && !imageUrl) {
-        return { error: "Gagal mengunggah gambar berita. Pastikan 'SUPABASE_SERVICE_ROLE_KEY' sudah benar di Vercel." };
+    let imageUrl = null;
+    if (file && file.size > 0) {
+        const result = await saveFile(file);
+        if (!result.success) return { error: `Gagal upload gambar: ${result.error}` };
+        imageUrl = result.url || null;
     }
 
     try {
@@ -80,10 +81,11 @@ export async function updateNews(prevState: any, formData: FormData) {
     const scheduledAt = scheduledAtStr ? new Date(scheduledAtStr) : null;
 
     const file = formData.get("image") as File;
-    const newImageUrl = await saveFile(file);
-
-    if (file && file.size > 0 && !newImageUrl) {
-        return { error: "Gagal mengunggah gambar baru. Periksa konfigurasi Supabase Anda." };
+    let newImageUrl = null;
+    if (file && file.size > 0) {
+        const result = await saveFile(file);
+        if (!result.success) return { error: `Gagal upload gambar baru: ${result.error}` };
+        newImageUrl = result.url || null;
     }
 
     const dataToUpdate: any = {
@@ -127,8 +129,11 @@ export async function createGallery(prevState: any, formData: FormData) {
     if (!title) return { error: "Judul foto wajib diisi." };
 
     const file = formData.get("image") as File;
-    const imageUrl = await saveFile(file);
-    if (!imageUrl) return { error: "Gagal mengunggah gambar. Pastikan 'SUPABASE_SERVICE_ROLE_KEY' sudah benar di Vercel." };
+    if (!file || file.size === 0) return { error: "Gambar wajib dipilih." };
+    
+    const result = await saveFile(file);
+    if (!result.success) return { error: `Gagal upload foto galeri: ${result.error}` };
+    const imageUrl = result.url as string;
 
     try {
         await prisma.gallery.create({ 

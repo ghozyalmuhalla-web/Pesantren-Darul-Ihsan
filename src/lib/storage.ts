@@ -2,19 +2,17 @@ import "server-only";
 import { createClient } from "@supabase/supabase-js";
 import sharp from "sharp";
 
-export async function saveFile(file: File | null): Promise<string | null> {
-    if (!file || file.size === 0) return null;
+export async function saveFile(file: File | null): Promise<{ success: boolean; url?: string; error?: string }> {
+    if (!file || file.size === 0) return { success: true, url: undefined };
 
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
     const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 
     if (supabaseServiceKey === "[PASTE_SERVICE_ROLE_KEY_HERE]" || !supabaseServiceKey) {
-        console.error("CRITICAL: SUPABASE_SERVICE_ROLE_KEY is not set or still using placeholder!");
-        return null;
+        return { success: false, error: "Kunci Supabase (Service Role) belum diisi di Vercel." };
     }
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
     const bytes = await file.arrayBuffer();
     const rawBuffer = Buffer.from(bytes);
 
@@ -24,7 +22,6 @@ export async function saveFile(file: File | null): Promise<string | null> {
     let finalFilename = `${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
 
     try {
-        // Only try sharp if it's an image
         if (file.type.startsWith("image/")) {
             const processed = await sharp(rawBuffer)
                 .resize(1920, 1920, { fit: "inside", withoutEnlargement: true })
@@ -38,7 +35,7 @@ export async function saveFile(file: File | null): Promise<string | null> {
             }
         }
     } catch (e) {
-        console.warn("Sharp optimization failed, saving original:", e);
+        console.warn("Sharp optimization failed:", e);
     }
 
     const bucket = "uploads";
@@ -52,24 +49,20 @@ export async function saveFile(file: File | null): Promise<string | null> {
             });
 
         if (error) {
-            console.error("Supabase Storage Error:", error);
-            // If bucket doesn't exist, try to create it (Service Role can do this)
             if (error.message.includes("bucket not found")) {
-                await supabase.storage.createBucket(bucket, { public: true });
-                // Retry upload once
-                await supabase.storage.from(bucket).upload(finalFilename, buffer, { contentType, upsert: true });
+                const { error: createError } = await supabase.storage.createBucket(bucket, { public: true });
+                if (createError) return { success: false, error: `Gagal membuat bucket: ${createError.message}` };
+                
+                const { error: retryError } = await supabase.storage.from(bucket).upload(finalFilename, buffer, { contentType, upsert: true });
+                if (retryError) return { success: false, error: `Gagal upload ulang: ${retryError.message}` };
             } else {
-                return null;
+                return { success: false, error: `Supabase Error: ${error.message}` };
             }
         }
 
-        const { data: { publicUrl } } = supabase.storage
-            .from(bucket)
-            .getPublicUrl(finalFilename);
-
-        return publicUrl;
-    } catch (e) {
-        console.error("Error saving file to Supabase:", e);
-        return null;
+        const { data: { publicUrl } } = supabase.storage.from(bucket).getPublicUrl(finalFilename);
+        return { success: true, url: publicUrl };
+    } catch (e: any) {
+        return { success: false, error: `Koneksi Supabase Gagal: ${e.message}` };
     }
 }
