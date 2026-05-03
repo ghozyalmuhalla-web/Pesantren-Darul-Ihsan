@@ -78,16 +78,11 @@ export default async function Home() {
             <p className="font-body-md text-on-surface-variant leading-relaxed">
               {s.home_about || "MAS Pesantren Modern Darul Ihsan merupakan lembaga pendidikan tingkat menengah atas yang terintegrasi dengan sistem pondok pesantren di Deli Serdang. Kami berkomitmen menyeimbangkan keunggulan akademik dan kedalaman spiritual untuk mencetak santri yang cerdas, tangguh, dan mandiri."}
             </p>
-            <div className="grid grid-cols-2 gap-6 pt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6">
               <div className="p-6 bg-white border border-slate-100 rounded-2xl shadow-sm">
                 <p className="text-label-caps text-secondary mb-2 uppercase">{s.home_accreditation_label || "Status Akreditasi"}</p>
                 <p className="font-h3 text-h3 text-on-background">{s.home_accreditation_grade || "Grade A"}</p>
                 <p className="text-body-sm text-on-surface-variant">{s.home_accreditation_inst || "Kemendikbud Ristek"}</p>
-              </div>
-              <div className="p-6 bg-white border border-slate-100 rounded-2xl shadow-sm">
-                <p className="text-label-caps text-secondary mb-2 uppercase">{s.home_npsn_label || "NPSN"}</p>
-                <p className="font-h3 text-h3 text-on-background">{s.home_npsn_number || "69981240"}</p>
-                <p className="text-body-sm text-on-surface-variant">{s.home_npsn_status || "Nasional Terdaftar"}</p>
               </div>
             </div>
           </div>
