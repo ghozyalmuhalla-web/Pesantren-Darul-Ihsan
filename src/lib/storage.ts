@@ -2,18 +2,18 @@ import "server-only";
 import { createClient } from "@supabase/supabase-js";
 import sharp from "sharp";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
-
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
 export async function saveFile(file: File | null): Promise<string | null> {
     if (!file || file.size === 0) return null;
+
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 
     if (supabaseServiceKey === "[PASTE_SERVICE_ROLE_KEY_HERE]" || !supabaseServiceKey) {
         console.error("CRITICAL: SUPABASE_SERVICE_ROLE_KEY is not set or still using placeholder!");
         return null;
     }
+
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     const bytes = await file.arrayBuffer();
     const rawBuffer = Buffer.from(bytes);
@@ -40,6 +40,7 @@ export async function saveFile(file: File | null): Promise<string | null> {
     } catch (e) {
         console.warn("Sharp optimization failed, saving original:", e);
     }
+
     const bucket = "uploads";
 
     try {
@@ -52,7 +53,14 @@ export async function saveFile(file: File | null): Promise<string | null> {
 
         if (error) {
             console.error("Supabase Storage Error:", error);
-            return null;
+            // If bucket doesn't exist, try to create it (Service Role can do this)
+            if (error.message.includes("bucket not found")) {
+                await supabase.storage.createBucket(bucket, { public: true });
+                // Retry upload once
+                await supabase.storage.from(bucket).upload(finalFilename, buffer, { contentType, upsert: true });
+            } else {
+                return null;
+            }
         }
 
         const { data: { publicUrl } } = supabase.storage
