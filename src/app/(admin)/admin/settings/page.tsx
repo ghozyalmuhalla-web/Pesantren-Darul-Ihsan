@@ -258,6 +258,38 @@ export default function SettingsPage() {
                     </div>
                 )}
 
+                {/* ── TAB FASILITAS ── */}
+                {tab === 3 && (
+                    <div className="space-y-8 animate-fade-in">
+                        <Card title="🏫 Fasilitas Utama">
+                            <div className="grid md:grid-cols-2 gap-8">
+                                <T label="Section Heading" name="fasilitas_header_title" val={g("fasilitas_header_title", "Fasilitas Unggulan")} />
+                                <TA label="Section Description" name="fasilitas_header_desc" val={g("fasilitas_header_desc", "Didukung fasilitas modern untuk menunjang proses belajar dan kehidupan santri.")} rows={3} />
+                                <div className="md:col-span-2">
+                                    <F label="Hero Image Fasilitas" name="fasilitas_hero_image" cur={s.fasilitas_hero_image || "/images/fasilitas-poster.jpg"} />
+                                </div>
+                            </div>
+                        </Card>
+                        <Card title="📋 Daftar Fasilitas (pisahkan dengan koma)">
+                            <div className="space-y-4">
+                                <p className="text-xs text-slate-400">Tulis nama fasilitas dipisahkan koma. Contoh: Gedung Ruang Kelas, Asrama Putra &amp; Putri, Masjid</p>
+                                <TA label="Daftar Fasilitas" name="home_fasilitas_list" val={g("home_fasilitas_list", "Gedung Ruang Kelas,Asrama Putra & Putri,Laboratorium Komputer,Perpustakaan Lengkap,Sarana Olahraga,Masjid Pusat Ibadah,Unit Kesehatan 24 Jam,Laboratorium Sains")} rows={5} />
+                            </div>
+                        </Card>
+                        <Card title="🖼️ Galeri Fasilitas (4 Foto)">
+                            <div className="grid md:grid-cols-2 gap-6">
+                                {[1,2,3,4].map(i => (
+                                    <div key={i} className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-3">
+                                        <T label={`Nama Fasilitas #${i}`} name={`fasilitas_item_${i}_title`} val={g(`fasilitas_item_${i}_title`, ["Masjid Al-Ikhlas", "Asrama Modern", "Lab Komputer", "Perpustakaan Digital"][i-1])} />
+                                        <TA label="Deskripsi Singkat" name={`fasilitas_item_${i}_desc`} val={g(`fasilitas_item_${i}_desc`, "")} rows={2} />
+                                        <F label="Foto Fasilitas" name={`fasilitas_item_${i}_image`} cur={s[`fasilitas_item_${i}_image`] || ""} />
+                                    </div>
+                                ))}
+                            </div>
+                        </Card>
+                    </div>
+                )}
+
                 {/* ── TAB PPDB ── */}
                 {tab === 4 && (
                     <div className="space-y-8 animate-fade-in">
