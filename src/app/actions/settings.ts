@@ -89,7 +89,12 @@ export async function saveSettings(prevState: any, formData: FormData) {
             "fasilitas_poster_1", "fasilitas_poster_2", "fasilitas_poster_3", "fasilitas_poster_4"
         ];
 
-        const allTextKeys = [...homeTextKeys, ...academicTextKeys, ...profileTextKeys, ...footerTextKeys, ...fasilitasTextKeys];
+        // ── PPDB ──
+        const ppdbTextKeys = [
+            "ppdb_title", "ppdb_subtitle", "ppdb_syarat", "ppdb_wa_number", "ppdb_brosur_url"
+        ];
+
+        const allTextKeys = [...homeTextKeys, ...academicTextKeys, ...profileTextKeys, ...footerTextKeys, ...fasilitasTextKeys, ...ppdbTextKeys];
         const allFileKeys = [...homeFileKeys, ...profileFileKeys, ...fasilitasFileKeys];
 
         for (const key of allTextKeys) {
