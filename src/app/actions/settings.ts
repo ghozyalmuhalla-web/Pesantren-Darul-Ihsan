@@ -121,8 +121,8 @@ export async function saveSettings(prevState: any, formData: FormData) {
             // Upload new files
             const newUrls: string[] = [];
             for (const file of validFiles) {
-                const url = await saveFile(file);
-                if (url) newUrls.push(url);
+                const result = await saveFile(file);
+                if (result.success && result.url) newUrls.push(result.url);
             }
 
             if (multiImageKeys.includes(key)) {
