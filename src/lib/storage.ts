@@ -19,7 +19,15 @@ export async function saveFile(file: File | null): Promise<{ success: boolean; u
     // Optimize: resize + convert to WebP (Optional, skip if error)
     let buffer = rawBuffer;
     let contentType = file.type;
-    let finalFilename = `${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
+    // Sanitize filename: remove emojis and special chars
+    const safeName = file.name
+        .replace(/\.[^/.]+$/, "") // remove extension
+        .replace(/[^\x00-\x7F]/g, "") // remove non-ascii (emojis)
+        .replace(/[^a-zA-Z0-9.-]/g, "_") // replace others with underscore
+        .replace(/_{2,}/g, "_"); // remove double underscores
+    
+    const extension = file.name.split('.').pop() || "";
+    let finalFilename = `${Date.now()}-${safeName}.${extension}`;
 
     try {
         if (file.type.startsWith("image/")) {
@@ -31,7 +39,7 @@ export async function saveFile(file: File | null): Promise<{ success: boolean; u
             if (processed) {
                 buffer = Buffer.from(processed);
                 contentType = "image/webp";
-                finalFilename = finalFilename.replace(/\.[^/.]+$/, "") + ".webp";
+                finalFilename = `${Date.now()}-${safeName}.webp`;
             }
         }
     } catch (e) {
