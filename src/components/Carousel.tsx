@@ -12,6 +12,7 @@ interface CarouselProps {
     objectFit?: "cover" | "contain";
     brightness?: number;
     overlayOpacity?: number;
+    fallback?: string;
 }
 
 export default function Carousel({ 
@@ -23,7 +24,8 @@ export default function Carousel({
     alt = "Carousel slide",
     objectFit = "cover",
     brightness = 100,
-    overlayOpacity = 90
+    overlayOpacity = 90,
+    fallback = "/images/hero-main.png"
 }: CarouselProps) {
     const getInitialList = () => {
         let list: string[] = [];
@@ -75,6 +77,14 @@ export default function Carousel({
                             fill 
                             className={objectFit === "cover" ? "object-cover" : "object-contain"} 
                             unoptimized 
+                            onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                if (target.src !== fallback) {
+                                    target.src = fallback;
+                                } else {
+                                    target.style.display = 'none';
+                                }
+                            }}
                         />
                     </div>
                 ))}

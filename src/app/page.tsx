@@ -97,6 +97,7 @@ export default async function Home() {
                 overlay={false}
                 objectFit="contain"
                 className="w-full h-full"
+                fallback="/images/pesantren-vibe.png"
               />
             </div>
             <div className="absolute -bottom-10 -left-6 p-8 bg-primary-container text-white rounded-3xl shadow-2xl max-w-xs -rotate-3 z-20">
@@ -132,6 +133,10 @@ export default async function Home() {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                     unoptimized
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = "/images/hero-main.png";
+                    }}
                   />
                 </div>
                 <div className="p-8 flex flex-col flex-1">
@@ -179,6 +184,7 @@ export default async function Home() {
                 overlay={false}
                 objectFit="contain"
                 className="w-full h-full"
+                fallback="/images/fasilitas-poster.jpg"
               />
             </div>
           </div>
@@ -235,6 +241,10 @@ export default async function Home() {
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   unoptimized
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "/images/pesantren-vibe.png";
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
                   <p className="text-white font-bold text-lg">{item.title}</p>
