@@ -10,6 +10,11 @@ const supabase = createClient(supabaseUrl, supabaseServiceKey);
 export async function saveFile(file: File | null): Promise<string | null> {
     if (!file || file.size === 0) return null;
 
+    if (supabaseServiceKey === "[PASTE_SERVICE_ROLE_KEY_HERE]" || !supabaseServiceKey) {
+        console.error("CRITICAL: SUPABASE_SERVICE_ROLE_KEY is not set or still using placeholder!");
+        return null;
+    }
+
     const bytes = await file.arrayBuffer();
     const rawBuffer = Buffer.from(bytes);
 
