@@ -40,9 +40,26 @@ export default function Navigation() {
                 }`}
             >
                 <div className="max-w-[1400px] mx-auto px-6 flex justify-between items-center">
-                    <Link href="/" className="flex items-center group">
-                        <div className="relative w-12 h-12 md:w-16 md:h-16 bg-white rounded-xl p-1 shadow-md group-hover:scale-105 transition-transform flex items-center justify-center">
+                    <Link href="/" className="flex items-center gap-3 group">
+                        <div className="relative w-12 h-12 md:w-14 md:h-14 bg-white rounded-xl p-1 shadow-md group-hover:scale-105 transition-transform flex items-center justify-center flex-shrink-0">
                             <Image src="/logo.png" alt="Logo Darul Ihsan" width={64} height={64} className="object-contain w-full h-full" />
+                        </div>
+                        <div className="flex flex-col leading-tight">
+                            <span className={`text-[10px] font-semibold uppercase tracking-[0.2em] transition-colors duration-300 ${
+                                isScrolled || !isHome ? "text-slate-400" : "text-blue-900/60"
+                            }`}>
+                                MAS
+                            </span>
+                            <span className={`text-sm md:text-base font-extrabold uppercase tracking-wide leading-none transition-colors duration-300 ${
+                                isScrolled || !isHome ? "text-slate-800" : "text-blue-900"
+                            }`}>
+                                Pesantren Modern
+                            </span>
+                            <span className={`text-xs md:text-sm font-bold uppercase tracking-widest leading-tight transition-colors duration-300 ${
+                                isScrolled || !isHome ? "text-secondary" : "text-blue-800"
+                            }`}>
+                                Darul Ihsan
+                            </span>
                         </div>
                     </Link>
 
