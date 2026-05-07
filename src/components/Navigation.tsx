@@ -48,7 +48,7 @@ export default function Navigation() {
                             <span className={`text-[10px] font-semibold uppercase tracking-[0.2em] transition-colors duration-300 ${
                                 isScrolled || !isHome ? "text-slate-400" : "text-blue-900/60"
                             }`}>
-                                MAS
+                                Madrasah Aliyah Swasta
                             </span>
                             <span className={`text-sm md:text-base font-extrabold uppercase tracking-wide leading-none transition-colors duration-300 ${
                                 isScrolled || !isHome ? "text-slate-800" : "text-blue-900"
