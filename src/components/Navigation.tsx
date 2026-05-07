@@ -45,15 +45,9 @@ export default function Navigation() {
                             <Image src="/logo.png" alt="Logo Darul Ihsan" width={64} height={64} className="object-contain w-full h-full" />
                         </div>
                         <div className="flex flex-col leading-none">
-                            <span className={`text-[10px] md:text-xs font-bold tracking-wider ${isScrolled || !isHome ? "text-secondary" : "text-secondary"}`}>
-                                DAYAH TERPADU
-                            </span>
-                            <h1 className={`text-base md:text-xl font-black tracking-tighter transition-colors ${isScrolled || !isHome ? "text-secondary" : "text-secondary"}`}>
+                            <h1 className={`text-base md:text-xl font-black tracking-tight transition-colors ${isScrolled || !isHome ? "text-secondary" : "text-secondary"}`}>
                                 DARUL IHSAN
                             </h1>
-                            <span className={`text-[8px] md:text-[10px] font-bold uppercase tracking-widest opacity-70 ${isScrolled || !isHome ? "text-slate-500" : "text-blue-900/70"}`}>
-                                ABU HASAN KRUENG KALEE
-                            </span>
                         </div>
                     </Link>
 
