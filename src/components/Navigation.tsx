@@ -40,14 +40,9 @@ export default function Navigation() {
                 }`}
             >
                 <div className="max-w-[1400px] mx-auto px-6 flex justify-between items-center">
-                    <Link href="/" className="flex items-center gap-3 group">
+                    <Link href="/" className="flex items-center group">
                         <div className="relative w-12 h-12 md:w-16 md:h-16 bg-white rounded-xl p-1 shadow-md group-hover:scale-105 transition-transform flex items-center justify-center">
                             <Image src="/logo.png" alt="Logo Darul Ihsan" width={64} height={64} className="object-contain w-full h-full" />
-                        </div>
-                        <div className="flex flex-col leading-none">
-                            <h1 className={`text-base md:text-xl font-black tracking-tight transition-colors ${isScrolled || !isHome ? "text-secondary" : "text-secondary"}`}>
-                                DARUL IHSAN
-                            </h1>
                         </div>
                     </Link>
 
