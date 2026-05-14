@@ -42,17 +42,22 @@ export default async function ProfilePage() {
     return (
         <main className="min-h-screen bg-white">
             {/* Hero Section */}
-            <div className="bg-primary-container text-white py-40 px-6 relative overflow-hidden">
-                <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] pointer-events-none"></div>
-                <div className="max-w-[800px] mx-auto text-center relative z-10">
-                    <h1 className="font-h1 text-h1 mb-6 text-balance">
+            <section className="relative min-h-[600px] flex items-center overflow-hidden">
+                <Carousel 
+                    images={s.profile_hero_image || "/images/modern-campus.png"} 
+                    className="absolute inset-0 z-0"
+                    brightness={40}
+                    overlayOpacity={60}
+                />
+                <div className="relative z-10 max-w-[1280px] mx-auto px-6 w-full text-center text-white pt-20">
+                    <h1 className="font-h1 text-h1 mb-6 text-balance drop-shadow-2xl">
                         {s.profile_header_title || "Profil Madrasah Aliyah Swasta (MAS) Pesantren Modern Darul Ihsan"}
                     </h1>
-                    <p className="font-body-lg opacity-90 leading-relaxed">
+                    <p className="font-body-lg opacity-90 leading-relaxed max-w-3xl mx-auto drop-shadow-xl">
                         {s.profile_header_tagline || "Membentuk Generasi Qur'ani, Berwawasan Global, dan Berakhlakul Karimah"}
                     </p>
                 </div>
-            </div>
+            </section>
 
             {/* Tentang Kami */}
             <section className="py-24 max-w-[1200px] mx-auto px-6">

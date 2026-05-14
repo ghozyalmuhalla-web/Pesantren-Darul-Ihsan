@@ -220,7 +220,10 @@ export default function SettingsPage() {
                             <div className="md:col-span-2">
                                 <TA label="Detailed History" name="profile_tentang_p1" val={g("profile_tentang_p1","MAS Pesantren Modern Darul Ihsan merupakan lembaga pendidikan tingkat menengah atas yang terintegrasi dengan sistem pondok pesantren.")} rows={4} />
                             </div>
-                            <F label="Campus Visual" name="profile_tentang_image" cur={s.profile_tentang_image || "/images/modern-campus.png"} />
+                            <div className="md:col-span-2">
+                                <F label="Hero Background Asset" name="profile_hero_image" cur={s.profile_hero_image || "/images/modern-campus.png"} />
+                            </div>
+                            <F label="Campus Visual (Section)" name="profile_tentang_image" cur={s.profile_tentang_image || "/images/modern-campus.png"} />
                             <div className="space-y-4">
                                 <T label="Organization Chart" name="profile_struktur_image_label" val="Preview Struktur" />
                                 <F label="Struktur Asset" name="profile_struktur_image" cur={s.profile_struktur_image || "/images/struktur-organisasi.jpg"} />
