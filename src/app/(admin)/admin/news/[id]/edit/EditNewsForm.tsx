@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { updateNews } from "@/app/actions/cms";
 import Link from "next/link";
 import RichTextEditor from "@/components/RichTextEditor";
+import GlassCard from "@/components/admin/GlassCard";
 
 type News = {
     id: string; title: string; slug: string | null; lead: string | null; content: string;
@@ -22,8 +23,8 @@ export default function EditNewsForm({ news }: { news: News }) {
                     <span className="material-symbols-outlined text-on-surface-variant">arrow_back</span>
                 </Link>
                 <div>
-                    <h1 className="text-2xl font-bold text-primary-container font-h2">Edit Berita</h1>
-                    <p className="text-on-surface-variant text-sm">Perbarui konten artikel berita ini.</p>
+                    <h1 className="text-2xl font-black text-white font-h2 drop-shadow-lg">Edit Berita</h1>
+                    <p className="text-white/70 text-sm font-medium">Perbarui konten artikel berita ini.</p>
                 </div>
             </div>
 
@@ -39,8 +40,7 @@ export default function EditNewsForm({ news }: { news: News }) {
                 {/* Main Content Area */}
                 <div className="flex-1 space-y-6">
                     {/* Form Sections */}
-
-                    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 space-y-6">
+                    <GlassCard variant="panel" className="p-6 space-y-6">
                         {/* SECTION: CONTENT */}
                         <div className="space-y-6">
                             <h3 className="font-bold border-b border-slate-100 pb-2 text-primary-container flex items-center gap-2">
@@ -129,13 +129,13 @@ export default function EditNewsForm({ news }: { news: News }) {
                             </div>
                         </div>
 
-                    </div>
+                    </GlassCard>
                 </div>
 
                 {/* Sidebar: Publishing & Meta */}
                 <div className="w-full lg:w-[350px] space-y-6">
-                    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 space-y-6">
-                        <h3 className="font-bold border-b border-slate-100 pb-2 text-primary-container flex items-center gap-2">
+                    <GlassCard variant="panel" className="p-6 space-y-6">
+                        <h3 className="font-bold border-b border-black/5 pb-2 text-primary-container flex items-center gap-2 uppercase tracking-widest text-xs">
                             <span className="material-symbols-outlined text-[18px]">publish</span>
                             Penerbitan
                         </h3>
@@ -157,10 +157,10 @@ export default function EditNewsForm({ news }: { news: News }) {
                             {pending ? <span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span> : <span className="material-symbols-outlined text-[18px]">save</span>}
                             {pending ? "Menyimpan..." : "Simpan Perubahan"}
                         </button>
-                    </div>
+                    </GlassCard>
 
-                    <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 space-y-6">
-                        <h3 className="font-bold border-b border-slate-100 pb-2 text-primary-container flex items-center gap-2">
+                    <GlassCard variant="panel" className="p-6 space-y-6">
+                        <h3 className="font-bold border-b border-black/5 pb-2 text-primary-container flex items-center gap-2 uppercase tracking-widest text-xs">
                             <span className="material-symbols-outlined text-[18px]">category</span>
                             Kategori & Tag
                         </h3>
@@ -185,7 +185,7 @@ export default function EditNewsForm({ news }: { news: News }) {
                             <label className="block text-xs font-bold text-on-surface-variant mb-2">Penulis (Author)</label>
                             <input name="author" type="text" defaultValue={news.author || "Admin Darul Ihsan"} className="w-full px-3 py-2 text-sm bg-surface-container-low border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-secondary" />
                         </div>
-                    </div>
+                    </GlassCard>
                 </div>
 
             </form>

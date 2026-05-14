@@ -2,6 +2,7 @@
 import { useState, useActionState } from "react";
 import { changePassword } from "@/app/actions/cms";
 import Link from "next/link";
+import GlassCard from "@/components/admin/GlassCard";
 
 export default function AdminProfilePage() {
     const [state, formAction, pending] = useActionState(changePassword, null);
@@ -9,8 +10,8 @@ export default function AdminProfilePage() {
     return (
         <div className="space-y-10 max-w-2xl pb-20">
             <div>
-                <h1 className="text-4xl font-black text-primary-container font-h2 tracking-tight">Keamanan Akun</h1>
-                <p className="text-on-surface-variant mt-2">Ubah password akun admin Anda untuk menjaga keamanan.</p>
+                <h1 className="text-4xl font-black text-white font-h2 tracking-tight drop-shadow-lg">Keamanan Akun</h1>
+                <p className="text-white/70 mt-2 font-medium">Ubah password akun admin Anda untuk menjaga keamanan.</p>
             </div>
 
             {state?.success && (
@@ -26,8 +27,8 @@ export default function AdminProfilePage() {
                 </div>
             )}
 
-            <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-8 space-y-6">
-                <h2 className="text-sm font-bold text-primary-container border-b pb-3">Ganti Password</h2>
+            <GlassCard variant="panel" className="p-8 space-y-6">
+                <h2 className="text-sm font-black text-primary-container border-b border-black/5 pb-3 uppercase tracking-widest">Ganti Password</h2>
                 <form action={formAction} className="space-y-5">
                     <div>
                         <label className="block text-xs font-semibold text-on-surface-variant mb-2">Password Lama</label>
@@ -70,7 +71,7 @@ export default function AdminProfilePage() {
                         {pending ? "Menyimpan..." : "Simpan Password Baru"}
                     </button>
                 </form>
-            </div>
+            </GlassCard>
         </div>
     );
 }

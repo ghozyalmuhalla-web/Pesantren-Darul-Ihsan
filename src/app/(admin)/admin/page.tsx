@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma";
 import Image from "next/image";
 import Counter from "@/components/admin/Counter";
 import Clock from "@/components/admin/Clock";
+import GlassCard from "@/components/admin/GlassCard";
 
 export default async function AdminDashboard() {
     const newsCount = await prisma.news.count();
@@ -31,13 +32,13 @@ export default async function AdminDashboard() {
         <div className="space-y-12 pb-24">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
                 <div>
-                    <h1 className="text-4xl font-black text-primary-container font-h2 tracking-tight">Command Center</h1>
-                    <p className="text-on-surface-variant text-base mt-2 font-medium opacity-70 italic">&quot;Membentuk masa depan Qur&apos;ani melalui manajemen digital yang unggul.&quot;</p>
+                    <h1 className="text-4xl font-black text-white font-h2 tracking-tight drop-shadow-lg">Command Center</h1>
+                    <p className="text-white/70 text-base mt-2 font-medium italic">&quot;Membentuk masa depan Qur&apos;ani melalui manajemen digital yang unggul.&quot;</p>
                 </div>
                 <Clock />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-8 p-1 bg-slate-100/50 rounded-[48px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-8 p-3 bg-white/10 backdrop-blur-md border border-white/10 rounded-[48px]">
                 <Link href="/admin/news/create" className="flex items-center justify-center gap-3 px-8 py-6 bg-secondary text-white rounded-[40px] text-sm font-bold hover:bg-blue-900 transition-all shadow-xl shadow-secondary/20 active:scale-95 group">
                     <span className="material-symbols-outlined text-2xl group-hover:rotate-90 transition-transform">add</span>
                     Tulis Berita
@@ -60,38 +61,38 @@ export default async function AdminDashboard() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {stats.map((stat) => (
                     <Link href={stat.href} key={stat.label} className="group relative">
-                        <div className="absolute inset-0 bg-secondary/5 rounded-[40px] translate-y-3 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div className="relative bg-white p-8 rounded-[40px] shadow-sm border border-slate-100 group-hover:shadow-2xl group-hover:-translate-y-2 transition-all duration-500 overflow-hidden">
+                        <div className="absolute inset-0 bg-white/20 rounded-[40px] translate-y-3 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <GlassCard className="p-8 h-full group-hover:-translate-y-2 relative overflow-hidden">
                             <div className={`absolute -right-4 -top-4 w-24 h-24 ${stat.bg} opacity-10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700`}></div>
                             <div className="flex items-start justify-between mb-6">
                                 <div className={`${stat.bg} ${stat.color} w-14 h-14 rounded-2xl flex items-center justify-center group-hover:rotate-6 transition-transform shadow-sm`}>
                                     <span className="material-symbols-outlined text-3xl font-bold">{stat.icon}</span>
                                 </div>
-                                <span className="material-symbols-outlined text-slate-200 group-hover:text-secondary transition-colors">arrow_outward</span>
+                                <span className="material-symbols-outlined text-slate-400 group-hover:text-secondary transition-colors">arrow_outward</span>
                             </div>
                             <div className="space-y-1">
                                 <p className="text-4xl font-black text-primary-container tracking-tight">
                                     <Counter value={stat.value} />
                                 </p>
                                 <p className="text-xs font-black text-on-surface-variant uppercase tracking-[0.2em]">{stat.label}</p>
-                                <p className="text-[10px] font-bold text-slate-400 mt-2">{stat.desc}</p>
+                                <p className="text-[10px] font-bold text-slate-500 mt-2">{stat.desc}</p>
                             </div>
-                        </div>
+                        </GlassCard>
                     </Link>
                 ))}
             </div>
 
             <div className="grid lg:grid-cols-12 gap-10">
                 {/* Recent News Activity */}
-                <div className="lg:col-span-8 bg-white rounded-[48px] shadow-sm border border-slate-100 overflow-hidden hover:shadow-2xl transition-shadow duration-500">
-                    <div className="p-10 border-b border-slate-50 flex items-center justify-between bg-slate-50/30">
+                <GlassCard variant="panel" className="lg:col-span-8 overflow-hidden hover:shadow-2xl transition-shadow duration-500">
+                    <div className="p-10 border-b border-black/5 flex items-center justify-between bg-white/20">
                         <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-secondary">
+                            <div className="w-10 h-10 bg-white/40 rounded-xl shadow-sm flex items-center justify-center text-secondary">
                                 <span className="material-symbols-outlined font-bold">newspaper</span>
                             </div>
                             <h2 className="font-black text-xl text-primary-container tracking-tight">Recent Activity</h2>
                         </div>
-                        <Link href="/admin/news" className="px-5 py-2 bg-slate-100 text-[10px] font-black text-on-surface-variant uppercase tracking-widest rounded-full hover:bg-secondary hover:text-white transition-all">Lihat Semua</Link>
+                        <Link href="/admin/news" className="px-5 py-2 bg-white/40 text-[10px] font-black text-on-surface-variant uppercase tracking-widest rounded-full hover:bg-secondary hover:text-white transition-all">Lihat Semua</Link>
                     </div>
                     <div className="divide-y divide-slate-50">
                         {recentNews.length === 0 ? (
@@ -127,14 +128,14 @@ export default async function AdminDashboard() {
 
                 {/* Gallery Quick Access */}
                 <div className="lg:col-span-4 space-y-10">
-                    <div className="bg-white rounded-[48px] shadow-sm border border-slate-100 overflow-hidden hover:shadow-2xl transition-shadow duration-500">
-                        <div className="p-10 border-b border-slate-50 flex items-center justify-between">
+                    <GlassCard variant="panel" className="overflow-hidden hover:shadow-2xl transition-shadow duration-500">
+                        <div className="p-10 border-b border-black/5 flex items-center justify-between">
                             <h2 className="font-black text-xl text-primary-container tracking-tight">Visual Assets</h2>
                             <Link href="/admin/gallery" className="text-[10px] font-black text-secondary uppercase tracking-widest hover:underline">Semua</Link>
                         </div>
                         <div className="p-8 grid grid-cols-2 gap-6">
                             {recentGallery.map((item) => (
-                                <Link key={item.id} href={`/admin/gallery/${item.id}/edit`} className="group relative aspect-square rounded-[32px] overflow-hidden bg-slate-100 shadow-sm border-4 border-white">
+                                <Link key={item.id} href={`/admin/gallery/${item.id}/edit`} className="group relative aspect-square rounded-[32px] overflow-hidden bg-slate-100 shadow-sm border-4 border-white/50">
                                     <Image src={item.imageUrl} alt={item.title} fill className="object-cover group-hover:scale-125 transition-transform duration-700" unoptimized />
                                     <div className="absolute inset-0 bg-gradient-to-t from-primary-container/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-4">
                                         <span className="material-symbols-outlined text-white text-xl">edit</span>
@@ -142,10 +143,10 @@ export default async function AdminDashboard() {
                                 </Link>
                             ))}
                         </div>
-                    </div>
+                    </GlassCard>
 
                     {/* Quick Links / Server Health */}
-                    <div className="bg-primary-container rounded-[48px] p-10 text-white shadow-2xl shadow-blue-900/40 relative overflow-hidden group">
+                    <div className="bg-primary-container/80 backdrop-blur-2xl rounded-[48px] p-10 text-white shadow-2xl shadow-blue-900/40 relative overflow-hidden group border border-white/10">
                         <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-secondary/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
                         <h3 className="text-lg font-black mb-6 flex items-center gap-3">
                             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>

@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { createGallery } from "@/app/actions/cms";
 import Link from "next/link";
+import GlassCard from "@/components/admin/GlassCard";
 
 export default function CreateGalleryPage() {
     const [state, formAction, pending] = useActionState(createGallery, null);
@@ -28,13 +29,13 @@ export default function CreateGalleryPage() {
                     <span className="material-symbols-outlined text-on-surface-variant">arrow_back</span>
                 </Link>
                 <div>
-                    <h1 className="text-2xl font-bold text-primary-container font-h2">Tambah Foto Galeri</h1>
-                    <p className="text-on-surface-variant text-sm">Tambahkan foto baru ke galeri aktivitas</p>
+                    <h1 className="text-2xl font-black text-white font-h2 drop-shadow-lg">Tambah Foto Galeri</h1>
+                    <p className="text-white/70 text-sm font-medium">Tambahkan foto baru ke galeri aktivitas</p>
                 </div>
             </div>
 
             <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 items-start">
-                <div className="xl:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+                <GlassCard variant="panel" className="xl:col-span-2 p-8">
                     <form action={formAction} encType="multipart/form-data" className="space-y-6">
                         {state?.error && (
                             <div className="bg-error-container text-on-error-container px-4 py-3 rounded-xl text-sm font-medium">
@@ -115,9 +116,9 @@ export default function CreateGalleryPage() {
                             </Link>
                         </div>
                     </form>
-                </div>
+                </GlassCard>
 
-                <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 sticky top-6">
+                <GlassCard variant="panel" className="p-6 sticky top-6">
                     <h3 className="font-bold border-b border-slate-100 pb-2 text-primary-container mb-4 flex items-center gap-2">
                         <span className="material-symbols-outlined text-[18px]">visibility</span>
                         Live Preview (Beranda)
@@ -142,7 +143,7 @@ export default function CreateGalleryPage() {
                         </div>
                     </div>
                     <p className="text-xs text-on-surface-variant mt-4 text-center">Preview ini menampilkan bagaimana foto akan terlihat di halaman Beranda dan Galeri sesuai aspect ratio.</p>
-                </div>
+                </GlassCard>
             </div>
         </div>
     );

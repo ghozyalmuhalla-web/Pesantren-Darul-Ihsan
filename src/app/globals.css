@@ -105,6 +105,18 @@
   background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l2.598 15h15L32.598 22.5 45 45l-15-7.402L15 45l12.402-22.5L15 15h15V0z' fill='%233755c3' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
 }
 
+.glass-panel {
+  @apply bg-white/70 backdrop-blur-2xl border border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)];
+}
+
+.glass-card {
+  @apply bg-white/40 backdrop-blur-xl border border-white/30 shadow-lg hover:bg-white/60 transition-all duration-500;
+}
+
+.admin-bg-overlay {
+  @apply fixed inset-0 z-[-1] bg-gradient-to-br from-primary-container/95 via-primary-container/80 to-primary-container/95;
+}
+
 body {
   min-height: max(884px, 100dvh);
 }
