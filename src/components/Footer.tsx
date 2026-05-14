@@ -66,9 +66,9 @@ export default async function Footer() {
                     <div className="space-y-6">
                         <h5 className="font-bold uppercase text-xs tracking-widest text-secondary">Hubungi Kami</h5>
                         <div className="flex flex-col gap-4">
-                            <a className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors group" href={`mailto:${s.footer_email || "maspmdi@gmail.com"}`}>
+                            <a className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors group" href={`mailto:${s.footer_email || "maspmdi2024@gmail.com"}`}>
                                 <span className="material-symbols-outlined text-xl text-secondary/60 group-hover:text-secondary">mail</span>
-                                <span className="text-sm truncate">{s.footer_email || "maspmdi@gmail.com"}</span>
+                                <span className="text-sm truncate">{s.footer_email || "maspmdi2024@gmail.com"}</span>
                             </a>
                             <div className="p-4 bg-white/5 rounded-2xl border border-white/5">
                                 <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-1">Informasi PPDB Online</p>
@@ -98,7 +98,7 @@ export default async function Footer() {
                             <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-secondary/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
                             <h4 className="text-2xl font-black mb-6 relative z-10">Punya Pertanyaan?</h4>
                             <p className="text-slate-400 text-sm mb-8 relative z-10 leading-relaxed">Tim administrasi kami siap membantu Anda memberikan informasi yang dibutuhkan mengenai program pendidikan dan pendaftaran.</p>
-                            <a href={`mailto:${s.footer_email || "maspmdi@gmail.com"}`} className="inline-flex items-center gap-3 px-8 py-4 bg-secondary text-white rounded-2xl font-bold hover:bg-blue-600 transition-all relative z-10">
+                            <a href={`mailto:${s.footer_email || "maspmdi2024@gmail.com"}`} className="inline-flex items-center gap-3 px-8 py-4 bg-secondary text-white rounded-2xl font-bold hover:bg-blue-600 transition-all relative z-10">
                                 <span className="material-symbols-outlined">send</span>
                                 Kirim Email
                             </a>

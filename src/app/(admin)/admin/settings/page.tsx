@@ -340,7 +340,7 @@ export default function SettingsPage() {
                     <Card title="📌 Global Footprint">
                         <div className="grid md:grid-cols-2 gap-8">
                             <T label="School Full Name" name="footer_school_name" val={g("footer_school_name","MAS Pesantren Modern Darul Ihsan")} />
-                            <T label="Primary Contact Email" name="footer_email" val={g("footer_email","maspmdi@gmail.com")} />
+                            <T label="Primary Contact Email" name="footer_email" val={g("footer_email","maspmdi2024@gmail.com")} />
                             <div className="md:col-span-2">
                                 <TA label="Office Address (HTML allowed)" name="footer_address" val={g("footer_address","Desa Selemak, Kec. Hamparan Perak,<br/>Kab. Deli Serdang, Sumatera Utara")} rows={3} />
                             </div>
