@@ -182,7 +182,10 @@ export default function SettingsPage() {
                                 <T label="NPSN Number" name="home_npsn_number" val={g("home_npsn_number","69981240")} />
                                 <T label="Inst. Name" name="home_accreditation_inst" val={g("home_accreditation_inst","Kemendikbud Ristek")} />
                             </div>
-                            <F label="Visionary Image" name="home_about_image" cur={s.home_about_image || "/images/pesantren-vibe.png"} />
+                            <F label="Visionary Image (Side)" name="home_about_image" cur={s.home_about_image || "/images/pesantren-vibe.png"} />
+                            <div className="md:col-span-2">
+                                <F label="Section Background Photo" name="home_profile_bg" cur={s.home_profile_bg || "/images/modern-campus.png"} />
+                            </div>
                             <div className="space-y-6">
                                 <TA label="Leadership Quote" name="home_quote" val={g("home_quote",`"Adab lebih tinggi dari ilmu."`)} rows={2} />
                                 <T label="Quote Author" name="home_quote_author" val={g("home_quote_author","— KH. Ahmad Mukhtar")} />

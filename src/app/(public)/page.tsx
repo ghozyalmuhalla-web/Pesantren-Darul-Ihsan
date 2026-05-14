@@ -70,12 +70,19 @@ export default async function Home() {
       </section>
 
       {/* Profile / Visi Misi Section */}
-      <section className="py-32 bg-surface-container-lowest relative overflow-visible">
-        <div className="geometric-pattern absolute inset-0 opacity-40"></div>
+      <section className="py-32 relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image 
+            src={s.home_profile_bg || "/images/modern-campus.png"} 
+            alt="Profile Background" 
+            fill 
+            className="object-cover brightness-[0.2]"
+          />
+        </div>
         <div className="max-w-[1280px] mx-auto px-6 grid md:grid-cols-2 gap-16 items-center relative z-10">
           <div className="space-y-stack-md">
-            <h3 className="font-h2 text-h2 text-primary-container">{s.home_visi_heading || "Visi & Misi Kami"}</h3>
-            <p className="font-body-md text-on-surface-variant leading-relaxed">
+            <h3 className="font-h2 text-h2 text-white drop-shadow-lg">{s.home_visi_heading || "Visi & Misi Kami"}</h3>
+            <p className="font-body-md text-white/80 leading-relaxed drop-shadow-md">
               {s.home_about || "MAS Pesantren Modern Darul Ihsan merupakan lembaga pendidikan tingkat menengah atas yang terintegrasi dengan sistem pondok pesantren di Deli Serdang. Kami berkomitmen menyeimbangkan keunggulan akademik dan kedalaman spiritual untuk mencetak santri yang cerdas, tangguh, dan mandiri."}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6">
