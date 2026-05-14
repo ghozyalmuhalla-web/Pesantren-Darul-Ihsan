@@ -73,7 +73,7 @@ export default async function Home() {
       <section className="py-32 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image 
-            src={s.home_profile_bg || "/images/modern-campus.png"} 
+            src={s.home_profile_bg || "/images/profile-hero.jpg"} 
             alt="Profile Background" 
             fill 
             className="object-cover brightness-[0.2]"

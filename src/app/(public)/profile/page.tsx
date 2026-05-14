@@ -44,7 +44,7 @@ export default async function ProfilePage() {
             {/* Hero Section */}
             <section className="relative min-h-[600px] flex items-center overflow-hidden">
                 <Carousel 
-                    images={s.profile_hero_image || "/images/modern-campus.png"} 
+                    images={s.profile_hero_image || "/images/profile-hero.jpg"} 
                     className="absolute inset-0 z-0"
                     brightness={40}
                     overlayOpacity={60}
