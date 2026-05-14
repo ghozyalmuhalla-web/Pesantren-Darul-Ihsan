@@ -4,6 +4,8 @@ import Carousel from "@/components/Carousel";
 import Image from "next/image";
 import SafeImage from "@/components/SafeImage";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const galleryItems = await prisma.gallery.findMany({
     take: 8,

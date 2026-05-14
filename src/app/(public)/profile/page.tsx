@@ -1,6 +1,8 @@
 import prisma from "@/lib/prisma";
 import Carousel from "@/components/Carousel";
 
+export const dynamic = 'force-dynamic';
+
 export default async function ProfilePage() {
     const settingsRecords = await prisma.setting.findMany();
     const s: Record<string, string> = {};
