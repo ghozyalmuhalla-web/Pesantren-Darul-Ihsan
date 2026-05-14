@@ -93,7 +93,7 @@ export default async function PPDBPage() {
                             <p className="text-on-surface-variant text-sm leading-relaxed mb-4">
                                 Butuh bantuan? Tim PPDB kami siap membantu menjawab pertanyaan Anda setiap hari kerja pukul 08:00 - 16:00 WIB.
                             </p>
-                            <Link href="https://wa.me/6281234567890" className="text-xs font-bold text-green-600 flex items-center gap-1 hover:underline">
+                            <Link href="https://wa.me/6282182881710" className="text-xs font-bold text-green-600 flex items-center gap-1 hover:underline">
                                 <span className="material-symbols-outlined text-sm font-bold">chat</span>
                                 Hubungi Admin PPDB
                             </Link>
@@ -194,7 +194,7 @@ export default async function PPDBPage() {
                         <div className="flex flex-wrap justify-center gap-6">
                             <div className="flex items-center gap-3 bg-white px-6 py-4 rounded-2xl shadow-sm border border-slate-200">
                                 <span className="material-symbols-outlined text-secondary">phone_in_talk</span>
-                                <span className="font-bold text-sm text-primary-container">0812-3456-7890 (Call Center)</span>
+                                <span className="font-bold text-sm text-primary-container">0821-8288-1710 (Call Center)</span>
                             </div>
                             <div className="flex items-center gap-3 bg-white px-6 py-4 rounded-2xl shadow-sm border border-slate-200">
                                 <span className="material-symbols-outlined text-green-600">forum</span>
