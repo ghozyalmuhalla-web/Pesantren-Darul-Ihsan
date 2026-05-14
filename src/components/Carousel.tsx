@@ -92,7 +92,7 @@ export default function Carousel({
             
             {overlay && (
                 <div 
-                    className="absolute inset-0 bg-gradient-to-r from-white via-white to-transparent z-10"
+                    className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/60 z-10"
                     style={{ opacity: overlayOpacity / 100 }}
                 ></div>
             )}

@@ -50,10 +50,10 @@ export default async function Home() {
               <img src={s.home_logo_kemenag || "/images/logo-kemenag.jpg"} alt="Logo Kemenag Ikhlas Beramal" className="h-20 w-auto object-contain mix-blend-multiply" />
               <img src={s.home_logo_akreditasi || "/images/logo-akreditasi.jpg"} alt="Logo Terakreditasi A" className="h-20 w-auto object-contain mix-blend-multiply" />
             </div>
-            <h2 className="font-h1 text-h1 text-primary-container leading-[1.1]">
+            <h2 className="font-h1 text-h1 text-white leading-[1.1] drop-shadow-2xl">
               {s.home_title || "Madrasah Aliyah Swasta (MAS) Pesantren Modern Darul Ihsan"}
             </h2>
-            <p className="font-body-lg text-on-surface-variant leading-relaxed italic">
+            <p className="font-body-lg text-white/90 leading-relaxed italic drop-shadow-lg">
               {s.home_tagline || "\"Membentuk Generasi Qur'ani, Berwawasan Global, dan Berakhlakul Karimah\""}
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
