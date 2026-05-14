@@ -78,6 +78,7 @@ export default async function Home() {
             src={s.home_profile_bg || "/images/profile-hero.jpg"} 
             alt="Profile Background" 
             fill 
+            unoptimized
             className="object-cover brightness-[0.2]"
           />
         </div>
