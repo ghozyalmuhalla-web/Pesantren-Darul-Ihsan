@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 
+// Force redeploy for email sync
 export const revalidate = 0;
 
 export default async function Footer() {
