@@ -124,7 +124,7 @@ export default async function AdminDashboard() {
                             ))
                         )}
                     </div>
-                </div>
+                </GlassCard>
 
                 {/* Gallery Quick Access */}
                 <div className="lg:col-span-4 space-y-10">
