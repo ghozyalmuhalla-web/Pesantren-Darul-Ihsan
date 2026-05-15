@@ -42,6 +42,7 @@ function F({ label, name, cur }: { label: string; name: string; cur?: string }) 
         <div className="space-y-2">
             <label className="block text-xs font-semibold text-on-surface-variant mb-1">{label}</label>
             <div className="flex flex-wrap gap-2 mb-2">
+                {previews.map((url, i) => (
                     <div key={i} className="relative group">
                         <img 
                             src={url} 
@@ -109,13 +110,26 @@ export default function SettingsPage() {
     const [loading, setLoading] = useState(true);
     const [tab, setTab] = useState(0);
 
-    useEffect(() => {
+    const [version, setVersion] = useState(0);
+
+    const loadSettings = () => {
         fetch("/api/settings", { cache: 'no-store' }).then(r => r.json()).then(data => {
             const m: Record<string, string> = {};
             data.forEach((d: any) => { m[d.key] = d.value; });
             setS(m); setLoading(false);
         }).catch(() => setLoading(false));
+    };
+
+    useEffect(() => {
+        loadSettings();
     }, []);
+
+    useEffect(() => {
+        if (state?.success) {
+            loadSettings();
+            setVersion(v => v + 1);
+        }
+    }, [state]);
 
     if (loading) return (
         <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4">
@@ -127,7 +141,7 @@ export default function SettingsPage() {
     const g = (key: string, def: string) => s[key] || def;
 
     return (
-        <div className="space-y-12 max-w-5xl pb-40 animate-fade-in">
+        <div className="space-y-12 max-w-5xl pb-40 animate-fade-in" key={version}>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                 <div>
                     <h1 className="text-4xl font-black text-primary-container font-h2 tracking-tight">System Configuration</h1>
