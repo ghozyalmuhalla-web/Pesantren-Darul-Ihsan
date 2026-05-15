@@ -22,9 +22,8 @@ export async function saveSettings(prevState: any, formData: FormData) {
             "home_mou_heading",
             "home_gallery_eyebrow", "home_gallery_heading", "home_gallery_link_text",
             "home_hero_brightness", "home_hero_overlay_opacity",
-            "home_mou_images",
         ];
-        const homeFileKeys = ["home_hero_image", "home_logo_kemenag", "home_logo_akreditasi", "home_about_image", "home_fasilitas_image", "home_mou_images"];
+        const homeFileKeys = ["home_hero_image", "home_logo_kemenag", "home_logo_akreditasi", "home_about_image", "home_fasilitas_image", "home_mou_images", "home_profile_bg"];
 
         // ── ACADEMIC ──
         const academicTextKeys = [
@@ -59,6 +58,7 @@ export async function saveSettings(prevState: any, formData: FormData) {
             "profile_asatidz_4_name", "profile_asatidz_4_role",
         ];
         const profileFileKeys = [
+            "profile_hero_image",
             "profile_tentang_image", "profile_struktur_image",
             "profile_prestasi_img_1", "profile_prestasi_img_2", "profile_prestasi_img_3", "profile_prestasi_img_4",
             "profile_asatidz_1_img", "profile_asatidz_2_img", "profile_asatidz_3_img", "profile_asatidz_4_img",
@@ -98,58 +98,70 @@ export async function saveSettings(prevState: any, formData: FormData) {
         const allFileKeys = [...homeFileKeys, ...profileFileKeys, ...fasilitasFileKeys];
 
         for (const key of allTextKeys) {
-            const value = formData.get(key) as string;
-            if (value !== null && value !== undefined) await upsertSetting(key, value);
+            const value = formData.get(key);
+            if (typeof value === "string") {
+                await upsertSetting(key, value);
+            }
         }
+        
         // These keys support MULTIPLE images (carousel / gallery)
-        const multiImageKeys = ["home_hero_image", "home_mou_images", "home_about_image", "home_fasilitas_image"];
+        const multiImageKeys = ["home_hero_image", "profile_hero_image", "home_mou_images", "home_about_image", "home_fasilitas_image"];
 
         for (const key of allFileKeys) {
-            const files = formData.getAll(key) as File[];
-            const validFiles = files.filter(f => f && f.size > 0);
+            const files = formData.getAll(key);
+            const validFiles = (files as any[]).filter(f => f instanceof File && f.size > 0) as File[];
             const existingUrlsJson = formData.get(`${key}_existing`) as string;
 
             let existingUrls: string[] = [];
-            try {
-                if (existingUrlsJson) {
+            if (existingUrlsJson) {
+                try {
                     existingUrls = JSON.parse(existingUrlsJson);
+                } catch (e) {
+                    console.error(`Failed to parse existing URLs for ${key}:`, e);
                 }
-            } catch (e) {
-                // ignore parse errors
             }
 
             // Upload new files
             const newUrls: string[] = [];
             for (const file of validFiles) {
-                const result = await saveFile(file);
-                if (result.success && result.url) newUrls.push(result.url);
+                try {
+                    const result = await saveFile(file);
+                    if (!result.success) {
+                        return { error: `Gagal upload untuk ${key}: ${result.error || "Unknown error"}` };
+                    }
+                    if (result.url) newUrls.push(result.url);
+                } catch (e: any) {
+                    console.error(`Error saving file for ${key}:`, e);
+                    return { error: `Gagal proses file ${key}: ${e.message}` };
+                }
             }
 
             if (multiImageKeys.includes(key)) {
-                // Multi-image: keep existing (that weren't deleted) + add new
+                // Multi-image: merge existing and new, then save as JSON
                 const finalUrls = [...existingUrls, ...newUrls];
-                if (finalUrls.length > 0) {
-                    await upsertSetting(key, JSON.stringify(finalUrls));
-                }
+                await upsertSetting(key, JSON.stringify(finalUrls));
             } else {
-                // Single-image: if new file uploaded → replace. Otherwise keep existing.
+                // Single-image: prioritize new upload, then existing, else CLEAR
                 if (newUrls.length > 0) {
                     await upsertSetting(key, newUrls[0]);
                 } else if (existingUrls.length > 0) {
                     await upsertSetting(key, existingUrls[0]);
+                } else {
+                    // This allows clearing single images if both new and existing are empty
+                    if (formData.has(`${key}_existing`)) {
+                        await upsertSetting(key, "");
+                    }
                 }
             }
         }
 
-
-        revalidatePath("/");
-        revalidatePath("/academic");
-        revalidatePath("/profile");
-        revalidatePath("/fasilitas");
+        revalidatePath("/", "layout");
+        revalidatePath("/(public)", "layout");
         revalidatePath("/admin/settings");
+        
         return { success: "Semua pengaturan berhasil disimpan!" };
-    } catch (error) {
-        console.error("Failed to save settings:", error);
-        return { error: "Terjadi kesalahan saat menyimpan." };
+    } catch (error: any) {
+        console.error("Critical failure in saveSettings:", error);
+        return { error: `Gagal total: ${error.message || "Terjadi kesalahan sistem"}` };
     }
 }

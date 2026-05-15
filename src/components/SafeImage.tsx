@@ -1,13 +1,17 @@
 "use client";
 import Image, { ImageProps } from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface SafeImageProps extends ImageProps {
     fallback?: string;
 }
 
-export default function SafeImage({ src, fallback = "/images/hero-main.png", ...props }: SafeImageProps) {
+export default function SafeImage({ src, fallback = "/images/hero-main.webp", ...props }: SafeImageProps) {
     const [imgSrc, setImgSrc] = useState(src);
+
+    useEffect(() => {
+        setImgSrc(src);
+    }, [src]);
 
     return (
         <Image

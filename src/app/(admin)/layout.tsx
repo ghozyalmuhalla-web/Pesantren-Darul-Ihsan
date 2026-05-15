@@ -10,7 +10,7 @@ export default function AdminLayout({
       {/* Background Layer */}
       <div className="fixed inset-0 z-[-2]">
         <Image 
-          src="/images/hero-main.png" 
+          src="/images/hero-main.webp" 
           alt="Admin Background" 
           fill 
           className="object-cover"

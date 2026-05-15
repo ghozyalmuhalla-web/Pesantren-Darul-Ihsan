@@ -25,7 +25,7 @@ export default function Carousel({
     objectFit = "cover",
     brightness = 100,
     overlayOpacity = 90,
-    fallback = "/images/hero-main.png"
+    fallback = "/images/hero-main.webp"
 }: CarouselProps) {
     const getInitialList = () => {
         let list: string[] = [];

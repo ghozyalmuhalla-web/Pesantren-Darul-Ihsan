@@ -104,7 +104,7 @@ export default async function AdminDashboard() {
                             recentNews.map((news) => (
                                 <Link key={news.id} href={`/admin/news/${news.id}/edit`} className="group flex items-center gap-8 p-8 hover:bg-slate-50/50 transition-all">
                                     <div className="relative w-24 h-20 rounded-[24px] overflow-hidden bg-slate-100 flex-shrink-0 shadow-sm group-hover:scale-105 transition-transform">
-                                        <Image src={news.imageUrl || "/images/hero-main.png"} alt={news.title} fill className="object-cover" unoptimized />
+                                        <Image src={news.imageUrl || "/images/hero-main.webp"} alt={news.title} fill className="object-cover" unoptimized />
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2 mb-1">

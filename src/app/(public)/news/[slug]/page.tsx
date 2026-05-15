@@ -141,7 +141,7 @@ export default async function NewsDetail({ params }: { params: Promise<{ slug: s
                             {recentNews.map((item) => (
                                 <Link key={item.id} href={`/news/${item.slug || item.id}`} className="group block">
                                     <div className="relative aspect-video rounded-2xl overflow-hidden mb-4 shadow-sm group-hover:shadow-md transition-all">
-                                        <img src={item.imageUrl || "/images/hero-main.png"} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                        <img src={item.imageUrl || "/images/hero-main.webp"} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                                     </div>
                                     <p className="text-[10px] font-bold text-secondary uppercase tracking-widest mb-1">
                                         {new Date(item.scheduledAt || item.createdAt).toLocaleDateString("id-ID", { day: "numeric", month: "short" })}

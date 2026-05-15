@@ -41,7 +41,7 @@ export default async function Home() {
       {/* Hero Section */}
       <section className="relative min-h-[751px] flex items-center overflow-hidden">
         <Carousel 
-          images={s.home_hero_image || "/images/hero-main.png"} 
+          images={s.home_hero_image || "/images/hero-main.webp"} 
           className="absolute inset-0 z-0"
           brightness={parseInt(s.home_hero_brightness || "100")}
           overlayOpacity={parseInt(s.home_hero_overlay_opacity || "90")}
@@ -134,12 +134,12 @@ export default async function Home() {
               <div key={news.id} className="bg-white rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col h-full border border-slate-100">
                 <div className="relative aspect-video overflow-hidden">
                   <SafeImage
-                    src={news.imageUrl || '/images/hero-main.png'}
+                    src={news.imageUrl || '/images/hero-main.webp'}
                     alt={news.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                     unoptimized
-                    fallback="/images/hero-main.png"
+                    fallback="/images/hero-main.webp"
                   />
                 </div>
                 <div className="p-8 flex flex-col flex-1">

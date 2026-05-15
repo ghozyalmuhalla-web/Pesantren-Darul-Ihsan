@@ -13,6 +13,8 @@ function F({ label, name, cur }: { label: string; name: string; cur?: string }) 
         try {
             if (cur?.startsWith("[")) initial = JSON.parse(cur);
             else if (cur) initial = [cur];
+            // Filter out empty strings which can cause broken images
+            initial = initial.filter(url => typeof url === 'string' && url.trim() !== '');
         } catch (e) {
             if (cur) initial = [cur];
         }
@@ -40,9 +42,17 @@ function F({ label, name, cur }: { label: string; name: string; cur?: string }) 
         <div className="space-y-2">
             <label className="block text-xs font-semibold text-on-surface-variant mb-1">{label}</label>
             <div className="flex flex-wrap gap-2 mb-2">
-                {previews.map((url, i) => (
                     <div key={i} className="relative group">
-                        <img src={url} alt={`${label} ${i}`} className="h-20 w-20 object-cover rounded-xl border border-slate-200" />
+                        <img 
+                            src={url} 
+                            alt={`${label} ${i}`} 
+                            className="h-20 w-20 object-cover rounded-xl border border-slate-200" 
+                            onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.src = "/images/hero-main.webp"; // Fallback for broken thumbnails
+                                target.style.opacity = "0.5";
+                            }}
+                        />
                         {existing.includes(url) && (
                             <button type="button" onClick={() => removeExisting(url)} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
                                 <span className="material-symbols-outlined text-[10px] leading-none">close</span>
@@ -100,7 +110,7 @@ export default function SettingsPage() {
     const [tab, setTab] = useState(0);
 
     useEffect(() => {
-        fetch("/api/settings").then(r => r.json()).then(data => {
+        fetch("/api/settings", { cache: 'no-store' }).then(r => r.json()).then(data => {
             const m: Record<string, string> = {};
             data.forEach((d: any) => { m[d.key] = d.value; });
             setS(m); setLoading(false);
@@ -162,7 +172,7 @@ export default function SettingsPage() {
                             <div className="md:col-span-2"><T label="Inspirational Tagline" name="home_tagline" val={g("home_tagline",`"Membentuk Generasi Qur'ani, Berwawasan Global, dan Berakhlakul Karimah"`)} /></div>
                             <T label="Primary CTA Text" name="home_btn_ppdb_text" val={g("home_btn_ppdb_text","Mulai Pendaftaran")} />
                             <T label="Secondary CTA Text" name="home_btn_curriculum_text" val={g("home_btn_curriculum_text","Lihat Kurikulum")} />
-                            <div className="md:col-span-2"><F label="Hero Background Asset" name="home_hero_image" cur={s.home_hero_image || "/images/hero-main.png"} /></div>
+                            <div className="md:col-span-2"><F label="Hero Background Asset" name="home_hero_image" cur={s.home_hero_image || "/images/hero-main.webp"} /></div>
                             <div className="space-y-6">
                                 <R label="Visual Brightness" name="home_hero_brightness" val={g("home_hero_brightness","100")} />
                                 <R label="Overlay Intensity" name="home_hero_overlay_opacity" val={g("home_hero_overlay_opacity","90")} />
@@ -224,7 +234,7 @@ export default function SettingsPage() {
                                 <TA label="Detailed History" name="profile_tentang_p1" val={g("profile_tentang_p1","MAS Pesantren Modern Darul Ihsan merupakan lembaga pendidikan tingkat menengah atas yang terintegrasi dengan sistem pondok pesantren.")} rows={4} />
                             </div>
                             <div className="md:col-span-2">
-                                <F label="Hero Background Asset" name="profile_hero_image" cur={s.profile_hero_image || "/images/modern-campus.png"} />
+                                <F label="Hero Background Asset" name="profile_hero_image" cur={s.profile_hero_image || "/images/profile-hero-new.webp"} />
                             </div>
                             <F label="Campus Visual (Section)" name="profile_tentang_image" cur={s.profile_tentang_image || "/images/modern-campus.png"} />
                             <div className="space-y-4">

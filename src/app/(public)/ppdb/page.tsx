@@ -34,7 +34,7 @@ export default async function PPDBPage() {
             {/* Hero Section */}
             <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <Image src="/images/hero-main.png" alt="PPDB Background" fill className="object-cover brightness-[0.25]" priority unoptimized />
+                    <Image src="/images/hero-main.webp" alt="PPDB Background" fill className="object-cover brightness-[0.25]" priority unoptimized />
                     <div className="absolute inset-0 bg-gradient-to-b from-primary-container/60 to-slate-50"></div>
                 </div>
                 

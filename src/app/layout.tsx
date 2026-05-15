@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: "MAS Pesantren Modern Darul Ihsan - Membentuk Generasi Qur'ani",
     description: "Pendaftaran Santri Baru Tahun Ajaran 2025/2026 telah dibuka. Bergabunglah bersama kami!",
     images: [{
-      url: "/images/hero-main.png",
+      url: "/images/hero-main.webp",
       width: 1200,
       height: 630,
       alt: "Pesantren Modern Darul Ihsan"
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MAS Pesantren Modern Darul Ihsan",
     description: "Membentuk Generasi Qur'ani, Berwawasan Global, dan Berakhlakul Karimah.",
-    images: ["/images/hero-main.png"]
+    images: ["/images/hero-main.webp"]
   },
   icons: {
     icon: [
