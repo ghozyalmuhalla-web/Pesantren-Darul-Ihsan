@@ -100,12 +100,12 @@ export default function Carousel({
                         className="absolute inset-0 z-10 pointer-events-none"
                         style={{ opacity: overlayOpacity / 100 }}
                     >
-                        {/* Soft white background blend to lift brightness */}
-                        <div className="absolute inset-0 bg-white/20"></div>
-                        {/* Horizontal gradient focusing readability on the left text content */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 via-white/80 to-transparent"></div>
-                        {/* Vertical gradient focusing readability on the header navigation */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/30 to-transparent"></div>
+                        {/* Soft white background blend to lift brightness (reduced to 5% for better image visibility) */}
+                        <div className="absolute inset-0 bg-white/5"></div>
+                        {/* Horizontal gradient focusing readability on the left text content (softened) */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 via-white/70 to-transparent"></div>
+                        {/* Vertical gradient focusing readability on the header navigation (softened top brightness) */}
+                        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/10 to-transparent"></div>
                     </div>
                 ) : (
                     <div 
