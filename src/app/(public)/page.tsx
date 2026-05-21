@@ -50,7 +50,7 @@ export default async function Home() {
         <div className="relative z-10 max-w-[1280px] mx-auto px-6 w-full py-20">
           <div className="max-w-2xl space-y-stack-lg">
             <div className="flex items-center gap-6 mb-6">
-              <img src={s.home_logo_kemenag || "/images/logo-kemenag.jpg"} alt="Logo Kemenag Ikhlas Beramal" className="h-20 w-auto object-contain mix-blend-multiply" />
+              <img src={s.home_logo_kemenag || "/images/logo-kemenag.svg"} alt="Logo Kemenag Ikhlas Beramal" className="h-20 w-auto object-contain" />
               <img src={s.home_logo_akreditasi || "/images/logo-akreditasi.jpg"} alt="Logo Terakreditasi A" className="h-20 w-auto object-contain mix-blend-multiply" />
             </div>
             <h2 className="font-h1 text-h1 text-primary-container leading-[1.1] tracking-tight">

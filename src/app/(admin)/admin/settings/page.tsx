@@ -192,7 +192,7 @@ export default function SettingsPage() {
                                 <R label="Overlay Intensity" name="home_hero_overlay_opacity" val={g("home_hero_overlay_opacity","90")} />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
-                                <F label="Kemenag Logo" name="home_logo_kemenag" cur={s.home_logo_kemenag || "/images/logo-kemenag.jpg"} />
+                                <F label="Kemenag Logo" name="home_logo_kemenag" cur={s.home_logo_kemenag || "/images/logo-kemenag.svg"} />
                                 <F label="Accreditation Logo" name="home_logo_akreditasi" cur={s.home_logo_akreditasi || "/images/logo-akreditasi.jpg"} />
                             </div>
                         </div>
