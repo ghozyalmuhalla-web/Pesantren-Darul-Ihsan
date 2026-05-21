@@ -48,14 +48,15 @@ export default async function ProfilePage() {
                 <Carousel 
                     images={s.profile_hero_image || "/images/profile-hero-new.webp"} 
                     className="absolute inset-0 z-0"
-                    brightness={40}
-                    overlayOpacity={60}
+                    brightness={100}
+                    overlayOpacity={85}
+                    overlayTheme="white-gradient"
                 />
-                <div className="relative z-10 max-w-[1280px] mx-auto px-6 w-full text-center text-white pt-20">
-                    <h1 className="font-h1 text-h1 mb-6 text-balance drop-shadow-2xl">
+                <div className="relative z-10 max-w-[1280px] mx-auto px-6 w-full text-center pt-20">
+                    <h1 className="font-h1 text-h1 mb-6 text-balance text-primary-container tracking-tight">
                         {s.profile_header_title || "Profil Madrasah Aliyah Swasta (MAS) Pesantren Modern Darul Ihsan"}
                     </h1>
-                    <p className="font-body-lg opacity-90 leading-relaxed max-w-3xl mx-auto drop-shadow-xl">
+                    <p className="font-body-lg text-slate-700 leading-relaxed max-w-3xl mx-auto">
                         {s.profile_header_tagline || "Membentuk Generasi Qur'ani, Berwawasan Global, dan Berakhlakul Karimah"}
                     </p>
                 </div>

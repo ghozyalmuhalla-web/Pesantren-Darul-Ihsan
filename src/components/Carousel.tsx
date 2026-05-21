@@ -13,6 +13,7 @@ interface CarouselProps {
     brightness?: number;
     overlayOpacity?: number;
     fallback?: string;
+    overlayTheme?: "dark" | "white-gradient";
 }
 
 export default function Carousel({ 
@@ -25,7 +26,8 @@ export default function Carousel({
     objectFit = "cover",
     brightness = 100,
     overlayOpacity = 90,
-    fallback = "/images/hero-main.webp"
+    fallback = "/images/hero-main.webp",
+    overlayTheme = "dark"
 }: CarouselProps) {
     const getInitialList = () => {
         let list: string[] = [];
@@ -62,6 +64,8 @@ export default function Carousel({
 
     if (imageList.length === 0) return null;
 
+    const finalBrightness = overlayTheme === "white-gradient" ? Math.max(brightness, 100) : brightness;
+
     return (
         <div className={`overflow-hidden ${className} w-full h-full`}>
             <div className="w-full h-full relative">
@@ -69,7 +73,7 @@ export default function Carousel({
                     <div 
                         key={i} 
                         className={`absolute inset-0 transition-opacity duration-1000 ${i === index ? "opacity-100 z-10" : "opacity-0 z-0"}`}
-                        style={{ filter: `brightness(${brightness}%)` }}
+                        style={{ filter: `brightness(${finalBrightness}%)` }}
                     >
                         <Image 
                             src={src} 
@@ -91,10 +95,24 @@ export default function Carousel({
             </div>
             
             {overlay && (
-                <div 
-                    className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/60 z-10"
-                    style={{ opacity: overlayOpacity / 100 }}
-                ></div>
+                overlayTheme === "white-gradient" ? (
+                    <div 
+                        className="absolute inset-0 z-10 pointer-events-none"
+                        style={{ opacity: overlayOpacity / 100 }}
+                    >
+                        {/* Soft white background blend to lift brightness */}
+                        <div className="absolute inset-0 bg-white/20"></div>
+                        {/* Horizontal gradient focusing readability on the left text content */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 via-white/80 to-transparent"></div>
+                        {/* Vertical gradient focusing readability on the header navigation */}
+                        <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/30 to-transparent"></div>
+                    </div>
+                ) : (
+                    <div 
+                        className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/60 z-10 pointer-events-none"
+                        style={{ opacity: overlayOpacity / 100 }}
+                    ></div>
+                )
             )}
             
             {/* Indicators */}

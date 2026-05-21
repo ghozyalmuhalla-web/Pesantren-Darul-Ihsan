@@ -45,6 +45,7 @@ export default async function Home() {
           className="absolute inset-0 z-0"
           brightness={parseInt(s.home_hero_brightness || "100")}
           overlayOpacity={parseInt(s.home_hero_overlay_opacity || "90")}
+          overlayTheme="white-gradient"
         />
         <div className="relative z-10 max-w-[1280px] mx-auto px-6 w-full py-20">
           <div className="max-w-2xl space-y-stack-lg">
@@ -52,10 +53,10 @@ export default async function Home() {
               <img src={s.home_logo_kemenag || "/images/logo-kemenag.jpg"} alt="Logo Kemenag Ikhlas Beramal" className="h-20 w-auto object-contain mix-blend-multiply" />
               <img src={s.home_logo_akreditasi || "/images/logo-akreditasi.jpg"} alt="Logo Terakreditasi A" className="h-20 w-auto object-contain mix-blend-multiply" />
             </div>
-            <h2 className="font-h1 text-h1 text-white leading-[1.1] drop-shadow-2xl">
+            <h2 className="font-h1 text-h1 text-primary-container leading-[1.1] tracking-tight">
               {s.home_title || "Madrasah Aliyah Swasta (MAS) Pesantren Modern Darul Ihsan"}
             </h2>
-            <p className="font-body-lg text-white/90 leading-relaxed italic drop-shadow-lg">
+            <p className="font-body-lg text-slate-700 leading-relaxed italic">
               {s.home_tagline || "\"Membentuk Generasi Qur'ani, Berwawasan Global, dan Berakhlakul Karimah\""}
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
@@ -63,7 +64,7 @@ export default async function Home() {
                 {s.home_btn_ppdb_text || "Mulai Pendaftaran"}
                 <span className="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
               </Link>
-              <Link href="/academic" className="px-8 py-4 bg-white border-2 border-secondary text-secondary rounded-xl font-button hover:bg-secondary-fixed transition-colors text-center">
+              <Link href="/academic" className="px-8 py-4 bg-white/80 backdrop-blur-sm border-2 border-secondary text-secondary rounded-xl font-button hover:bg-white transition-all shadow-sm hover:shadow-md text-center">
                 {s.home_btn_curriculum_text || "Lihat Kurikulum"}
               </Link>
             </div>
